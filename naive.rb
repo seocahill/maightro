@@ -144,13 +144,12 @@ manulla_times.each do |wt|
 
   depart_time = Time.parse(transfer_time) + 120
   to = depart_time + ( 27*60 )
-  puts [depart_time, to]
   ballina_trains << TrainPath.new("Manulla",  "Ballina", depart_time.strftime("%H:%M"), to.strftime("%H:%M"), nil)
 end
 
 rows = ballina_trains.sort_by { |t| t.dep }
 headers = %w[origin dir dep arr n/a]
-puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró"
+puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró", style: { all_separators: true}
 # debug: puts ballina_trains.select { |t| t.dep.nil? }
 
 # Calculate Ballina <> Manulla trains
