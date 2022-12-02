@@ -2,7 +2,7 @@
 
 =begin
 Naive Algorithm:
-- Westport is infallible!  Ballina trains is supine, BT must be at MJ to meet WT.
+- Westport is infallible!  Ballina train is supine, BT must be at MJ to meet WT.
 - BMT duration is 27.  Minimum dwell is 3 minutes.
 - For each WT at MJ
 	- Check direction of train
@@ -19,6 +19,8 @@ require "pry"
 require "uri"
 require "json"
 require "net/http"
+require "time"
+require 'terminal-table'
 
 url = URI("https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572")
 
@@ -102,10 +104,10 @@ trains_out.each do |train|
   train.dig('secL').each do |line|
     dir = nil
     stops = line.dig("jny", "stopL").map do |trip|
-      dir ||= trip.slice("dDirTxt")
-      arr = trip.slice("aTimeS")
-      dep = trip.slice("dTimeS")
-      loc = trip.slice("locX")
+      dir ||= trip.dig("dDirTxt")
+      arr = trip.dig("aTimeS")
+      dep = trip.dig("dTimeS")
+      loc = trip.dig("locX")
       from = "Ballina"
       TrainPath.new(arr, dep, dir, loc, from)
     end
@@ -117,10 +119,10 @@ trains_ret.each do |train|
   train.dig('secL').each do |line|
     dir = nil
     stops = line.dig("jny", "stopL").map do |trip|
-      dir ||= trip.slice("dDirTxt")
-      arr = trip.slice("aTimeS")
-      dep = trip.slice("dTimeS")
-      loc = trip.slice("locX")
+      dir ||= trip.dig("dDirTxt")
+      arr = trip.dig("aTimeS")
+      dep = trip.dig("dTimeS")
+      loc = trip.dig("locX")
       from = "Westport"
       TrainPath.new(arr, dep, dir, loc, from)
     end
@@ -128,7 +130,31 @@ trains_ret.each do |train|
   end
 end
 
-# manulla_times =
+manulla_times = timetable.flatten.select { |t| t.station == 1 }.reject { |t| t.from == "Ballina" }
+ballina_trains = []
+
+manulla_times.each do |wt|
+  if wt.dir == "Ballina"
+    to = Time.parse(wt.dep[0..3].insert(2, ":")) + ( 27*60 )
+    from = Time.parse(wt.dep[0..3].insert(2, ":")) - ( 27*60 )
+    ballina_trains << TrainPath.new(to.strftime("%H%M00"), wt.dep, wt.dir, nil, "Manulla")
+    ballina_trains << TrainPath.new(wt.arr, from.strftime("%H%M00"), wt.dir, nil, "Ballina")
+  else
+    from = Time.parse(wt.arr[0..3].insert(2, ":")) - ( 27*60 )
+    to = Time.parse(wt.arr[0..3].insert(2, ":")) + ( 27*60 )
+    ballina_trains << TrainPath.new(wt.arr, from.strftime("%H%M00"), wt.dir, nil, "Ballina")
+    ballina_trains << TrainPath.new(to.strftime("%H%M00"), wt.arr, wt.dir, nil, "Manulla")
+  end
+end
+
+rows = ballina_trains.sort_by { |t| [t.dir, t.dep] }
+headers = %w[arr dep dest n/a origin]
+puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró"
+# debug: puts ballina_trains.select { |t| t.dep.nil? }
+
+# Calculate Ballina <> Manulla trains
+
+
 
 binding.pry
 # puts response.read_body
