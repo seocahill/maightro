@@ -138,10 +138,14 @@ ballina_trains = []
 manulla_times.each do |wt|
   manulla = wt.arr || wt.dep
   transfer_time = manulla[0..3].insert(2, ":")
-  to = Time.parse(transfer_time) + ( 27*60 )
-  ballina_trains << TrainPath.new("Manulla",  "Ballina", transfer_time, to.strftime("%H:%M"), nil)
+
   from = Time.parse(transfer_time) - ( 27*60 )
   ballina_trains << TrainPath.new("Ballina",  "Manulla",  from.strftime("%H:%M"), transfer_time, nil)
+
+  depart_time = Time.parse(transfer_time) + 120
+  to = depart_time + ( 27*60 )
+  puts [depart_time, to]
+  ballina_trains << TrainPath.new("Manulla",  "Ballina", depart_time.strftime("%H:%M"), to.strftime("%H:%M"), nil)
 end
 
 rows = ballina_trains.sort_by { |t| t.dep }
