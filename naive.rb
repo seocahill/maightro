@@ -163,8 +163,9 @@ wp = ballina_trains.reject { |t| t.from == 'Ballina' }
 wpm = wp.each_cons(2).map { |a,b| Time.parse(b.dep) - Time.parse(a.dep) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
 wpd = wp.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
 free_paths = ballina_trains.select { |t| t.station.to_i > 30 }.count
+short_turnarounds = ballina_trains.select { |t| t.station.to_i < 5 }.select { |t| t.from == "Ballina" }.count
 puts '=' * 99
-puts "#{ba.count} Trains each way, with an averge service gap of #{bam} and #{free_paths} free paths during service hours."
+puts "#{ba.count} Trains each way, with an averge service gap of #{bam},  #{free_paths} free paths during service hours and #{short_turnarounds} quick turnarounds in Ballina."
 puts '=' * 99
 # Calculate Ballina <> Manulla trains
 
