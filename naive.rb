@@ -140,11 +140,12 @@ manulla_times.each do |wt|
   transfer_time = manulla[0..3].insert(2, ":")
 
   from = Time.parse(transfer_time) - ( 27*60 )
-  ballina_trains << TrainPath.new("Ballina",  "Manulla",  from.strftime("%H:%M"), transfer_time, nil)
+  ballina_trains << TrainPath.new("Ballina-Manulla",  "to #{wt.dir}",  from.strftime("%H:%M"), transfer_time, nil)
 
   depart_time = Time.parse(transfer_time) + 120
   to = depart_time + ( 27*60 )
-  ballina_trains << TrainPath.new("Manulla",  "Ballina", depart_time.strftime("%H:%M"), to.strftime("%H:%M"), nil)
+  connection = wt.dir == "Westport" ? "Dublin Heuston" : "Westport"
+  ballina_trains << TrainPath.new("Manulla-Ballina",  "from #{connection}", depart_time.strftime("%H:%M"), to.strftime("%H:%M"), nil)
 end
 
 rows = ballina_trains.sort_by { |t| t.dep }
@@ -153,17 +154,17 @@ rows = ballina_trains.sort_by { |t| t.dep }
   padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
   cur.station = padding
 end
-headers = %w[origin dir dep arr dwell]
+headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró", style: { all_separators: true}
 
-ba = ballina_trains.select { |t| t.from == 'Ballina' }
+ba = ballina_trains.select { |t| t.from == 'Ballina-Manulla' }
 bam = ba.each_cons(2).map { |a,b| Time.parse(b.dep) - Time.parse(a.dep) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
 bad = ba.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
-wp = ballina_trains.reject { |t| t.from == 'Ballina' }
+wp = ballina_trains.reject { |t| t.from == 'Ballina-Manulla' }
 wpm = wp.each_cons(2).map { |a,b| Time.parse(b.dep) - Time.parse(a.dep) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
 wpd = wp.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
 free_paths = ballina_trains.select { |t| t.station.to_i > 30 }.count
-short_turnarounds = ballina_trains.select { |t| t.station.to_i < 5 }.select { |t| t.from == "Ballina" }.count
+short_turnarounds = ballina_trains.select { |t| t.station.to_i < 5 }.select { |t| t.from == "Ballina-Manulla" }.count
 puts '=' * 99
 puts "#{ba.count} Trains each way, with an averge service gap of #{bam},  #{free_paths} free paths during service hours and #{short_turnarounds} quick turnarounds in Ballina."
 puts '=' * 99
