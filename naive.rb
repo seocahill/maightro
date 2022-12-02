@@ -148,7 +148,12 @@ manulla_times.each do |wt|
 end
 
 rows = ballina_trains.sort_by { |t| t.dep }
-headers = %w[origin dir dep arr n/a]
+[nil, *rows, nil].each_cons(3) do |(prev, cur, nxt)|
+  next if prev.nil?
+  padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
+  cur.station = padding
+end
+headers = %w[origin dir dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró", style: { all_separators: true}
 # debug: puts ballina_trains.select { |t| t.dep.nil? }
 
