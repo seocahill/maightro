@@ -155,11 +155,19 @@ rows = ballina_trains.sort_by { |t| t.dep }
 end
 headers = %w[origin dir dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró", style: { all_separators: true}
-# debug: puts ballina_trains.select { |t| t.dep.nil? }
 
+ba = ballina_trains.select { |t| t.from == 'Ballina' }
+bam = ba.each_cons(2).map { |a,b| Time.parse(b.dep) - Time.parse(a.dep) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
+bad = ba.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
+wp = ballina_trains.reject { |t| t.from == 'Ballina' }
+wpm = wp.each_cons(2).map { |a,b| Time.parse(b.dep) - Time.parse(a.dep) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
+wpd = wp.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then {|ts| ts.sum.fdiv(ts.length).fdiv(60).round }
+puts '=' * 99
+puts "#{ba.count} Trains each way, with an averge service gap of #{bam}"
+puts '=' * 99
 # Calculate Ballina <> Manulla trains
 
 
 
-binding.pry
+# binding.pry
 # puts response.read_body
