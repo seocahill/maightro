@@ -130,23 +130,18 @@ trains_ret.each do |train|
   end
 end
 
-manulla_times = timetable.flatten.select { |t| t.station == 1 }.reject { |t| t.from == "Ballina" }
+manulla_times = timetable.flatten.select { |t| t.station == 1 }.reject { |t| t.dir == "Ballina" }.reject { |t| t.dir == "Manulla Junction" }
 ballina_trains = []
 
 # TrainPath = Struct.new(:arr, :dep, :dir, :station, :from)
 
 manulla_times.each do |wt|
-  if wt.dir == "Ballina"
-    to = Time.parse(wt.dep[0..3].insert(2, ":")) + ( 27*60 )
-    from = Time.parse(wt.dep[0..3].insert(2, ":")) - ( 27*60 )
-    ballina_trains << TrainPath.new("Manulla",  "Ballina", wt.dep, to.strftime("%H:%M"), nil)
-    ballina_trains << TrainPath.new("Ballina",  "Manulla",  from.strftime("%H:%M"), (wt.arr || wt.dep), nil)
-  else
-    from = Time.parse(wt.arr[0..3].insert(2, ":")) - ( 27*60 )
-    to = Time.parse(wt.arr[0..3].insert(2, ":")) + ( 27*60 )
-    ballina_trains << TrainPath.new("Ballina",  "Manulla", from.strftime("%H:%M"), wt.arr, nil)
-    ballina_trains << TrainPath.new("Manulla",  "Ballina", wt.arr, to.strftime("%H:%M"), nil)
-  end
+  manulla = wt.arr || wt.dep
+  transfer_time = manulla[0..3].insert(2, ":")
+  to = Time.parse(transfer_time) + ( 27*60 )
+  ballina_trains << TrainPath.new("Manulla",  "Ballina", transfer_time, to.strftime("%H:%M"), nil)
+  from = Time.parse(transfer_time) - ( 27*60 )
+  ballina_trains << TrainPath.new("Ballina",  "Manulla",  from.strftime("%H:%M"), transfer_time, nil)
 end
 
 rows = ballina_trains.sort_by { |t| t.dep }
@@ -158,5 +153,5 @@ puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró"
 
 
 
-# binding.pry
+binding.pry
 # puts response.read_body
