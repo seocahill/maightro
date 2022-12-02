@@ -98,7 +98,7 @@ trains_out = JSON.parse(response.body).dig("svcResL", 0, "res", "outConL")
 trains_ret = JSON.parse(response.body).dig("svcResL", 0, "res", "retConL")
 
 timetable = []
-TrainPath = Struct.new(:arr, :dep, :dir, :station, :from)
+TrainPath = Struct.new(:from, :dir, :dep, :arr, :station)
 
 trains_out.each do |train|
   train.dig('secL').each do |line|
@@ -109,7 +109,7 @@ trains_out.each do |train|
       dep = trip.dig("dTimeS")
       loc = trip.dig("locX")
       from = "Ballina"
-      TrainPath.new(arr, dep, dir, loc, from)
+      TrainPath.new(from, dir, dep, arr, loc)
     end
     timetable << stops
   end
@@ -124,7 +124,7 @@ trains_ret.each do |train|
       dep = trip.dig("dTimeS")
       loc = trip.dig("locX")
       from = "Westport"
-      TrainPath.new(arr, dep, dir, loc, from)
+      TrainPath.new(from, dir, dep, arr, loc)
     end
     timetable << stops
   end
@@ -133,22 +133,24 @@ end
 manulla_times = timetable.flatten.select { |t| t.station == 1 }.reject { |t| t.from == "Ballina" }
 ballina_trains = []
 
+# TrainPath = Struct.new(:arr, :dep, :dir, :station, :from)
+
 manulla_times.each do |wt|
   if wt.dir == "Ballina"
     to = Time.parse(wt.dep[0..3].insert(2, ":")) + ( 27*60 )
     from = Time.parse(wt.dep[0..3].insert(2, ":")) - ( 27*60 )
-    ballina_trains << TrainPath.new(to.strftime("%H%M00"), wt.dep, wt.dir, nil, "Manulla")
-    ballina_trains << TrainPath.new(wt.arr, from.strftime("%H%M00"), wt.dir, nil, "Ballina")
+    ballina_trains << TrainPath.new("Manulla",  "Ballina", wt.dep, to.strftime("%H:%M"), nil)
+    ballina_trains << TrainPath.new("Ballina",  "Manulla",  from.strftime("%H:%M"), (wt.arr || wt.dep), nil)
   else
     from = Time.parse(wt.arr[0..3].insert(2, ":")) - ( 27*60 )
     to = Time.parse(wt.arr[0..3].insert(2, ":")) + ( 27*60 )
-    ballina_trains << TrainPath.new(wt.arr, from.strftime("%H%M00"), wt.dir, nil, "Ballina")
-    ballina_trains << TrainPath.new(to.strftime("%H%M00"), wt.arr, wt.dir, nil, "Manulla")
+    ballina_trains << TrainPath.new("Ballina",  "Manulla", from.strftime("%H:%M"), wt.arr, nil)
+    ballina_trains << TrainPath.new("Manulla",  "Ballina", wt.arr, to.strftime("%H:%M"), nil)
   end
 end
 
-rows = ballina_trains.sort_by { |t| [t.dir, t.dep] }
-headers = %w[arr dep dest n/a origin]
+rows = ballina_trains.sort_by { |t| t.dep }
+headers = %w[origin dir dep arr n/a]
 puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró"
 # debug: puts ballina_trains.select { |t| t.dep.nil? }
 
@@ -156,5 +158,5 @@ puts Terminal::Table.new rows: rows, headings: headers, title: "An Maightró"
 
 
 
-binding.pry
+# binding.pry
 # puts response.read_body
