@@ -169,7 +169,7 @@ puts '=' * 99
 puts "#{ba.count} Trains each way, with an averge service gap of #{bam},  #{free_paths} free paths during service hours and #{short_turnarounds} quick turnarounds in Ballina."
 puts '=' * 99
 # Calculate Ballina <> Manulla trains
-
+# Simple conclusion is that Dublin - Wesport arr at Manulla at  10:06  needs to be delayed by 30 mins.
 
 
 # binding.pry
