@@ -211,7 +211,9 @@ def add_connecting_train(_connecting_train, _current_position, _dep_time)
   @local_trains << TrainPath.new(_current_position, 'Manulla', _dep_time, arr, 'Manulla')
   # train from connection to B or W dep on dir of connection
   end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
-  @local_trains << TrainPath.new(_current_position, end_station, _dep_time, arr, end_station)
+  dep = arr
+  arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
+  @local_trains << TrainPath.new('Manulla', end_station, dep, arr, end_station)
 end
 
 # generate local trains from initial departure time until latest arrival time
@@ -222,6 +224,7 @@ until arr_time > Time.parse('23:59')
   # if can do full local trip generate train and add to timetable.
   # a connection train can be from B to connect with W or D going to D or W, or from W to connect with D, going to B.
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
+  # binding.pry
   if full_train_trip_possible(connecting_train, current_position, dep_time)
     add_local_train(current_position, dep_time)
   else
