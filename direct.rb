@@ -156,17 +156,17 @@ end.reject { |t| t.dir == 'Ballina' }.reject { |t| t.dir == 'Manulla Junction' }
 
 # try 2 fallback to 1
 
-min_dwell = 180
-bal_block = 27 * 60
-wes_block = 19 * 60
-one_day = 24 * 3600
+@min_dwell = 180
+@bal_block = 27 * 60
+@wes_block = 19 * 60
+@one_day = 24 * 3600
 
-local_trains = []
+@local_trains = []
 
 first_ballina_train = timetable.flatten.select { |t| t.position == 3 }.min_by { |t| t.arr || t.dep }
 train_location = 'Ballina'
 dep_time = first_ballina_train.dep_time
-full_trip = bal_block + min_dwell + wes_block
+@full_trip = @bal_block + @min_dwell + @wes_block
 
 dep_time = Time.parse('05:00')
 arr_time = Time.parse('05:00')
@@ -179,11 +179,11 @@ def full_train_trip_possible(connecting_train, current_position, dep_time)
   # dwell, time from current position to get to opposite position and back to junction (if applicable)
 
   trip_duration  = if connecting_train.dir == "Westport"
-    return (full_trip + min_dwell + bal_block) if current_position == "Westport"
-    return (full_tip + dwell + wes_block) if current_position == "Ballina"
+    return (@full_trip + @min_dwell + @bal_block) if current_position == "Westport"
+    return (@full_trip + dwell + @wes_block) if current_position == "Ballina"
   else # to dublin
-    return full_trip + min_dwell + full_trip + min_dwell + bal_block if current_position == "Ballina"
-    return full_trip + min_dwell + bal_block if current_position == "Westport"
+    return @full_trip + @min_dwell + @full_trip + @min_dwell + @bal_block if current_position == "Ballina"
+    return @full_trip + @min_dwell + @bal_block if current_position == "Westport"
   end
 
   return dep_time + trip_duration < connecting_train.time
@@ -191,45 +191,43 @@ end
 
 def add_local_train(current_position, dep_time)
   end_station = current_position == "Ballina" ? "Westport" : "Ballina"
-  TrainPath.new(current_position, end_station, dep_time, dep_time + full_trip, end_station)
+  @local_trains << TrainPath.new(current_position, end_station, dep_time, dep_time + @full_trip, end_station)
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time)
   end_station = current_position == "Ballina" ? "Westport" : "Ballina"
-  arr = (end_station == "Westport" ? wes_block : bal_block) + dep_time
+  arr = (end_station == "Westport" ? @wes_block : @bal_block) + dep_time
   # train to connection from B or W dep on current position
-  TrainPath.new(current_position, "Manulla", dep_time, arr, "Manulla")
+  @local_trains << TrainPath.new(current_position, "Manulla", dep_time, arr, "Manulla")
   # train from connection to B or W dep on dir of connection
   end_station = _connecting_train.dir == "Westport" ? "Ballina" : "Westport"
-  TrainPath.new(current_position, end_station, dep_time, arr, end_station)
+  @local_trains << TrainPath.new(current_position, end_station, dep_time, arr, end_station)
 end
 
 # generate local trains from initial departure time until latest arrival time
 # connection train is Westport - Dublin, local train is Ballina - Westport
-until arr_time > Time.parse('01:00') + one_day
+until arr_time > Time.parse('01:00') + @one_day
   # get next connect
   connecting_train = manulla_times.min_by { |t| t.arr || t.dep }
   # if can do full local trip generate train and add to timetable.
   # a connection train can be from B to connect with W or D going to D or W, or from W to connect with D, going to B.
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
-  local_train = if full_train_trip_possible(connecting_train, current_position, dep_time)
-                  add_local_train(current_position, dep_time)
-                else
-                  # create train to meet connect
-                  # the destination of the local train is determined by the direction of the connecting train
-                  add_connecting_train(connecting_train, current_position, dep_time)
-                  # and pop off connecting trains queue
-                  manulla_times.delete next_transfer
-                end
+  if full_train_trip_possible(connecting_train, current_position, dep_time)
+    add_local_train(current_position, dep_time)
+  else
+    # create train to meet connect
+    # the destination of the local train is determined by the direction of the connecting train
+    add_connecting_train(connecting_train, current_position, dep_time)
+    # and pop off connecting trains queue
+    manulla_times.delete connecting_train
+  end
   # new dep_time and position
-  dep_time = local_train.arr_time + dwell
-  current_position = local_train.position
-  # add local_train to timetable
-  local_trains << local_train
+  dep_time = @local_trains.last.arr_time + dwell
+  current_position = @local_trains.last.position
 end
 
 # Print Timetable
-rows = local_trains.sort_by(&:dep)
+rows = @local_trains.sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   next if prev.nil?
 
