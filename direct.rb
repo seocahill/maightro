@@ -190,11 +190,18 @@ def full_train_trip_possible(connecting_train, current_position, dep_time)
 end
 
 def add_local_train(current_position, dep_time)
-  raise 'implement me'
+  end_station = current_position == "Ballina" ? "Westport" : "Ballina"
+  TrainPath.new(current_position, end_station, dep_time, dep_time + full_trip, end_station)
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time)
-  raise 'implement me'
+  end_station = current_position == "Ballina" ? "Westport" : "Ballina"
+  arr = (end_station == "Westport" ? wes_block : bal_block) + dep_time
+  # train to connection from B or W dep on current position
+  TrainPath.new(current_position, "Manulla", dep_time, arr, "Manulla")
+  # train from connection to B or W dep on dir of connection
+  end_station = _connecting_train.dir == "Westport" ? "Ballina" : "Westport"
+  TrainPath.new(current_position, end_station, dep_time, arr, end_station)
 end
 
 # generate local trains from initial departure time until latest arrival time
