@@ -201,19 +201,19 @@ end
 
 def add_local_train(current_position, dep_time)
   end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
-  @local_trains << TrainPath.new(current_position, end_station, dep_time, dep_time + @full_trip, end_station)
+  @local_trains << TrainPath.new("#{current_position}-#{end_station}", "local", dep_time, dep_time + @full_trip, end_station)
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time)
   end_station = _current_position == 'Ballina' ? 'Westport' : 'Ballina'
   arr = _dep_time + (end_station == 'Westport' ? @wes_block : @bal_block)
   # train to connection from B or W dep on current position
-  @local_trains << TrainPath.new(_current_position, 'Manulla', _dep_time, arr, 'Manulla')
+  @local_trains << TrainPath.new("#{_current_position}-Manulla", _connecting_train.dir, _dep_time, arr, 'Manulla')
   # train from connection to B or W dep on dir of connection
   end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
   dep = arr
   arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
-  @local_trains << TrainPath.new('Manulla', end_station, dep, arr, end_station)
+  @local_trains << TrainPath.new("Manulla-#{end_station}", _connecting_train.dir, dep, arr, end_station)
 end
 
 # generate local trains from initial departure time until latest arrival time
