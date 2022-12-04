@@ -205,7 +205,9 @@ def add_local_train(current_position, dep_time)
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time)
+  # FIXME connecting train should say 'from x' on the other side of the connection.
   end_station = _current_position == 'Ballina' ? 'Westport' : 'Ballina'
+  # FIXME times must be relative to connection (and origin station) not _dep_time!
   arr = _dep_time + (end_station == 'Westport' ? @wes_block : @bal_block)
   # train to connection from B or W dep on current position
   @local_trains << TrainPath.new("#{_current_position}-Manulla", _connecting_train.dir, _dep_time, arr, 'Manulla')
@@ -224,7 +226,7 @@ until arr_time > Time.parse('23:59')
   # if can do full local trip generate train and add to timetable.
   # a connection train can be from B to connect with W or D going to D or W, or from W to connect with D, going to B.
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
-  # binding.pry
+  binding.pry
   if full_train_trip_possible(connecting_train, current_position, dep_time)
     add_local_train(current_position, dep_time)
   else
