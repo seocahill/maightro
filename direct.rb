@@ -104,6 +104,11 @@ TrainPath = Struct.new(:from, :dir, :dep, :arr, :position) do
 
     Time.parse(dep[0..3].insert(2, ':'))
   end
+
+  def time
+    _time = arr || dep
+    Time.parse(_time[0..3].insert(2, ':'))
+  end
 end
 
 trains_out.each do |train|
@@ -176,35 +181,37 @@ transfer = manulla_times.sort_by { |t| t.arr || t.dep }
 
 current_position = 'Ballina'
 
-def full_train_trip_possible(connecting_train, current_position, dep_time)
+def full_train_trip_possible(_connecting_train, _current_position, _dep_time)
+  # if no connecting train then possible by default
+  return true unless _connecting_train
+
   # dwell, time from current position to get to opposite position and back to junction (if applicable)
+  trip_duration = if _connecting_train.dir == 'Westport' && _current_position == 'Westport'
+                    @full_trip + @min_dwell + @bal_block
+                  elsif _connecting_train.dir == 'Westport' && _current_position == 'Ballina'
+                    @full_trip + @min_dwell + @wes_block
+                  elsif _current_position == 'Ballina' # to dublin
+                    @full_trip + @min_dwell + @full_trip + @min_dwell + @bal_block
+                  elsif _current_position == 'Westport'
+                    @full_trip + @min_dwell + @bal_block
+                  end
 
-  trip_duration  = if connecting_train.dir == "Westport"
-    return (@full_trip + @min_dwell + @bal_block) if current_position == "Westport"
-    return (@full_trip + dwell + @wes_block) if current_position == "Ballina"
-  else # to dublin
-    return @full_trip + @min_dwell + @full_trip + @min_dwell + @bal_block if current_position == "Ballina"
-    return @full_trip + @min_dwell + @bal_block if current_position == "Westport"
-  end
-
-  return dep_time + trip_duration < connecting_train.time
+  _dep_time + trip_duration < _connecting_train.time
 end
 
 def add_local_train(current_position, dep_time)
-  end_station = current_position == "Ballina" ? "Westport" : "Ballina"
+  end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
   @local_trains << TrainPath.new(current_position, end_station, dep_time, dep_time + @full_trip, end_station)
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time)
-  end_station = current_position == "Ballina" ? "Westport" : "Ballina"
-  arr = (end_station == "Westport" ? @wes_block : @bal_block) + dep_time
+  end_station = _current_position == 'Ballina' ? 'Westport' : 'Ballina'
+  arr = _dep_time + (end_station == 'Westport' ? @wes_block : @bal_block)
   # train to connection from B or W dep on current position
-  @local_trains << TrainPath.new(current_position, "Manulla", dep_time, arr, "Manulla")
+  @local_trains << TrainPath.new(_current_position, 'Manulla', _dep_time, arr, 'Manulla')
   # train from connection to B or W dep on dir of connection
-  puts "added connecting train"
-  end_station = _connecting_train.dir == "Westport" ? "Ballina" : "Westport"
-  @local_trains << TrainPath.new(current_position, end_station, dep_time, arr, end_station)
-  puts "added train from connection"
+  end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
+  @local_trains << TrainPath.new(_current_position, end_station, _dep_time, arr, end_station)
 end
 
 # generate local trains from initial departure time until latest arrival time
@@ -217,7 +224,6 @@ until arr_time > Time.parse('23:59')
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
   if full_train_trip_possible(connecting_train, current_position, dep_time)
     add_local_train(current_position, dep_time)
-    puts "added local train"
   else
     # create train to meet connect
     # the destination of the local train is determined by the direction of the connecting train
@@ -232,11 +238,12 @@ until arr_time > Time.parse('23:59')
 end
 # Print Timetable
 rows = @local_trains.sort_by(&:dep)
-# [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
-#   next if prev.nil?
-
-#   padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
-#   cur.position = padding
-# end
+[nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
+  cur.position = if prev.nil?
+                   0
+                 else
+                   (cur.dep - prev.arr).fdiv(60).round
+                 end
+end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
