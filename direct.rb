@@ -136,7 +136,7 @@ trains_ret.each do |train|
 end
 
 manulla_times = timetable.flatten.select do |t|
-  t.station == 1
+  t.position == 1
 end.reject { |t| t.dir == 'Ballina' }.reject { |t| t.dir == 'Manulla Junction' }
 
 # option 1 start from middle
@@ -162,23 +162,35 @@ wes_block = 19 * 60
 
 local_trains = []
 
-first_ballina_train = timetable.flatten.select { |t| t.station == 3 }.min_by { |t| t.arr || t.dep }
+first_ballina_train = timetable.flatten.select { |t| t.position == 3 }.min_by { |t| t.arr || t.dep }
 train_location = 'Ballina'
 dep_time = first_ballina_train.dep_time
 full_trip = min_dwell + wes_block + (bal_block * 2)
 
 dep_time = Time.parse('05:00')
-arr_time = nil
+arr_time = Time.parse('05:00')
 
 transfer = manulla_times.sort_by { |t| t.arr || t.dep }
 
 current_position = 'Ballina'
 
+def full_train_trip_possible(connecting_train, current_position, dep_time)
+  raise "implement me"
+end
+
+def add_local_train_to_timetable
+  raise 'implement me'
+end
+
+def add_connecting_train(_connecting_train, _current_position, _dep_time)
+  raise 'implement me'
+end
+
 # generate local trains from initial departure time until latest arrival time
 # connection train is Westport - Dublin, local train is Ballina - Westport
-until arr_time > Time.parse('01:00')
+until arr_time > Time.parse('01:00') + (24*3600)
   # get next connect
-  next_transfer = manulla_times.min_by { |t| t.arr || t.dep }
+  connecting_train = manulla_times.min_by { |t| t.arr || t.dep }
   # if can do full local trip generate train and add to timetable.
   # a connection train can be from B to connect with W or D going to D or W, or from W to connect with D, going to B.
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
@@ -198,21 +210,13 @@ until arr_time > Time.parse('01:00')
   local_trains << local_train
 end
 
-def add_local_train_to_timetable
-  raise 'implement me'
-end
-
-def add_connecting_train(_connecting_train, _current_position, _dep_time)
-  raise 'implement me'
-end
-
 # Print Timetable
 rows = local_trains.sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   next if prev.nil?
 
   padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
-  cur.station = padding
+  cur.position = padding
 end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
