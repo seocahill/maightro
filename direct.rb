@@ -11,6 +11,7 @@ require 'uri'
 require 'json'
 require 'net/http'
 require 'pry'
+require 'pry-byebug'
 
 require 'time'
 require 'terminal-table'
@@ -200,13 +201,15 @@ def add_connecting_train(_connecting_train, _current_position, _dep_time)
   # train to connection from B or W dep on current position
   @local_trains << TrainPath.new(current_position, "Manulla", dep_time, arr, "Manulla")
   # train from connection to B or W dep on dir of connection
+  puts "added connecting train"
   end_station = _connecting_train.dir == "Westport" ? "Ballina" : "Westport"
   @local_trains << TrainPath.new(current_position, end_station, dep_time, arr, end_station)
+  puts "added train from connection"
 end
 
 # generate local trains from initial departure time until latest arrival time
 # connection train is Westport - Dublin, local train is Ballina - Westport
-until arr_time > Time.parse('01:00') + @one_day
+until arr_time > Time.parse('23:59')
   # get next connect
   connecting_train = manulla_times.min_by { |t| t.arr || t.dep }
   # if can do full local trip generate train and add to timetable.
@@ -214,6 +217,7 @@ until arr_time > Time.parse('01:00') + @one_day
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
   if full_train_trip_possible(connecting_train, current_position, dep_time)
     add_local_train(current_position, dep_time)
+    puts "added local train"
   else
     # create train to meet connect
     # the destination of the local train is determined by the direction of the connecting train
@@ -222,17 +226,17 @@ until arr_time > Time.parse('01:00') + @one_day
     manulla_times.delete connecting_train
   end
   # new dep_time and position
-  dep_time = @local_trains.last.arr_time + dwell
+  arr_time = @local_trains.last.arr
+  dep_time = @local_trains.last.arr + @min_dwell
   current_position = @local_trains.last.position
 end
-
 # Print Timetable
 rows = @local_trains.sort_by(&:dep)
-[nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
-  next if prev.nil?
+# [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
+#   next if prev.nil?
 
-  padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
-  cur.position = padding
-end
+#   padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
+#   cur.position = padding
+# end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
