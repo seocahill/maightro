@@ -279,4 +279,9 @@ rows = @local_trains #.sort_by(&:dep)
 end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
-puts rows.select { |r| r.dir == "local" }.map(&:from).tally
+puts "========="
+puts "ex Ballina: #{rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+puts "========="
+puts "ex Castlebar/Westport #{rows.select { |r| r.from.split('-').first.match /(Castlebar|Westport)/ }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+puts "========="
+
