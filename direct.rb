@@ -220,6 +220,7 @@ def add_connecting_train(_connecting_train, _current_position, _dep_time)
   dep = _connecting_train.time - (end_station == 'Westport' ? @wes_block : @bal_block)
   arr =  _connecting_train.time
   up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
+
   # train to connection from B or W dep on current position
   @local_trains << TrainPath.new("#{_current_position}-Manulla", up_connection, dep, arr, 'Manulla')
   # train from connection to B or W dep on dir of connection
@@ -254,7 +255,7 @@ until arr_time > Time.parse('23:59')
 end
 # Print Timetable
 # bind/ing.pry
-rows = @local_trains.sort_by(&:dep)
+rows = @local_trains #.sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   cur.position = if prev.nil?
                    0
