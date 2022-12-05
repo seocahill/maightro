@@ -6,6 +6,7 @@
 # - In this simulation no freight paths are included. Variables like staff, fuel etc are assumed to be sufficient.
 # - BMT duration is 27.  Minimum dwell is 3 minutes. WMT duration is 19 mins.
 # - Loop from start to end time creating local or connecting trains depending on path availability
+# Fixme: Train times overlap, shouldn't be possible
 
 require 'uri'
 require 'json'
@@ -204,19 +205,28 @@ def add_local_train(current_position, dep_time)
   @local_trains << TrainPath.new("#{current_position}-#{end_station}", "local", dep_time, dep_time + @full_trip, end_station)
 end
 
+def connection_info(_dir, _pos)
+  if _dir == "Dublin Heuston" && _pos == "Ballina"
+    ["To Dublin", "local"]
+  else
+    ["local", "From Dublin"]
+  end
+end
+
 def add_connecting_train(_connecting_train, _current_position, _dep_time)
   # FIXME connecting train should say 'from x' on the other side of the connection.
   end_station = _current_position == 'Ballina' ? 'Westport' : 'Ballina'
-  # FIXME times must be relative to connection (and origin station) not _dep_time!
+  # times must be relative to connection (and origin station) not _dep_time!
   dep = _connecting_train.time - (end_station == 'Westport' ? @wes_block : @bal_block)
   arr =  _connecting_train.time
+  up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
   # train to connection from B or W dep on current position
-  @local_trains << TrainPath.new("#{_current_position}-Manulla", _connecting_train.dir, dep, arr, 'Manulla')
+  @local_trains << TrainPath.new("#{_current_position}-Manulla", up_connection, dep, arr, 'Manulla')
   # train from connection to B or W dep on dir of connection
   end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
-  dep = arr
+  dep = arr + @min_dwell
   arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
-  @local_trains << TrainPath.new("Manulla-#{end_station}", _connecting_train.dir, dep, arr, end_station)
+  @local_trains << TrainPath.new("Manulla-#{end_station}", down_connection, dep, arr, end_station)
 end
 
 # generate local trains from initial departure time until latest arrival time
@@ -243,6 +253,7 @@ until arr_time > Time.parse('23:59')
   current_position = @local_trains.last.position
 end
 # Print Timetable
+# bind/ing.pry
 rows = @local_trains.sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   cur.position = if prev.nil?
@@ -253,3 +264,4 @@ rows = @local_trains.sort_by(&:dep)
 end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
+puts rows.select { |r| r.dir == "local" }.map(&:from).tally
