@@ -22,6 +22,9 @@ url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
+puts "Enter date to generate timetable for, format is: 20221222"
+date = gets.chomp.to_s || '20221222'
+
 request = Net::HTTP::Get.new(url)
 request['Content-Type'] = 'application/json'
 request.body = JSON.dump({
@@ -76,10 +79,10 @@ request.body = JSON.dump({
                                  "getPolyline": true,
                                  "outFrwd": true,
                                  "getPasslist": true,
-                                 "outDate": '20221222',
+                                 "outDate": date,
                                  "outTime": '000000',
                                  "outPeriod": '1440',
-                                 "retDate": '20221222',
+                                 "retDate": date,
                                  "retTime": '000000',
                                  "retPeriod": '1440'
                                },
