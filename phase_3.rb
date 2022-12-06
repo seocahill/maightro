@@ -29,8 +29,8 @@ url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
-puts "Enter date to generate timetable for Maightró, format is: 20221222"
-date = gets.chomp.to_s || '20221222'
+puts "Enter date to generate timetable for Maightró, default is: 20221222"
+date = gets.chomp.empty? ? '20221222' : gets.chomp.to_s
 
 request = Net::HTTP::Get.new(url)
 request['Content-Type'] = 'application/json'
@@ -223,10 +223,10 @@ def add_local_train(current_position, dep_time, connecting_time)
   # Add Claremorris train
   if end_station == "Ballina"
     # Clare - West
-    @claremorris_trains << TrainPath.new("Claremorris - Westport", "to Ballina", connecting_time - @cla_block, connecting_time + @min_dwell + @wes_block, "Wesport")
+    @claremorris_trains << TrainPath.new("Claremorris-Westport", "to Ballina", connecting_time - @cla_block, connecting_time + @min_dwell + @wes_block, "Wesport")
   else
     # West - Clare
-    @claremorris_trains << TrainPath.new("Westport - Claremorris", "from Ballina", connecting_time - @wes_block, connecting_time + @min_dwell + @cla_block, "Claremorris")
+    @claremorris_trains << TrainPath.new("Westport-Claremorris", "from Ballina", connecting_time - @wes_block, connecting_time + @min_dwell + @cla_block, "Claremorris")
   end
 end
 
@@ -300,13 +300,106 @@ rows = @local_trains #.sort_by(&:dep)
                  end
 end
 headers = %w[path connection dep arr dwell]
-puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
+puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (dearg)', style: { all_separators: true }
 puts "========="
 puts "ex Ballina: #{rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
 puts "========="
 puts "ex Castlebar/Westport #{rows.select { |r| r.from.split('-').first.match /(Castlebar|Westport)/ }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
 puts "========="
-rows = @claremorris_trains #.sort_by(&:dep)
+
+#### Claremorris
+require "uri"
+require "json"
+require "net/http"
+
+url = URI("https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1670353332331")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
+request.body = JSON.dump({
+  "id": "9ag6tkmi6agjx4wg",
+  "ver": "1.22",
+  "lang": "eng",
+  "auth": {
+    "type": "AID",
+    "aid": "320rteiJasdnj7H9"
+  },
+  "client": {
+    "id": "IRISHRAIL",
+    "type": "WEB",
+    "name": "webapp",
+    "l": "vs_webapp"
+  },
+  "formatted": false,
+  "ext": "IR.1",
+  "svcReqL": [
+    {
+      "meth": "TripSearch",
+      "req": {
+        "depLocL": [
+          {
+            "name": "Claremorris",
+            "lid": "A=1@O=Claremorris@X=-9002148@Y=53720660@U=80@L=6000028@B=1@p=1670346390@"
+          }
+        ],
+        "arrLocL": [
+          {
+            "name": "Westport",
+            "lid": "A=1@O=Westport@X=-9510048@Y=53796206@U=80@L=6000085@B=1@p=1670346390@"
+          }
+        ],
+        "minChgTime": -1,
+        "liveSearch": false,
+        "maxChg": 1000,
+        "jnyFltrL": [
+          {
+            "type": "PROD",
+            "mode": "INC",
+            "value": 1023
+          }
+        ],
+        "trfReq": {
+          "tvlrProf": [
+            {
+              "type": "E"
+            }
+          ]
+        },
+        "getPolyline": true,
+        "outFrwd": true,
+        "getPasslist": true,
+        "outDate": date,
+        "outTime": "000000",
+        "outPeriod": "1440",
+        "retDate": date,
+        "retTime": "000000",
+        "retPeriod": "1440"
+      },
+      "id": "1|1|"
+    }
+  ]
+})
+
+response = https.request(request)
+trains_out = JSON.parse(response.body).dig('svcResL', 0, 'res', 'outConL')
+trains_ret = JSON.parse(response.body).dig('svcResL', 0, 'res', 'retConL')
+
+trains_out.each do |train|
+  arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
+  dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
+  @claremorris_trains << TrainPath.new("Claremorris-Westport", "to Ballina", dep, arr, nil)
+end
+
+trains_ret.each do |train|
+  arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
+  dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
+  @claremorris_trains << TrainPath.new("Westport-Claremorris", "from Ballina", dep, arr, nil)
+end
+
+rows = @claremorris_trains.sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   cur.position = if prev.nil?
                    0
@@ -314,4 +407,9 @@ rows = @claremorris_trains #.sort_by(&:dep)
                    (cur.dep - prev.arr).fdiv(60).round
                  end
 end
-puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
+puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+puts "========="
+puts "ex Westport: #{rows.select { |r| r.from.split('-').first == "Westport" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+puts "========="
+puts "ex Claremorris #{rows.select { |r| r.from.split('-').first == "Claremorris" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+puts "========="
