@@ -178,10 +178,7 @@ end.reject { |t| t.dir == 'Ballina' }.reject { |t| t.dir == 'Manulla Junction' }
 @wes_block = 19 * 60
 @man_cas_block = 6 * 60
 @one_day = 24 * 3600
-@cla_block = 14 * 60
-
 @local_trains = []
-@claremorris_trains = []
 
 first_ballina_train = timetable.flatten.select { |t| t.position == 3 }.min_by { |t| t.arr || t.dep }
 train_location = 'Ballina'
@@ -376,17 +373,19 @@ request.body = JSON.dump({
 response = https.request(request)
 trains_out = JSON.parse(response.body).dig('svcResL', 0, 'res', 'outConL')
 trains_ret = JSON.parse(response.body).dig('svcResL', 0, 'res', 'retConL')
+@claremorris_trains = []
+@ic_trains = []
 
 trains_out.each do |train|
   arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
   dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
-  @claremorris_trains << TrainPath.new("Claremorris-Westport", "to Ballina", dep, arr, nil)
+  @ic_trains << TrainPath.new("Claremorris-Westport", "to Ballina", dep, arr, nil)
 end
 
 trains_ret.each do |train|
   arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
   dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
-  @claremorris_trains << TrainPath.new("Westport-Claremorris", "from Ballina", dep, arr, nil)
+  @ic_trains << TrainPath.new("Westport-Claremorris", "from Ballina", dep, arr, nil)
 end
 
 def train_in_wrong_position(connecting_train, dep_time, current_position)
@@ -400,9 +399,10 @@ def train_in_wrong_position(connecting_train, dep_time, current_position)
 end
 
 # TODO: Add claremorris local trains
+@cla_block = 14 * 60
 dep_time = Time.parse('05:00')
 arr_time = Time.parse('05:00')
-current_position = @claremorris_trains.last.position || "Claremorris"
+current_position = @claremorris_trains.last&.position || "Claremorris"
 until arr_time > Time.parse('23:59')
   # get next 2 connects
   ballina_trains = @local_trains.select { |t| ["Ballina-Westport", "Westport-Ballina"].include? t.from }
@@ -429,7 +429,7 @@ until arr_time > Time.parse('23:59')
       dep_time = connecting_time - @wes_block
       arr_time = dep_time + @min_dwell + @cla_block
     end
-    TrainPath.new(description, connecting_train.dir, dep_time, arr_time, nil)
+    @claremorris_trains << TrainPath.new(description, connecting_train.dir, dep_time, arr_time, nil)
     # and pop off connecting trains queue
     ballina_trains.delete connecting_train
   end
@@ -439,7 +439,7 @@ until arr_time > Time.parse('23:59')
   current_position = @claremorris_trains.last.position
 end
 
-rows = @claremorris_trains.sort_by(&:dep)
+rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   cur.position = if prev.nil?
                    0
