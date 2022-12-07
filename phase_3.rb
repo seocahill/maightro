@@ -470,3 +470,13 @@ puts "to Castlebar/Westport: #{(ex_b_to_wc.split(',') + ex_clare_to_wc.split(','
 puts "========="
 puts "from Castlebar/Westport #{(ex_cw_to_b.split(',') + ex_wc_to_clare.split(',')).sort.join(', ')}"
 puts "========="
+
+=begin
+  Todo iterate all trains and place them in all three blocks, make sure not two trains are in the same block at same time e.g.
+  Blocks are:  BM CM WM
+  For each train do
+    bm = dep + bal_block
+    wm = bm + min_dwell + arr
+    bl ???
+  end
+=end
