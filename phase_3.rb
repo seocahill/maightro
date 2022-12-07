@@ -1,18 +1,11 @@
-#! /usr/bin/ruby
+##! /usr/bin/ruby
 # frozen_string_literal: true
 
 # Direct Algorithm:
-# - Westport is still infallible!  Ballina train is supine, BT must be at MJ to meet WT.
+# - Westport is infallible!  Ballina train is supine, BT must be at MJ to meet WT.
 # - In this simulation no freight paths are included. Variables like staff, fuel etc are assumed to be sufficient.
-# BH - CM: 13 red line
-# CM - MA: 14 greed line
-# Needs extra railcar
-# - BMT duration is 27.  Minimum dwell is 3 minutes. WMT duration is 19 mins. CM is 14 mins.
-# - Ballina - Westport: Loop from start to end time creating local or connecting trains depending on path availability
-# - Westport - Claremorris: create,
-#     - Clare - Wes trains to connect with Wes - Bal at manulla
-#     - Wes - Clare trains to connect with Bal - West at manulle
-# This completes Maightró Clare, Ballina, West can all travel to and fro. Cas - Wes has most trains.
+# - BMT duration is 27.  Minimum dwell is 3 minutes. WMT duration is 19 mins.
+# - Loop from start to end time creating local or connecting trains depending on path availability
 # Fixme: Train times overlap, shouldn't be possible
 
 require 'uri'
@@ -29,7 +22,7 @@ url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
-puts "Enter date to generate timetable for Maightró, default is: 20221222"
+puts "Enter date to generate timetable, format is: 20221222"
 date = gets.chomp.empty? ? '20221222' : gets.chomp.to_s
 
 request = Net::HTTP::Get.new(url)
@@ -178,6 +171,7 @@ end.reject { |t| t.dir == 'Ballina' }.reject { |t| t.dir == 'Manulla Junction' }
 @wes_block = 19 * 60
 @man_cas_block = 6 * 60
 @one_day = 24 * 3600
+
 @local_trains = []
 
 first_ballina_train = timetable.flatten.select { |t| t.position == 3 }.min_by { |t| t.arr || t.dep }
@@ -212,16 +206,16 @@ def full_train_trip_possible(_connecting_train, _current_position, _dep_time)
   _dep_time + trip_duration < _connecting_train.time
 end
 
-def add_local_train(current_position, dep_time, connecting_time)
+def add_local_train(current_position, dep_time)
   end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
   @local_trains << TrainPath.new("#{current_position}-#{end_station}", "local", dep_time, dep_time + @full_trip, end_station)
 end
 
 def connection_info(_dir, _pos)
   if _dir == "Dublin Heuston" && _pos == "Ballina"
-    ["To Claremorris", "local"]
+    ["To Dublin", "local"]
   else
-    ["local", "From Claremorris"]
+    ["local", "From Dublin"]
   end
 end
 
@@ -263,7 +257,7 @@ until arr_time > Time.parse('23:59')
   # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
   # binding.pry
   if full_train_trip_possible(connecting_train, current_position, dep_time)
-    add_local_train(current_position, dep_time, connecting_train&.time)
+    add_local_train(current_position, dep_time)
   else
     # create train to meet connect
     # the destination of the local train is determined by the direction of the connecting train
@@ -287,7 +281,7 @@ rows = @local_trains #.sort_by(&:dep)
                  end
 end
 headers = %w[path connection dep arr dwell]
-puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (dearg)', style: { all_separators: true }
+puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
 puts "========="
 puts "ex Ballina: #{rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
 puts "========="
@@ -402,36 +396,46 @@ end
 @cla_block = 14 * 60
 dep_time = Time.parse('05:00')
 arr_time = Time.parse('05:00')
-current_position = @claremorris_trains.last&.position || "Claremorris"
+current_position = "Claremorris"
+ballina_trains = @local_trains.select { |t| ["Ballina-Westport", "Westport-Ballina"].include? t.from }
+
 until arr_time > Time.parse('23:59')
   # get next 2 connects
-  ballina_trains = @local_trains.select { |t| ["Ballina-Westport", "Westport-Ballina"].include? t.from }
-  connecting_train = ballina_trains.first
-  connecting_time = connecting_train.from == "Ballina-Westport" ? connecting_train.dep + @bal_block : connecting_train.dep + @wes_block
-  # Need to check here if the local Clare train is in correct position e.g:
-  # If meeting ex Ballina needs to be in Westport
-  # If meeting ex Westport needs to be in Claremorris
-  if train_in_wrong_position(connecting_train, dep_time, current_position)
-    if current_position == "Claremorris"
-      # no dwell in manulla
-      @claremorris_trains << TrainPath.new("Claremorris-Westport", "local", dep_time, dep_time + @cla_block + @wes_block, nil)
+  if connecting_train = ballina_trains.first
+    connecting_time = connecting_train.from == "Ballina-Westport" ? connecting_train.dep + @bal_block : connecting_train.dep + @wes_block
+    # Need to check here if the local Clare train is in correct position e.g:
+    # If meeting ex Ballina needs to be in Westport
+    # If meeting ex Westport needs to be in Claremorris
+    if train_in_wrong_position(connecting_train, dep_time, current_position)
+      if current_position == "Claremorris"
+        # no dwell in manulla
+        @claremorris_trains << TrainPath.new("Claremorris-Westport", "local", dep_time, dep_time + @cla_block + @wes_block, "Westport")
+      else
+        @claremorris_trains << TrainPath.new("Westport-Claremorris", "local", dep_time, dep_time + @cla_block + @wes_block, "Claremorris")
+      end
     else
-      @claremorris_trains << TrainPath.new("Westport-Claremorris", "local", dep_time, dep_time + @cla_block + @wes_block, nil)
+      # create train to meet connect
+      if current_position == "Claremorris"
+        description = "Claremorris-Westport"
+        dep_time = connecting_time - @cla_block
+        arr_time = dep_time + @min_dwell + @wes_block
+      else
+        description = "Westport-Claremorris"
+        dep_time = connecting_time - @wes_block
+        arr_time = dep_time + @min_dwell + @cla_block
+      end
+      @claremorris_trains << TrainPath.new(description, connecting_train.dir, dep_time, arr_time, description.split('-').last)
+      # and pop off connecting trains queue
+      ballina_trains.delete connecting_train
     end
   else
-    # create train to meet connect
+    # just make local train
     if current_position == "Claremorris"
-      description = "Claremorris-Westport"
-      dep_time = connecting_time - @cla_block
-      arr_time = dep_time + @min_dwell + @wes_block
+      # no dwell in manulla
+      @claremorris_trains << TrainPath.new("Claremorris-Westport", "local", dep_time, dep_time + @cla_block + @wes_block, "Westport")
     else
-      description = "Westport-Claremorris"
-      dep_time = connecting_time - @wes_block
-      arr_time = dep_time + @min_dwell + @cla_block
+      @claremorris_trains << TrainPath.new("Westport-Claremorris", "local", dep_time, dep_time + @cla_block + @wes_block, "Claremorris")
     end
-    @claremorris_trains << TrainPath.new(description, connecting_train.dir, dep_time, arr_time, nil)
-    # and pop off connecting trains queue
-    ballina_trains.delete connecting_train
   end
   # new dep_time and position
   arr_time = @claremorris_trains.last.arr
