@@ -22,8 +22,8 @@ url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
-puts "Enter date to generate timetable for, format is: 20221222"
-date = gets.chomp.to_s || '20221222'
+puts "Enter date to generate timetable, format is: 20221222"
+date = gets.chomp.empty? ? '20221222' : gets.chomp.to_s
 
 request = Net::HTTP::Get.new(url)
 request['Content-Type'] = 'application/json'

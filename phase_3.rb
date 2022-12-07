@@ -218,16 +218,6 @@ end
 def add_local_train(current_position, dep_time, connecting_time)
   end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
   @local_trains << TrainPath.new("#{current_position}-#{end_station}", "local", dep_time, dep_time + @full_trip, end_station)
-  return unless connecting_time
-
-  # Add Claremorris train
-  if end_station == "Ballina"
-    # Clare - West
-    @claremorris_trains << TrainPath.new("Claremorris-Westport", "to Ballina", connecting_time - @cla_block, connecting_time + @min_dwell + @wes_block, "Wesport")
-  else
-    # West - Clare
-    @claremorris_trains << TrainPath.new("Westport-Claremorris", "from Ballina", connecting_time - @wes_block, connecting_time + @min_dwell + @cla_block, "Claremorris")
-  end
 end
 
 def connection_info(_dir, _pos)
@@ -397,6 +387,56 @@ trains_ret.each do |train|
   arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
   dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
   @claremorris_trains << TrainPath.new("Westport-Claremorris", "from Ballina", dep, arr, nil)
+end
+
+def train_in_wrong_position(connecting_train, dep_time, current_position)
+  if connecting_train.from == "Ballina-Westport" && current_position == "Westport"
+    return false
+  elsif connecting_train.from == "Westport-Ballina" && current_position == "Claremorris"
+    return false
+  else
+    return true
+  end
+end
+
+# TODO: Add claremorris local trains
+dep_time = Time.parse('05:00')
+arr_time = Time.parse('05:00')
+current_position = @claremorris_trains.last.position || "Claremorris"
+until arr_time > Time.parse('23:59')
+  # get next 2 connects
+  ballina_trains = @local_trains.select { |t| ["Ballina-Westport", "Westport-Ballina"].include? t.from }
+  connecting_train = ballina_trains.first
+  connecting_time = connecting_train.from == "Ballina-Westport" ? connecting_train.dep + @bal_block : connecting_train.dep + @wes_block
+  # Need to check here if the local Clare train is in correct position e.g:
+  # If meeting ex Ballina needs to be in Westport
+  # If meeting ex Westport needs to be in Claremorris
+  if train_in_wrong_position(connecting_train, dep_time, current_position)
+    if current_position == "Claremorris"
+      # no dwell in manulla
+      @claremorris_trains << TrainPath.new("Claremorris-Westport", "local", dep_time, dep_time + @cla_block + @wes_block, nil)
+    else
+      @claremorris_trains << TrainPath.new("Westport-Claremorris", "local", dep_time, dep_time + @cla_block + @wes_block, nil)
+    end
+  else
+    # create train to meet connect
+    if current_position == "Claremorris"
+      description = "Claremorris-Westport"
+      dep_time = connecting_time - @cla_block
+      arr_time = dep_time + @min_dwell + @wes_block
+    else
+      description = "Westport-Claremorris"
+      dep_time = connecting_time - @wes_block
+      arr_time = dep_time + @min_dwell + @cla_block
+    end
+    TrainPath.new(description, connecting_train.dir, dep_time, arr_time, nil)
+    # and pop off connecting trains queue
+    ballina_trains.delete connecting_train
+  end
+  # new dep_time and position
+  arr_time = @claremorris_trains.last.arr
+  dep_time = @claremorris_trains.last.arr + @min_dwell
+  current_position = @claremorris_trains.last.position
 end
 
 rows = @claremorris_trains.sort_by(&:dep)
