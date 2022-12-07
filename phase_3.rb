@@ -283,9 +283,11 @@ end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
 puts "========="
-puts "ex Ballina: #{rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+ex_b_to_wc = rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts "ex Ballina: #{ex_b_to_wc}"
 puts "========="
-puts "ex Castlebar/Westport #{rows.select { |r| r.from.split('-').first.match /(Castlebar|Westport)/ }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+ex_cw_to_b = rows.select { |r| r.from.split('-').first.match /(Castlebar|Westport)/ }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts "ex Castlebar/Westport #{ex_cw_to_b}"
 puts "========="
 
 #### Claremorris
@@ -453,7 +455,18 @@ rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
 end
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 puts "========="
-puts "ex Westport: #{rows.select { |r| r.from.split('-').first == "Westport" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+ex_wc_to_clare = rows.select { |r| r.from.split('-').first == "Westport" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts "ex Westport: #{ex_wc_to_clare}"
 puts "========="
-puts "ex Claremorris #{rows.select { |r| r.from.split('-').first == "Claremorris" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
+ex_clare_to_wc = rows.select { |r| r.from.split('-').first == "Claremorris" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts "ex Claremorris #{ex_clare_to_wc}"
+puts "========="
+
+## WCW services
+puts '=' * 99
+puts "Trains serving Castlebar and Westport"
+puts '=' * 99
+puts "to Castlebar/Westport: #{(ex_b_to_wc.split(',') + ex_clare_to_wc.split(',')).sort.join(', ')}"
+puts "========="
+puts "from Castlebar/Westport #{(ex_cw_to_b.split(',') + ex_wc_to_clare.split(',')).sort.join(', ')}"
 puts "========="
