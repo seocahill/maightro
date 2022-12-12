@@ -48,10 +48,13 @@
     }
 
     async function dispatch(train, map) {
+      let start = await stations[routes[train.from][0]];
+      let marker = await L.marker(start, { icon: trainIcon }).addTo(map);
       for (const stop of routes[train.from]) {
-        await L.marker(stations[stop], { icon: trainIcon }).addTo(map);
+        await marker.setLatLng(stations[stop]);
         await sleep(1000)
       }
+      maker = null;
     }
 
     async function fetchTrains(map) {
