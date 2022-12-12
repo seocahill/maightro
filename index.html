@@ -19,8 +19,8 @@
       "Westport": [53.7938, -9.5045]
     };
 
-    function stops(route) {
-      routes = {
+
+    var routes = {
         "Ballina-Manulla": ["Ballina", "Foxford", "Manulla"],
         "Ballina-Westport": ["Ballina", "Foxford", "Manulla", "Castlebar", "Westport"],
         "Castlebar-Manulla": ["Castlebar", "Manulla"],
@@ -31,18 +31,36 @@
         "Westport-Ballina": ["Westport", "Castlebar", "Manulla", "Foxford", "Ballina"],
         "Westport-Claremorris": ["Westport", "Castlebar", "Manulla", "Claremorris"],
         "Westport-Manulla": ["Westport", "Castlebar", "Manulla"],
+    }
+
+    var trainIcon = L.icon({
+      iconUrl: 'train.png',
+
+      iconSize: [15, 15], // size of the icon
+      shadowSize: [15, 15], // size of the shadow
+      // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      // shadowAnchor: [4, 62],  // the same for the shadow
+      // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    const sleep = (milliseconds) => {
+      return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    async function dispatch(train, map) {
+      for (const stop of routes[train.from]) {
+        await L.marker(stations[stop], { icon: trainIcon }).addTo(map);
+        await sleep(1000)
       }
-      return routes[route];
     }
 
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    function dispatch(train) {
-      stops(train.from).forEach((stop) => {
-        L.marker(stations[stop], { icon: trainIcon }).addTo(map);
-      });
+    async function fetchTrains(map) {
+      const response = await fetch('./dispatch.json')
+      const trains = await response.json();
+      for (const train of trains) {
+        await this.dispatch(train, map);
+        await sleep(5000)
+      }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -52,21 +70,8 @@
         attribution: '&copy; <a href="https://www.thunderforest.com/copyright">Thunderforest</a> contributors',
         minZoom: '10'
       }).addTo(map);
-      fetch('./dispatch.json')
-        .then((response) => response.json())
-        .then((json) => console.log(json));
 
-      var trainIcon = L.icon({
-        iconUrl: 'train.png',
-
-        iconSize: [15, 15], // size of the icon
-        shadowSize: [15, 15], // size of the shadow
-        // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        // shadowAnchor: [4, 62],  // the same for the shadow
-        // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-      });
-
-      trains.forEach((train) => { this.dispatch(train) });
+      fetchTrains(map)
     });
   </script>
   <meta charset="UTF-8">
