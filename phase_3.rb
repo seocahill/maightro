@@ -481,6 +481,6 @@ puts "========="
   end
 =end
 
-File.open("dispatch.json", "w") do |file|
-  file.write (@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
-end
+# File.open("dispatch.json", "w") do |file|
+#   file.write (@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
+# end
