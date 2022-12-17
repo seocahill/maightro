@@ -1,7 +1,9 @@
 require 'active_model'
+require_relative 'helper'
 
 class TrainPath
   include ActiveModel::Model
+  include Helper
 
   def attributes
     [:from, :to, :dep, :arr, :dwell, :info, :trip_id]

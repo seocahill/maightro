@@ -20,7 +20,16 @@ module Helper
   #   scope :disabled, -> { where(disabled: true) }
   # end
 
-  # class_methods do
-  #   ...
-  # end
+  class_methods do
+    def parse_time(time_str="20221222")
+      return unless time_str
+
+      Time.parse(time_str[0..3].insert(2, ':'))
+    end
+
+    def find_station(current, stations)
+      index = current['locX']
+      stations.dig(index, 'name')
+    end
+  end
 end

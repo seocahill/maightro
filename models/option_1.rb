@@ -11,30 +11,39 @@ require_relative 'helper'
 require_relative 'journey_planner'
 require_relative 'train_path'
 
-# class Option1
+class Option1
   include Helper
 
-  results = JourneyPlanner.new.search
+  def initialize(date="20221222", from="Ballina", to="Westport")
+    @results = JourneyPlanner.new.search(date, from, to)
+    @train_trips = list_train_trips
+  end
 
-  timetable = []
+  def list_train_trips
+    [].tap do |trips|
+      stations = @results.stations
+      @results.trains_out.each do |trip|
+        trip['secL'].each do |train|
+          trips << TrainPath.create(train, trip, stations)
+        end
+      end
 
-  results.trains_out.each do |trip|
-    trip['secL'].each do |train|
-      timetable << TrainPath.create(train, trip, results.stations)
+      @results.trains_ret.each do |trip|
+        trip['secL'].each do |train|
+          trips << TrainPath.create(train, trip, stations)
+        end
+      end
     end
   end
 
-  results.trains_ret.each do |trip|
-    trip['secL'].each do |train|
-      timetable << TrainPath.create(train, trip, results.stations)
-    end
+  def as_ascii
+    rows = @train_trips
+      .group_by(&:trip_id)
+      .map  { |g,t| [t.first.from, t.last.to, t.first.dep.strftime("%H:%M"), t.last.arr.strftime("%H:%M"), (t.last.arr - t.first.dep).fdiv(60).round] }
+      .sort_by { |t| t[2] }
+    headers = %w[from to dep arr dur]
+    puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
+end
 
-  rows = timetable
-    .group_by(&:trip_id)
-    .map  { |g,t| [t.first.from, t.last.to, t.first.dep.strftime("%H:%M"), t.last.arr.strftime("%H:%M"), (t.last.arr - t.first.dep).fdiv(60).round] }
-    .sort_by { |t| t[2] }
-  headers = %w[from to dep arr dur]
-  puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
-# end
-
+Option1.new.as_ascii
