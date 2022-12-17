@@ -48,4 +48,4 @@ class Option1
   end
 end
 
-Option1.new.as_ascii if __FILE__==$0
+Option1.new(*ARGV).as_ascii if __FILE__==$0
