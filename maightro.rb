@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'pry'
 
 get '/' do
   @timetables = []
-  if params[:date]
-    @timetables = generate_timetables(params)
-  else
-    @timetables = []
-  end
+  @timetables = if params[:date]
+                  generate_timetables(params)
+                else
+                  []
+                end
   erb :index
 end
 

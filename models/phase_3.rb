@@ -1,4 +1,4 @@
-##! /usr/bin/ruby
+# #! /usr/bin/ruby
 # frozen_string_literal: true
 
 # Direct Algorithm:
@@ -22,7 +22,7 @@ url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
-puts "Enter date to generate timetable, format is: 20221222"
+puts 'Enter date to generate timetable, format is: 20221222'
 date = gets.chomp.empty? ? '20221222' : gets.chomp.to_s
 
 request = Net::HTTP::Get.new(url)
@@ -208,28 +208,30 @@ end
 
 def add_local_train(current_position, dep_time)
   end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
-  @local_trains << TrainPath.new("#{current_position}-#{end_station}", "local", dep_time, dep_time + @full_trip, end_station)
+  @local_trains << TrainPath.new("#{current_position}-#{end_station}", 'local', dep_time, dep_time + @full_trip,
+                                 end_station)
 end
 
 def connection_info(_dir, _pos)
-  if _dir == "Dublin Heuston" && _pos == "Ballina"
-    ["To Dublin", "local"]
+  if _dir == 'Dublin Heuston' && _pos == 'Ballina'
+    ['To Dublin', 'local']
   else
-    ["local", "From Dublin"]
+    ['local', 'From Dublin']
   end
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time, _next_connection)
   end_station = _current_position == 'Ballina' ? 'Westport' : 'Ballina'
   # times must be relative to connection (and origin station) not _dep_time!
-  dep = if _current_position == 'Ballina'
+  dep = case _current_position
+        when 'Ballina'
           _connecting_train.time - @bal_block
-        elsif _current_position == "Castlebar"
+        when 'Castlebar'
           _connecting_train.time -  @man_cas_block
         else
           _connecting_train.time -  @wes_block
         end
-  arr =  _connecting_train.time
+  arr = _connecting_train.time
   up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
 
   # train to connection from B or W dep on current position
@@ -237,8 +239,8 @@ def add_connecting_train(_connecting_train, _current_position, _dep_time, _next_
 
   # train from Manulla to B or W dep on dir of connection and on timing of next connection
   dep = arr + @min_dwell
-  if _next_connection && (_next_connection.time - arr < ((@wes_block *2) + @min_dwell))
-    end_station = "Castlebar"
+  if _next_connection && (_next_connection.time - arr < ((@wes_block * 2) + @min_dwell))
+    end_station = 'Castlebar'
     arr = dep + @man_cas_block
   else
     end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
@@ -272,7 +274,7 @@ until arr_time > Time.parse('23:59')
 end
 # Print Timetable
 # bind/ing.pry
-rows = @local_trains #.sort_by(&:dep)
+rows = @local_trains # .sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   cur.position = if prev.nil?
                    0
@@ -282,89 +284,88 @@ rows = @local_trains #.sort_by(&:dep)
 end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
-puts "========="
-ex_b_to_wc = rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts '========='
+ex_b_to_wc = rows.select { |r| r.from.split('-').first == 'Ballina' }.map { |t| t.dep.strftime('%H:%M') }.join(', ')
 puts "ex Ballina: #{ex_b_to_wc}"
-puts "========="
-ex_cw_to_b = rows.select { |r| r.from.split('-').first.match /(Castlebar|Westport)/ }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts '========='
+ex_cw_to_b = rows.select do |r|
+  r.from.split('-').first.match(/(Castlebar|Westport)/)
+end.map { |t| t.dep.strftime('%H:%M') }.join(', ')
 puts "ex Castlebar/Westport #{ex_cw_to_b}"
-puts "========="
+puts '========='
 
 #### Claremorris
-require "uri"
-require "json"
-require "net/http"
 
-url = URI("https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1670353332331")
+url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1670353332331')
 
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
 request = Net::HTTP::Post.new(url)
-request["Content-Type"] = "application/json"
+request['Content-Type'] = 'application/json'
 request.body = JSON.dump({
-  "id": "9ag6tkmi6agjx4wg",
-  "ver": "1.22",
-  "lang": "eng",
-  "auth": {
-    "type": "AID",
-    "aid": "320rteiJasdnj7H9"
-  },
-  "client": {
-    "id": "IRISHRAIL",
-    "type": "WEB",
-    "name": "webapp",
-    "l": "vs_webapp"
-  },
-  "formatted": false,
-  "ext": "IR.1",
-  "svcReqL": [
-    {
-      "meth": "TripSearch",
-      "req": {
-        "depLocL": [
-          {
-            "name": "Claremorris",
-            "lid": "A=1@O=Claremorris@X=-9002148@Y=53720660@U=80@L=6000028@B=1@p=1670346390@"
-          }
-        ],
-        "arrLocL": [
-          {
-            "name": "Westport",
-            "lid": "A=1@O=Westport@X=-9510048@Y=53796206@U=80@L=6000085@B=1@p=1670346390@"
-          }
-        ],
-        "minChgTime": -1,
-        "liveSearch": false,
-        "maxChg": 1000,
-        "jnyFltrL": [
-          {
-            "type": "PROD",
-            "mode": "INC",
-            "value": 1023
-          }
-        ],
-        "trfReq": {
-          "tvlrProf": [
-            {
-              "type": "E"
-            }
-          ]
-        },
-        "getPolyline": true,
-        "outFrwd": true,
-        "getPasslist": true,
-        "outDate": date,
-        "outTime": "000000",
-        "outPeriod": "1440",
-        "retDate": date,
-        "retTime": "000000",
-        "retPeriod": "1440"
-      },
-      "id": "1|1|"
-    }
-  ]
-})
+                           "id": '9ag6tkmi6agjx4wg',
+                           "ver": '1.22',
+                           "lang": 'eng',
+                           "auth": {
+                             "type": 'AID',
+                             "aid": '320rteiJasdnj7H9'
+                           },
+                           "client": {
+                             "id": 'IRISHRAIL',
+                             "type": 'WEB',
+                             "name": 'webapp',
+                             "l": 'vs_webapp'
+                           },
+                           "formatted": false,
+                           "ext": 'IR.1',
+                           "svcReqL": [
+                             {
+                               "meth": 'TripSearch',
+                               "req": {
+                                 "depLocL": [
+                                   {
+                                     "name": 'Claremorris',
+                                     "lid": 'A=1@O=Claremorris@X=-9002148@Y=53720660@U=80@L=6000028@B=1@p=1670346390@'
+                                   }
+                                 ],
+                                 "arrLocL": [
+                                   {
+                                     "name": 'Westport',
+                                     "lid": 'A=1@O=Westport@X=-9510048@Y=53796206@U=80@L=6000085@B=1@p=1670346390@'
+                                   }
+                                 ],
+                                 "minChgTime": -1,
+                                 "liveSearch": false,
+                                 "maxChg": 1000,
+                                 "jnyFltrL": [
+                                   {
+                                     "type": 'PROD',
+                                     "mode": 'INC',
+                                     "value": 1023
+                                   }
+                                 ],
+                                 "trfReq": {
+                                   "tvlrProf": [
+                                     {
+                                       "type": 'E'
+                                     }
+                                   ]
+                                 },
+                                 "getPolyline": true,
+                                 "outFrwd": true,
+                                 "getPasslist": true,
+                                 "outDate": date,
+                                 "outTime": '000000',
+                                 "outPeriod": '1440',
+                                 "retDate": date,
+                                 "retTime": '000000',
+                                 "retPeriod": '1440'
+                               },
+                               "id": '1|1|'
+                             }
+                           ]
+                         })
 
 response = https.request(request)
 trains_out = JSON.parse(response.body).dig('svcResL', 0, 'res', 'outConL')
@@ -375,22 +376,22 @@ trains_ret = JSON.parse(response.body).dig('svcResL', 0, 'res', 'retConL')
 trains_out.each do |train|
   arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
   dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
-  @ic_trains << TrainPath.new("Claremorris-Westport", "to Ballina", dep, arr, nil)
+  @ic_trains << TrainPath.new('Claremorris-Westport', 'to Ballina', dep, arr, nil)
 end
 
 trains_ret.each do |train|
   arr = Time.parse(train.dig('arr', 'aTimeS')[0..3].insert(2, ':'))
   dep = Time.parse(train.dig('dep', 'dTimeS')[0..3].insert(2, ':'))
-  @ic_trains << TrainPath.new("Westport-Claremorris", "from Ballina", dep, arr, nil)
+  @ic_trains << TrainPath.new('Westport-Claremorris', 'from Ballina', dep, arr, nil)
 end
 
-def train_in_wrong_position(connecting_train, dep_time, current_position)
-  if connecting_train.from == "Ballina-Westport" && current_position == "Westport"
-    return false
-  elsif connecting_train.from == "Westport-Ballina" && current_position == "Claremorris"
-    return false
+def train_in_wrong_position(connecting_train, _dep_time, current_position)
+  if connecting_train.from == 'Ballina-Westport' && current_position == 'Westport'
+    false
+  elsif connecting_train.from == 'Westport-Ballina' && current_position == 'Claremorris'
+    false
   else
-    return true
+    true
   end
 end
 
@@ -398,46 +399,51 @@ end
 @cla_block = 14 * 60
 dep_time = Time.parse('05:00')
 arr_time = Time.parse('05:00')
-current_position = "Claremorris"
-ballina_trains = @local_trains.select { |t| ["Ballina-Westport", "Westport-Ballina"].include? t.from }
+current_position = 'Claremorris'
+ballina_trains = @local_trains.select { |t| %w[Ballina-Westport Westport-Ballina].include? t.from }
 
 until arr_time > Time.parse('23:59')
   # get next 2 connects
   if connecting_train = ballina_trains.first
-    connecting_time = connecting_train.from == "Ballina-Westport" ? connecting_train.dep + @bal_block : connecting_train.dep + @wes_block
+    connecting_time = connecting_train.from == 'Ballina-Westport' ? connecting_train.dep + @bal_block : connecting_train.dep + @wes_block
     # Need to check here if the local Clare train is in correct position e.g:
     # If meeting ex Ballina needs to be in Westport
     # If meeting ex Westport needs to be in Claremorris
     if train_in_wrong_position(connecting_train, dep_time, current_position)
-      if current_position == "Claremorris"
-        # no dwell in manulla
-        @claremorris_trains << TrainPath.new("Claremorris-Westport", "local", dep_time, dep_time + @cla_block + @wes_block, "Westport")
-      else
-        @claremorris_trains << TrainPath.new("Westport-Claremorris", "local", dep_time, dep_time + @cla_block + @wes_block, "Claremorris")
-      end
+      @claremorris_trains << if current_position == 'Claremorris'
+                               # no dwell in manulla
+                               TrainPath.new('Claremorris-Westport', 'local', dep_time,
+                                             dep_time + @cla_block + @wes_block, 'Westport')
+                             else
+                               TrainPath.new('Westport-Claremorris', 'local', dep_time,
+                                             dep_time + @cla_block + @wes_block, 'Claremorris')
+                             end
     else
       # create train to meet connect
-      if current_position == "Claremorris"
-        description = "Claremorris-Westport"
+      if current_position == 'Claremorris'
+        description = 'Claremorris-Westport'
         dep_time = connecting_time - @cla_block
         arr_time = dep_time + @min_dwell + @wes_block
       else
-        description = "Westport-Claremorris"
+        description = 'Westport-Claremorris'
         dep_time = connecting_time - @wes_block
         arr_time = dep_time + @min_dwell + @cla_block
       end
-      @claremorris_trains << TrainPath.new(description, connecting_train.dir, dep_time, arr_time, description.split('-').last)
+      @claremorris_trains << TrainPath.new(description, connecting_train.dir, dep_time, arr_time,
+                                           description.split('-').last)
       # and pop off connecting trains queue
       ballina_trains.delete connecting_train
     end
   else
     # just make local train
-    if current_position == "Claremorris"
-      # no dwell in manulla
-      @claremorris_trains << TrainPath.new("Claremorris-Westport", "local", dep_time, dep_time + @cla_block + @wes_block, "Westport")
-    else
-      @claremorris_trains << TrainPath.new("Westport-Claremorris", "local", dep_time, dep_time + @cla_block + @wes_block, "Claremorris")
-    end
+    @claremorris_trains << if current_position == 'Claremorris'
+                             # no dwell in manulla
+                             TrainPath.new('Claremorris-Westport', 'local', dep_time,
+                                           dep_time + @cla_block + @wes_block, 'Westport')
+                           else
+                             TrainPath.new('Westport-Claremorris', 'local', dep_time,
+                                           dep_time + @cla_block + @wes_block, 'Claremorris')
+                           end
   end
   # new dep_time and position
   arr_time = @claremorris_trains.last.arr
@@ -454,32 +460,34 @@ rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
                  end
 end
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
-puts "========="
-ex_wc_to_clare = rows.select { |r| r.from.split('-').first == "Westport" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts '========='
+ex_wc_to_clare = rows.select do |r|
+  r.from.split('-').first == 'Westport'
+end.map { |t| t.dep.strftime('%H:%M') }.join(', ')
 puts "ex Westport: #{ex_wc_to_clare}"
-puts "========="
-ex_clare_to_wc = rows.select { |r| r.from.split('-').first == "Claremorris" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')
+puts '========='
+ex_clare_to_wc = rows.select do |r|
+  r.from.split('-').first == 'Claremorris'
+end.map { |t| t.dep.strftime('%H:%M') }.join(', ')
 puts "ex Claremorris #{ex_clare_to_wc}"
-puts "========="
+puts '========='
 
 ## WCW services
 puts '=' * 99
-puts "Trains serving Castlebar and Westport"
+puts 'Trains serving Castlebar and Westport'
 puts '=' * 99
 puts "to Castlebar/Westport: #{(ex_b_to_wc.split(',') + ex_clare_to_wc.split(',')).sort.join(', ')}"
-puts "========="
+puts '========='
 puts "from Castlebar/Westport #{(ex_cw_to_b.split(',') + ex_wc_to_clare.split(',')).sort.join(', ')}"
-puts "========="
+puts '========='
 
-=begin
-  Todo iterate all trains and place them in all three blocks, make sure not two trains are in the same block at same time e.g.
-  Blocks are:  BM CM WM
-  For each train do
-    bm = dep + bal_block
-    wm = bm + min_dwell + arr
-    bl ???
-  end
-=end
+#   Todo iterate all trains and place them in all three blocks, make sure not two trains are in the same block at same time e.g.
+#   Blocks are:  BM CM WM
+#   For each train do
+#     bm = dep + bal_block
+#     wm = bm + min_dwell + arr
+#     bl ???
+#   end
 
 # File.open("dispatch.json", "w") do |file|
 #   file.write (@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }

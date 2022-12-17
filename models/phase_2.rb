@@ -22,7 +22,7 @@ url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
-puts "Enter date to generate timetable, format is: 20221222"
+puts 'Enter date to generate timetable, format is: 20221222'
 date = gets.chomp.empty? ? '20221222' : gets.chomp.to_s
 
 request = Net::HTTP::Get.new(url)
@@ -208,28 +208,30 @@ end
 
 def add_local_train(current_position, dep_time)
   end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
-  @local_trains << TrainPath.new("#{current_position}-#{end_station}", "local", dep_time, dep_time + @full_trip, end_station)
+  @local_trains << TrainPath.new("#{current_position}-#{end_station}", 'local', dep_time, dep_time + @full_trip,
+                                 end_station)
 end
 
 def connection_info(_dir, _pos)
-  if _dir == "Dublin Heuston" && _pos == "Ballina"
-    ["To Dublin", "local"]
+  if _dir == 'Dublin Heuston' && _pos == 'Ballina'
+    ['To Dublin', 'local']
   else
-    ["local", "From Dublin"]
+    ['local', 'From Dublin']
   end
 end
 
 def add_connecting_train(_connecting_train, _current_position, _dep_time, _next_connection)
   end_station = _current_position == 'Ballina' ? 'Westport' : 'Ballina'
   # times must be relative to connection (and origin station) not _dep_time!
-  dep = if _current_position == 'Ballina'
+  dep = case _current_position
+        when 'Ballina'
           _connecting_train.time - @bal_block
-        elsif _current_position == "Castlebar"
+        when 'Castlebar'
           _connecting_train.time -  @man_cas_block
         else
           _connecting_train.time -  @wes_block
         end
-  arr =  _connecting_train.time
+  arr = _connecting_train.time
   up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
 
   # train to connection from B or W dep on current position
@@ -237,8 +239,8 @@ def add_connecting_train(_connecting_train, _current_position, _dep_time, _next_
 
   # train from Manulla to B or W dep on dir of connection and on timing of next connection
   dep = arr + @min_dwell
-  if _next_connection && (_next_connection.time - arr < ((@wes_block *2) + @min_dwell))
-    end_station = "Castlebar"
+  if _next_connection && (_next_connection.time - arr < ((@wes_block * 2) + @min_dwell))
+    end_station = 'Castlebar'
     arr = dep + @man_cas_block
   else
     end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
@@ -272,7 +274,7 @@ until arr_time > Time.parse('23:59')
 end
 # Print Timetable
 # bind/ing.pry
-rows = @local_trains #.sort_by(&:dep)
+rows = @local_trains # .sort_by(&:dep)
 [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
   cur.position = if prev.nil?
                    0
@@ -282,9 +284,12 @@ rows = @local_trains #.sort_by(&:dep)
 end
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
-puts "========="
-puts "ex Ballina: #{rows.select { |r| r.from.split('-').first == "Ballina" }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
-puts "========="
-puts "ex Castlebar/Westport #{rows.select { |r| r.from.split('-').first.match /(Castlebar|Westport)/ }.map { |t| t.dep.strftime("%H:%M") }.join(', ')}"
-puts "========="
-
+puts '========='
+puts "ex Ballina: #{rows.select do |r|
+  r.from.split('-').first == 'Ballina'
+end.map { |t| t.dep.strftime('%H:%M') }.join(', ')}"
+puts '========='
+puts "ex Castlebar/Westport #{rows.select do |r|
+  r.from.split('-').first.match(/(Castlebar|Westport)/)
+end.map { |t| t.dep.strftime('%H:%M') }.join(', ')}"
+puts '========='

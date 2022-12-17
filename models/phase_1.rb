@@ -19,7 +19,6 @@ require 'time'
 require 'terminal-table'
 require_relative 'option_1'
 
-
 manulla_times = Option1.new.train_trips
 ballina_trains = []
 

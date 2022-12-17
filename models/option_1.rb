@@ -16,7 +16,7 @@ class Option1
 
   attr_reader :results, :train_trips
 
-  def initialize(date="20221222", from="Ballina", to="Westport", sort="dep")
+  def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @results = JourneyPlanner.new.search(date, from, to)
     @sort = sort
     @train_trips = list_train_trips
@@ -42,12 +42,15 @@ class Option1
   def as_ascii
     sort = %w[from to dep arr].index(@sort)
     rows = @train_trips
-      .group_by(&:trip_id)
-      .map  { |g,t| [t.first.from, t.last.to, t.first.dep.strftime("%H:%M"), t.last.arr.strftime("%H:%M"), (t.last.arr - t.first.dep).fdiv(60).round] }
-      .sort_by { |t| t[sort] }
+           .group_by(&:trip_id)
+           .map do |_g, t|
+             [t.first.from, t.last.to, t.first.dep.strftime('%H:%M'), t.last.arr.strftime('%H:%M'),
+              (t.last.arr - t.first.dep).fdiv(60).round]
+           end
+           .sort_by { |t| t[sort] }
     headers = %w[from to dep arr dur]
     puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
 end
 
-Option1.new(*ARGV).as_ascii if __FILE__==$0
+Option1.new(*ARGV).as_ascii if __FILE__ == $PROGRAM_NAME
