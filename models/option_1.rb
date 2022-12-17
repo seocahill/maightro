@@ -16,8 +16,9 @@ class Option1
 
   attr_reader :results, :train_trips
 
-  def initialize(date="20221222", from="Ballina", to="Westport")
+  def initialize(date="20221222", from="Ballina", to="Westport", sort="dep")
     @results = JourneyPlanner.new.search(date, from, to)
+    @sort = sort
     @train_trips = list_train_trips
   end
 
@@ -39,10 +40,11 @@ class Option1
   end
 
   def as_ascii
+    sort = %w[from to dep arr].index(@sort)
     rows = @train_trips
       .group_by(&:trip_id)
       .map  { |g,t| [t.first.from, t.last.to, t.first.dep.strftime("%H:%M"), t.last.arr.strftime("%H:%M"), (t.last.arr - t.first.dep).fdiv(60).round] }
-      .sort_by { |t| t[2] }
+      .sort_by { |t| t[sort] }
     headers = %w[from to dep arr dur]
     puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
