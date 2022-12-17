@@ -22,28 +22,30 @@ all_trips = Option1.new.train_trips
 bad_trips = all_trips.group_by(&:trip_id).select { |g,t| (t.last.arr - t.first.dep).fdiv(60) > 55 }
 ballina_trains = []
 
-# manulla_times.each do |wt|
-#   manulla = wt.arr || wt.dep
-#   transfer_time = manulla[0..3].insert(2, ':')
+westport_trains = all_trips.flatten.select { |t| t.info == "to Westport" }
+dub_trains = all_trips.flatten.select { |t| t.info == "to Dublin Heuston" }
 
-#   from = Time.parse(transfer_time) - (27 * 60)
-#   ballina_trains << TrainPath.new('Ballina-Manulla', "to #{wt.dir}", from.strftime('%H:%M'), transfer_time, nil)
+westport_trains.each do |wt|
+  from = wt.dep - (30 * 60) # 27 min + 3 dwell/transfer
+  ballina_trains << TrainPath.new(from: 'Ballina', to: "Manulla", dep: from, arr: wt.dep, trip_id: wt.trip_id)
 
-#   depart_time = Time.parse(transfer_time) + 120
-#   to = depart_time + (27 * 60)
-#   connection = wt.dir == 'Westport' ? 'Dublin Heuston' : 'Westport'
-#   ballina_trains << TrainPath.new('Manulla-Ballina', "from #{connection}", depart_time.strftime('%H:%M'),
-#                                   to.strftime('%H:%M'), nil)
-# end
+  depart_time = wt.dep
+  arr_time = depart_time + (27 * 60)
+  # trip id is nil here because this train is connection from Dublin, not Maightro
+  ballina_trains << TrainPath.new(from: 'Manulla', to: "Ballina", dep: depart_time, arr: arr_time, trip_id: nil)
+end
 
-# rows = ballina_trains.sort_by(&:dep)
-# [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
-#   next if prev.nil?
+dub_trains.each do |dt|
+  from = dt.dep - (30 * 60) # 27 min + 3 dwell/transfer
+  # trip id is nil here because this train is connection to Dublin, not Maightro
+  ballina_trains << TrainPath.new(from: 'Ballina', to: "Manulla", dep: from, arr: dt.dep, trip_id: nil)
 
-#   padding = (Time.parse(cur.dep) - Time.parse(prev.arr)).fdiv(60).round
-#   cur.station = padding
-# end
-rows = bad_trips.values.flatten.map(&:values)
+  depart_time = dt.dep
+  arr_time = depart_time + (27 * 60)
+  ballina_trains << TrainPath.new(from: 'Manulla', to: "Ballina", dep: depart_time, arr: arr_time, trip_id:  dt.trip_id)
+end
+
+rows = (ballina_trains + westport_trains + dub_trains).map(&:values)
 headers = %w[path connection dep arr dwell]
 puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
 
