@@ -4,7 +4,7 @@ class TrainPath
   include ActiveModel::Model
 
   def attributes
-    [:from, :dir, :dep, :arr, :station]
+    [:from, :to, :dep, :arr, :dwell, :info, :group]
   end
 
   def values
@@ -17,5 +17,5 @@ class TrainPath
   def arr
   end
 
-  attr_accessor :from, :dir, :dep, :arr, :station
+  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :group
 end

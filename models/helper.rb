@@ -10,6 +10,11 @@ module Helper
     Time.parse(time_str[0..3].insert(2, ':'))
   end
 
+  def find_station(current, stations)
+    index = current['locX']
+    stations.dig(index, 'name')
+  end
+
   # included do
   #   scope :disabled, -> { where(disabled: true) }
   # end
