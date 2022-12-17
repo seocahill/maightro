@@ -14,6 +14,8 @@ require_relative 'train_path'
 class Option1
   include Helper
 
+  attr_reader :results, :train_trips
+
   def initialize(date="20221222", from="Ballina", to="Westport")
     @results = JourneyPlanner.new.search(date, from, to)
     @train_trips = list_train_trips
