@@ -49,6 +49,8 @@ dub_trains.each do |dt|
   ballina_trains << TrainPath.new(from: 'Manulla', to: "Ballina", dep: depart_time, arr: arr_time, trip_id:  dt.trip_id)
 end
 
+
+
 rows = (ballina_trains + westport_trains + dub_trains)
           .group_by(&:trip_id)
           .map do |g,t|
@@ -59,30 +61,23 @@ rows = (ballina_trains + westport_trains + dub_trains)
               bt, dt = t
               [dt.from, bt.to, dt.dep.strftime("%H:%M"), bt.arr.strftime("%H:%M"), (bt.arr - dt.dep).fdiv(60).round, dt.trip_id]
             else
-              # [t.first.from, t.first.to, t.first.dep.strftime("%H:%M"), t.first.arr.strftime("%H:%M"), (t.first.arr - t.first.dep).fdiv(60).round, t.first.trip_id]
+              [t.first.from, t.first.to, t.first.dep.strftime("%H:%M"), t.first.arr.strftime("%H:%M"), (t.first.arr - t.first.dep).fdiv(60).round, t.first.trip_id]
             end
           end.compact.sort_by { |t| t[2] }
 
-headers = %w[path connection dep arr duration dwell]
-puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
+headers = %w[path connection dep arr duration trip_id dwell info]
+tt_rows = rows.reject { |t| t[5].include?("L-") }
 
-# ba = ballina_trains.select { |t| t.from == 'Ballina-Manulla' }
-# bam = ba.each_cons(2).map do |a, b|
-#   Time.parse(b.dep) - Time.parse(a.dep)
-# end.then { |ts| ts.sum.fdiv(ts.length).fdiv(60).round }
-# bad = ba.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then { |ts| ts.sum.fdiv(ts.length).fdiv(60).round }
-# wp = ballina_trains.reject { |t| t.from == 'Ballina-Manulla' }
-# wpm = wp.each_cons(2).map do |a, b|
-#   Time.parse(b.dep) - Time.parse(a.dep)
-# end.then { |ts| ts.sum.fdiv(ts.length).fdiv(60).round }
-# wpd = wp.map { |t| Time.parse(t.dep) - Time.parse(t.arr) }.then { |ts| ts.sum.fdiv(ts.length).fdiv(60).round }
-# free_paths = ballina_trains.select { |t| t.station.to_i > 30 }.count
-# short_turnarounds = ballina_trains.select { |t| t.station.to_i < 5 }.select { |t| t.from == 'Ballina-Manulla' }.count
-# puts '=' * 99
-# puts "#{ba.count} Trains each way, with an averge service gap of #{bam},  #{free_paths} free paths during service hours and #{short_turnarounds} quick turnarounds in Ballina."
-# puts '=' * 99
-# Calculate Ballina <> Manulla trains
-# Simple conclusion is that Dublin - Wesport arr at Manulla at  10:06  needs to be delayed by 30 mins.
-
-# binding.pry
-# puts response.read_body
+# check for clashes and adjust tt to fix
+tt_rows[0][6] = 0 # first train has no dwell
+tt_rows.each_cons(2) do |current, nxt|
+  overlap = (Time.parse(current[3]) - Time.parse(nxt[2]))
+  if overlap > 0
+    nxt[2] = (Time.parse(nxt[2]) + overlap + 180).strftime("%H:%M")
+    nxt[3] = (Time.parse(nxt[3]) + overlap).strftime("%H:%M")
+    nxt[7] = "advanced by #{overlap.fdiv(60)} mins to avoid clash"
+    overlap = (Time.parse(current[3]) - Time.parse(nxt[2]))
+  end
+  nxt[6] = overlap.fdiv(60).abs
+end
+puts Terminal::Table.new rows: tt_rows, headings: headers, title: 'An Maightró', style: { all_separators: true }

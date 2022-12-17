@@ -21,3 +21,11 @@ Maightro timetable, choose your flavour:
 
 > spits out timetables
 > also stats
+
+## Calculate free paths from Dub to West
+
+- double track: calculate headway and create hash from dublin (full / empty)
+- single track (port - west):
+  - stations are meeting points create hash of stations and fill with train calling times
+  - calculate free paths where any passenger train could cross another? e.g go through each station and meeting time and see if it's possible to schedule a train, if so add to paths.
+  - also "find" secret crossings (e.g where trains meet outside stations)
