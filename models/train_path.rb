@@ -4,7 +4,18 @@ class TrainPath
   include ActiveModel::Model
 
   def attributes
-    [:from, :to, :dep, :arr, :dwell, :info, :group]
+    [:from, :to, :dep, :arr, :dwell, :info, :trip_id]
+  end
+
+  def self.create(train, trip, stations)
+    new(
+      from: find_station(train['dep'], stations),
+      to: find_station(train['arr'], stations),
+      arr: parse_time(train['arr']['aTimeS']),
+      dep: parse_time(train['dep']['dTimeS']),
+      info:  "to " + train['jny']['dirTxt'],
+      trip_id: trip['cid']
+    )
   end
 
   def values
@@ -17,5 +28,5 @@ class TrainPath
   def arr
   end
 
-  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :group
+  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id
 end

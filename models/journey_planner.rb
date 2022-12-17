@@ -12,13 +12,15 @@ require 'terminal-table'
 
 class JourneyPlanner
 
-  def initialize(date="20221222", from="Ballina", to="Westport")
-    @date = date
-    @from = from
-    @to = to
+  def search(date="20221222", from="Ballina", to="Westport")
+    @_search ||= Hash.new do |memo, (date, from, to)|
+      memo[[date, from, to]] = _search(date, from, to)
+    end
+
+    @_search[[date, from, to]]
   end
 
-  def search
+  def _search(date, from, to)
     url = URI('https://journeyplanner.irishrail.ie/bin/mgate.exe?rnd=1669936211572')
 
     https = Net::HTTP.new(url.host, url.port)
@@ -48,13 +50,13 @@ class JourneyPlanner
                                   "req": {
                                     "depLocL": [
                                       {
-                                        "name": @from,
+                                        "name": from,
                                         # "lid": 'A=1@O=Ballina@X=-9160592@Y=54109066@U=80@L=6000007@B=1@p=1669914383@'
                                       }
                                     ],
                                     "arrLocL": [
                                       {
-                                        "name": @to,
+                                        "name": to,
                                         # "lid": 'A=1@O=Westport@X=-9510048@Y=53796206@U=80@L=6000085@B=1@p=1669914383@'
                                       }
                                     ],
@@ -78,10 +80,10 @@ class JourneyPlanner
                                     "getPolyline": true,
                                     "outFrwd": true,
                                     "getPasslist": true,
-                                    "outDate": @date,
+                                    "outDate": date,
                                     "outTime": '000000',
                                     "outPeriod": '1440',
-                                    "retDate": @date,
+                                    "retDate": date,
                                     "retTime": '000000',
                                     "retPeriod": '1440'
                                   },
@@ -90,6 +92,10 @@ class JourneyPlanner
                               ]
                             })
 
-    https.request(request)
+    response = https.request(request)
+    stations = JSON.parse(response.body).dig('svcResL', 0, 'res', 'common', 'locL')
+    trains_out = JSON.parse(response.body).dig('svcResL', 0, 'res', 'outConL')
+    trains_ret = JSON.parse(response.body).dig('svcResL', 0, 'res', 'retConL')
+    Struct.new(:stations, :trains_out, :trains_ret).new(stations, trains_out, trains_ret)
   end
 end

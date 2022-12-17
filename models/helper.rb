@@ -15,6 +15,7 @@ module Helper
     stations.dig(index, 'name')
   end
 
+
   # included do
   #   scope :disabled, -> { where(disabled: true) }
   # end
