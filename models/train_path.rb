@@ -8,7 +8,7 @@ class TrainPath
   include Helper
 
   def attributes
-    %i[from to dep arr dwell info trip_id]
+    %i[from to dep arr dwell info trip_id dir position]
   end
 
   def self.create(train, trip, stations)
@@ -18,6 +18,7 @@ class TrainPath
       arr: parse_time(train['arr']['aTimeS']),
       dep: parse_time(train['dep']['dTimeS']),
       info: "to #{train['jny']['dirTxt']}",
+      dir: train['dir'],
       trip_id: trip['cid']
     )
   end
@@ -26,9 +27,9 @@ class TrainPath
     attributes.map { |attr| send(attr) }
   end
 
-  def dep; end
+  def time
+    dep || arr
+  end
 
-  def arr; end
-
-  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id
+  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir, :position
 end
