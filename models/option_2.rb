@@ -126,6 +126,7 @@ class Option2
     if _dir == 'Dublin Heuston' && _pos == 'Ballina'
       ['To Dublin', 'local']
     else
+      binding.pry
       ['local', 'From Dublin']
     end
   end
@@ -161,16 +162,17 @@ class Option2
 
   def as_ascii
     headers = %w[from to dep arr connection dwell]
-    rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
-      if t.length == 2
-        ot, rt = t
-        [ot.from, rt.to, ot.dep.strftime('%H:%M'), rt.arr.strftime('%H:%M'), (rt.arr - ot.dep).fdiv(60).round,
-                ot.trip_id]
-      else
-        [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
-                t.first.trip_id]
-      end
-    end # .sort_by(&:dep)
+    # rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
+    #   if t.length == 2
+    #     binding.pry
+    #     ot, rt = t
+    #     [ot.from, rt.to, ot.dep.strftime('%H:%M'), rt.arr.strftime('%H:%M'), (rt.arr - ot.dep).fdiv(60).round,
+    #             ot.trip_id]
+    #   else
+    #     [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
+    #             t.first.trip_id]
+    #   end
+    # end # .sort_by(&:dep)
     # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
     #   cur.position = if prev.nil?
     #                   0
@@ -178,6 +180,8 @@ class Option2
     #                   (cur.dep - prev.arr).fdiv(60).round
     #                 end
     # end
+    rows = schedule_ballina_trains.map(&:values)
+    puts rows.count
     puts Terminal::Table.new rows: rows.map { |r| r.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
     # puts '========='
     # puts "ex Ballina: #{@rows.select do |r|

@@ -18,7 +18,7 @@ class TrainPath
       arr: parse_time(train['arr']['aTimeS']),
       dep: parse_time(train['dep']['dTimeS']),
       info: "to #{train['jny']['dirTxt']}",
-      dir: train['dir'],
+      dir: train['jny']['dirTxt'],
       trip_id: trip['cid']
     )
   end
