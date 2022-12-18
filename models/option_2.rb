@@ -46,28 +46,26 @@ class Option2
     @wes_block = 19 * 60
     @man_cas_block = 6 * 60
     @one_day = 24 * 3600
+    @full_trip = @bal_block + @min_dwell + @wes_block
+
     @date = date
     @from = from
     @to = to
     @sort = sort
 
     @local_trains = []
-    @full_trip = @bal_block + @min_dwell + @wes_block
   end
 
-  def schedule_trains
+  def schedule_ballina_trains
     @results = JourneyPlanner.new.search(@date, @from, @to)
     timetable = Option1.new.train_trips
-    manulla_times = timetable.select { |t| [t.to, t.from].sort == ["Ballina", "Manulla Junction"] }
+    # manulla_times = timetable.map { |t| t.arr if t.to == "Manulla Junction" || t.dep if t.from == "Manulla Junction" }.compact.sort
+    # binding.pry
+    connecting_trains = timetable.select { |t| [t.from, t.to].include? "Westport" }
     first_ballina_train = timetable.first
-    train_location = 'Ballina'
-    dep_time = first_ballina_train.dep
-
 
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
-
-    transfer = manulla_times.sort_by { |t| t.arr || t.dep }
 
     current_position = 'Ballina'
 
@@ -75,11 +73,10 @@ class Option2
     # connection train is Westport - Dublin, local train is Ballina - Westport
     until arr_time > Time.parse('23:59')
       # get next 2 connects
-      connecting_train, next_connection = manulla_times.min_by(2) { |t| t.arr || t.dep }
+      connecting_train, next_connection = connecting_trains.min_by(2) { |t| t.manulla_time }
       # if can do full local trip generate train and add to timetable.
       # a connection train can be from B to connect with W or D going to D or W, or from W to connect with D, going to B.
       # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
-      # binding.pry
       if full_train_trip_possible(connecting_train, current_position, dep_time)
         add_local_train(current_position, dep_time)
       else
@@ -87,7 +84,7 @@ class Option2
         # the destination of the local train is determined by the direction of the connecting train
         add_connecting_train(connecting_train, current_position, dep_time, next_connection)
         # and pop off connecting trains queue
-        manulla_times.delete connecting_train
+        connecting_trains.delete connecting_train
       end
       # new dep_time and position
       arr_time = @local_trains.last.arr
@@ -102,9 +99,9 @@ class Option2
     return true unless _connecting_train
 
     # dwell, time from current position to get to opposite position and back to junction (if applicable)
-    trip_duration = if _connecting_train.dir == 'Westport' && _current_position == 'Westport'
+    trip_duration = if _connecting_train.to == 'Westport' && _current_position == 'Westport'
                       @full_trip + @min_dwell + @bal_block
-                    elsif _connecting_train.dir == 'Westport' && _current_position == 'Ballina'
+                    elsif _connecting_train.to == 'Westport' && _current_position == 'Ballina'
                       @full_trip + @min_dwell + @wes_block
                     elsif _current_position == 'Ballina' # to dublin
                       @full_trip + @min_dwell + @full_trip + @min_dwell + @bal_block
@@ -114,7 +111,7 @@ class Option2
                       return false
                     end
 
-    _dep_time + trip_duration < _connecting_train.time
+    _dep_time + trip_duration < _connecting_train.manulla_time
   end
 
   def add_local_train(current_position, dep_time)
@@ -136,13 +133,13 @@ class Option2
     # times must be relative to connection (and origin station) not _dep_time!
     dep = case _current_position
           when 'Ballina'
-            _connecting_train.time - @bal_block
+            _connecting_train.manulla_time - @bal_block
           when 'Castlebar'
-            _connecting_train.time -  @man_cas_block
+            _connecting_train.manulla_time -  @man_cas_block
           else
-            _connecting_train.time -  @wes_block
+            _connecting_train.manulla_time -  @wes_block
           end
-    arr = _connecting_train.time
+    arr = _connecting_train.manulla_time
     up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
 
     # train to connection from B or W dep on current position
@@ -150,7 +147,7 @@ class Option2
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @min_dwell
-    if _next_connection && (_next_connection.time - arr < ((@wes_block * 2) + @min_dwell))
+    if _next_connection && (_next_connection.manulla_time - arr < ((@wes_block * 2) + @min_dwell))
       end_station = 'Castlebar'
       arr = dep + @man_cas_block
     else
@@ -162,7 +159,7 @@ class Option2
 
   def as_ascii
     headers = %w[from to dep arr connection dwell]
-    rows = schedule_trains # .sort_by(&:dep)
+    rows = schedule_ballina_trains # .sort_by(&:dep)
     [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
       cur.position = if prev.nil?
                       0

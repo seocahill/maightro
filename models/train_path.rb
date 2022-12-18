@@ -27,8 +27,12 @@ class TrainPath
     attributes.map { |attr| send(attr) }
   end
 
-  def time
-    dep || arr
+  def manulla_time
+    if from == "Manulla Junction"
+      dep
+    else
+      arr # from Westport, arriving in Manulla
+    end
   end
 
   attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir, :position
