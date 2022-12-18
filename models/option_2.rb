@@ -161,7 +161,7 @@ class Option2
   end
 
   def as_ascii
-    headers = %w[path connection dep arr dwell]
+    headers = %w[from to dep arr connection dwell]
     rows = schedule_trains # .sort_by(&:dep)
     [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
       cur.position = if prev.nil?
@@ -170,7 +170,7 @@ class Option2
                       (cur.dep - prev.arr).fdiv(60).round
                     end
     end
-    puts Terminal::Table.new rows: rows.map(&:values), headings: headers, title: 'An Maightró', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows.map { |r| r.values.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
     # puts '========='
     # puts "ex Ballina: #{@rows.select do |r|
     #   r.from.split('-').first == 'Ballina'
