@@ -143,7 +143,7 @@ class Option2
     up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
 
     # train to connection from B or W dep on current position
-    @local_trains << TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla")
+    @local_trains << TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla", trip_id: _connecting_train.trip_id)
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @min_dwell
@@ -154,7 +154,7 @@ class Option2
       end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
       arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
     end
-    @local_trains << TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station)
+    @local_trains << TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: _connecting_train.trip_id)
   end
 
   def as_ascii
