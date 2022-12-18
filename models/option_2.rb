@@ -71,6 +71,7 @@ class Option2
 
     # generate local trains from initial departure time until latest arrival time
     # connection train is Westport - Dublin, local train is Ballina - Westport
+    @l_index = 0
     until arr_time > Time.parse('23:59')
       # get next 2 connects
       connecting_train, next_connection = connecting_trains.min_by(2) { |t| t.manulla_time }
@@ -79,6 +80,7 @@ class Option2
       # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
       if full_train_trip_possible(connecting_train, current_position, dep_time)
         add_local_train(current_position, dep_time)
+        @l_index += 1
       else
         # create train to meet connect
         # the destination of the local train is determined by the direction of the connecting train
@@ -117,7 +119,7 @@ class Option2
   def add_local_train(current_position, dep_time)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
     @local_trains << TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: dep_time + @full_trip,
-                                  position: end_station)
+                                  position: end_station, trip_id: "L-#{@l_index}")
   end
 
   def connection_info(_dir, _pos)
@@ -159,15 +161,24 @@ class Option2
 
   def as_ascii
     headers = %w[from to dep arr connection dwell]
-    rows = schedule_ballina_trains # .sort_by(&:dep)
-    [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
-      cur.position = if prev.nil?
-                      0
-                    else
-                      (cur.dep - prev.arr).fdiv(60).round
-                    end
-    end
-    puts Terminal::Table.new rows: rows.map { |r| r.values.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
+    rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
+      if t.length == 2
+        ot, rt = t
+        [ot.from, rt.to, ot.dep.strftime('%H:%M'), rt.arr.strftime('%H:%M'), (rt.arr - ot.dep).fdiv(60).round,
+                ot.trip_id]
+      else
+        [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
+                t.first.trip_id]
+      end
+    end # .sort_by(&:dep)
+    # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
+    #   cur.position = if prev.nil?
+    #                   0
+    #                 else
+    #                   (cur.dep - prev.arr).fdiv(60).round
+    #                 end
+    # end
+    puts Terminal::Table.new rows: rows.map { |r| r.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
     # puts '========='
     # puts "ex Ballina: #{@rows.select do |r|
     #   r.from.split('-').first == 'Ballina'
