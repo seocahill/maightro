@@ -59,8 +59,6 @@ class Option2
   def schedule_ballina_trains
     @results = JourneyPlanner.new.search(@date, @from, @to)
     timetable = Option1.new.train_trips
-    # manulla_times = timetable.map { |t| t.arr if t.to == "Manulla Junction" || t.dep if t.from == "Manulla Junction" }.compact.sort
-    # binding.pry
     connecting_trains = timetable.select { |t| [t.from, t.to].include? "Westport" }
     first_ballina_train = timetable.first
 
@@ -80,7 +78,6 @@ class Option2
       # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
       if full_train_trip_possible(connecting_train, current_position, dep_time)
         add_local_train(current_position, dep_time)
-        @l_index += 1
       else
         # create train to meet connect
         # the destination of the local train is determined by the direction of the connecting train
@@ -92,6 +89,7 @@ class Option2
       arr_time = @local_trains.last.arr
       dep_time = @local_trains.last.arr + @min_dwell
       current_position = @local_trains.last.position
+      @l_index += 1
     end
     @local_trains
   end
@@ -126,7 +124,6 @@ class Option2
     if _dir == 'Dublin Heuston' && _pos == 'Ballina'
       ['To Dublin', 'local']
     else
-      binding.pry
       ['local', 'From Dublin']
     end
   end
@@ -146,7 +143,9 @@ class Option2
     up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
 
     # train to connection from B or W dep on current position
-    @local_trains << TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla", trip_id: _connecting_train.trip_id)
+    # should only add trip id if connecting Ballina and West
+    trip_id = up_connection == "From Dublin" ? _connecting_train.trip_id : "L-#{@l_index}"
+    @local_trains << TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla", trip_id: trip_id)
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @min_dwell
@@ -157,22 +156,22 @@ class Option2
       end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
       arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
     end
-    @local_trains << TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: _connecting_train.trip_id)
+    trip_id = down_connection == "To Dublin" ? _connecting_train.trip_id : "L-#{@l_index}"
+    @local_trains << TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: trip_id)
   end
 
   def as_ascii
     headers = %w[from to dep arr connection dwell]
-    # rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
-    #   if t.length == 2
-    #     binding.pry
-    #     ot, rt = t
-    #     [ot.from, rt.to, ot.dep.strftime('%H:%M'), rt.arr.strftime('%H:%M'), (rt.arr - ot.dep).fdiv(60).round,
-    #             ot.trip_id]
-    #   else
-    #     [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
-    #             t.first.trip_id]
-    #   end
-    # end # .sort_by(&:dep)
+    rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
+      if t.length == 2
+        ot, rt = t
+        [ot.from, rt.to, ot.dep.strftime('%H:%M'), rt.arr.strftime('%H:%M'), (rt.arr - ot.dep).fdiv(60).round,
+                ot.trip_id]
+      else
+        [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
+                t.first.trip_id]
+      end
+    end # .sort_by(&:dep)
     # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
     #   cur.position = if prev.nil?
     #                   0
@@ -180,8 +179,7 @@ class Option2
     #                   (cur.dep - prev.arr).fdiv(60).round
     #                 end
     # end
-    rows = schedule_ballina_trains.map(&:values)
-    puts rows.count
+    # rows = schedule_ballina_trains.map(&:values)
     puts Terminal::Table.new rows: rows.map { |r| r.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
     # puts '========='
     # puts "ex Ballina: #{@rows.select do |r|
