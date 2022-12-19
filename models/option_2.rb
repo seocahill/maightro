@@ -143,9 +143,9 @@ class Option2
     up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
 
     # train to connection from B or W dep on current position
-    # should only add trip id if connecting Ballina and West
-    trip_id = up_connection == "From Dublin" ? _connecting_train.trip_id : "L-#{@l_index}"
-    @local_trains << TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla", trip_id: trip_id)
+    local_train = TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla")
+    local_train.trip_id = group_trains(_connecting_train, local_train)
+    @local_trains << local_train
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @min_dwell
@@ -156,8 +156,16 @@ class Option2
       end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
       arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
     end
-    trip_id = down_connection == "To Dublin" ? _connecting_train.trip_id : "L-#{@l_index}"
-    @local_trains << TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: trip_id)
+    local_train = TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station)
+    local_train.trip_id = group_trains(_connecting_train, local_train)
+    @local_trains << local_train
+  end
+
+  def group_trains(connecting_train, local_train)
+    # connection must be to or from westport
+    # local must be from Castlebar/Westport or Ballina
+    # one local train can be grouped with connecting train
+    # TODO
   end
 
   def as_ascii
