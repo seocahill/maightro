@@ -176,7 +176,7 @@ class Option2
 
   def as_ascii
     sort = %w[from to dep arr].index(@sort)
-    headers = %w[from to dep arr connection dwell]
+    headers = %w[from to dep arr duration connection]
     rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
       if t.length == 2
         ot, rt = t
