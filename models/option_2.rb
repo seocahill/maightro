@@ -161,7 +161,7 @@ class Option2
     down_train = TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: _connecting_train.trip_id)
     @local_trains << down_train
 
-    # adj to Castlebar if possible
+    # In the case where train from Ballina must meet down Dublin and return, adj to Castlebar if possible
     if up_train.from == "Ballina" && down_train.to == "Ballina"
       cbar_offset = (@man_cas_block * 2) + @min_dwell
       if up_train.dep - cbar_offset > prev_train.arr + @min_dwell
@@ -178,7 +178,7 @@ class Option2
 
   def as_ascii
     sort = %w[from to dep arr].index(@sort)
-    headers = %w[from to dep arr duration connection]
+    headers = %w[from to dep arr duration connection dwell]
     rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
       if t.length == 2
         ot, rt = t
@@ -189,6 +189,16 @@ class Option2
                 t.first.trip_id]
       end
     end.sort_by { |t| [t[2]] }
+
+    # calculate dwell
+    rows.each_cons(2) do |current, nxt|
+      unless nxt
+         current[6] = 0
+         next
+      end
+
+      current[6] = (Time.parse(nxt[2]) - Time.parse(current[3])).fdiv(60)
+    end
     # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
     #   cur.position = if prev.nil?
     #                   0
