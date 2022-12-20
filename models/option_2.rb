@@ -3,9 +3,11 @@
 
 # Direct Algorithm:
 # - Westport is infallible!  Ballina train is supine, BT must be at MJ to meet WT.
-# - In this simulation no freight paths are included. Variables like staff, fuel etc are assumed to be sufficient.
+# - In this simulation no freight paths are considered. Variables like staff, fuel etc are assumed to be sufficient.
 # - BMT duration is 27.  Minimum dwell is 3 minutes. WMT duration is 19 mins.
 # - Loop from start to end time creating local or connecting trains depending on path availability
+# - If full bal-wes is possible before next connection do it
+# - If next connection is from Ballina and must return to Ballina with down Dublin passengers, see if local train can run to Westport or Castlebar instead of just waiting.
 # Fixme: Train times overlap, shouldn't be possible
 
 require 'uri'
