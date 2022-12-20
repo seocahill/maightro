@@ -205,6 +205,9 @@ class Option2
     #   r.from.split('-').first.match(/(Castlebar|Westport)/)
     # end.map { |t| t.dep.strftime('%H:%M') }.join(', ')}"
     # puts '========='
+    counts = rows.group_by { |r| [r[0], r[1]] }.map { |g,t| g << t.count }
+    headers = %w[from to trains]
+    puts Terminal::Table.new rows: counts , headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
 end
 
