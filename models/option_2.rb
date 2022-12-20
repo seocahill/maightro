@@ -13,6 +13,8 @@ require 'json'
 require 'net/http'
 require 'pry'
 require 'pry-byebug'
+require 'pry-rescue'
+require 'pry-stack_explorer'
 
 require 'time'
 require 'terminal-table'
@@ -52,7 +54,6 @@ class Option2
     @from = from
     @to = to
     @sort = sort
-
     @local_trains = []
   end
 
@@ -117,7 +118,7 @@ class Option2
   def add_local_train(current_position, dep_time)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
     @local_trains << TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: dep_time + @full_trip,
-                                  position: end_station, trip_id: "L-#{@l_index}")
+                                  position: end_station, trip_id: "LT-#{@l_index}")
   end
 
   def connection_info(_dir, _pos)
@@ -141,11 +142,10 @@ class Option2
           end
     arr = _connecting_train.manulla_time
     up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
-
     # train to connection from B or W dep on current position
-    local_train = TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla")
-    local_train.trip_id = group_trains(_connecting_train, local_train)
-    @local_trains << local_train
+    prev_train = @local_trains.last
+    up_train = TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla", trip_id: _connecting_train.trip_id)
+    @local_trains << up_train
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @min_dwell
@@ -156,16 +156,21 @@ class Option2
       end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
       arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
     end
-    local_train = TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station)
-    local_train.trip_id = group_trains(_connecting_train, local_train)
-    @local_trains << local_train
-  end
+    down_train = TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: _connecting_train.trip_id)
+    @local_trains << down_train
 
-  def group_trains(connecting_train, local_train)
-    # connection must be to or from westport
-    # local must be from Castlebar/Westport or Ballina
-    # one local train can be grouped with connecting train
-    # TODO
+    # adj to Castlebar if possible
+    if up_train.from == "Ballina" && down_train.to == "Ballina"
+      cbar_offset = (@man_cas_block * 2) - @min_dwell
+      if up_train.dep - cbar_offset > prev_train.arr + @min_dwell
+        up_train.to = "Castlebar"
+        down_train.from = "Castlebar"
+        up_train.dep = up_train.dep - cbar_offset
+        down_train.dep = down_train.dep - @man_cas_block - @min_dwell
+        up_train.trip_id = "LC-#{@l_index}"
+      end
+    end
+    @local_trains
   end
 
   def as_ascii
@@ -187,7 +192,7 @@ class Option2
     #                   (cur.dep - prev.arr).fdiv(60).round
     #                 end
     # end
-    # rows = schedule_ballina_trains.map(&:values)
+    # rows = schedule_ballina_trains.map(&:values).sort_by { |t| t[4] }
     puts Terminal::Table.new rows: rows.map { |r| r.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
     # puts '========='
     # puts "ex Ballina: #{@rows.select do |r|
