@@ -161,11 +161,12 @@ class Option2
 
     # adj to Castlebar if possible
     if up_train.from == "Ballina" && down_train.to == "Ballina"
-      cbar_offset = (@man_cas_block * 2) - @min_dwell
+      cbar_offset = (@man_cas_block * 2) + @min_dwell
       if up_train.dep - cbar_offset > prev_train.arr + @min_dwell
         up_train.to = "Castlebar"
         down_train.from = "Castlebar"
         up_train.dep = up_train.dep - cbar_offset
+        up_train.arr = up_train.arr - cbar_offset + @man_cas_block
         down_train.dep = down_train.dep - @man_cas_block - @min_dwell
         up_train.trip_id = "LC-#{@l_index}"
       end
@@ -174,6 +175,7 @@ class Option2
   end
 
   def as_ascii
+    sort = %w[from to dep arr].index(@sort)
     headers = %w[from to dep arr connection dwell]
     rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
       if t.length == 2
@@ -184,7 +186,7 @@ class Option2
         [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
                 t.first.trip_id]
       end
-    end # .sort_by(&:dep)
+    end.sort_by { |t| [t[2]] }
     # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
     #   cur.position = if prev.nil?
     #                   0
