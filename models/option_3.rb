@@ -154,8 +154,8 @@ class Option3
                       (cur.dep - prev.arr).fdiv(60).round
                     end
     end
-    headers = %w[to from dep arr dwell]
-    puts Terminal::Table.new rows: rows.map(&:values), headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+    headers = %w[to from dep arr dwell connection]
+    puts Terminal::Table.new rows: rows.map { |t| [t.to, t.from, t.dep_time, t.arr_time, t.position, t.dir] }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services
     # puts '=' * 99

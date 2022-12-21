@@ -35,5 +35,13 @@ class TrainPath
     end
   end
 
+  def arr_time
+    arr.strftime("%H:%M")
+  end
+
+  def dep_time
+    dep.strftime("%H:%M")
+  end
+
   attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir, :position
 end
