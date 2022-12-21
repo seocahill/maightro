@@ -83,11 +83,11 @@ class Option3
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
     current_position = 'Claremorris'
-    connecting_trains = @local_trains.select { |t| [["Ballina", "Westport"], ["Ballina", "Castlebar"]].include? [t.from, t.to].sort }
+    @connecting_trains = @local_trains.select { |t| [["Ballina", "Westport"], ["Ballina", "Castlebar"]].include? [t.from, t.to].sort }
 
     until arr_time > Time.parse('23:59')
       # get next 2 connects
-      if connecting_train = connecting_trains.first
+      if connecting_train = @connecting_trains.first
         connecting_time = if connecting_train.from == 'Ballina'
           connecting_train.dep + @bal_block
         elsif  connecting_train.from == 'Westport'
@@ -124,7 +124,7 @@ class Option3
           @claremorris_trains << TrainPath.new(from: from, to: to, dir: connecting_train.dir, dep: dep_time, arr: arr_time,
                                               position: to)
           # and pop off connecting trains queue
-          @ballina_trains.delete connecting_train
+          @connecting_trains.delete connecting_train
         end
       else
         # just make local train
@@ -154,8 +154,8 @@ class Option3
                       (cur.dep - prev.arr).fdiv(60).round
                     end
     end
-    headers = %w[to from dep arr dwell connection]
-    puts Terminal::Table.new rows: rows.map { |t| [t.to, t.from, t.dep_time, t.arr_time, t.position, t.dir] }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+    headers = %w[from to dep arr dwell connection]
+    puts Terminal::Table.new rows: rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir] }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services
     # puts '=' * 99
