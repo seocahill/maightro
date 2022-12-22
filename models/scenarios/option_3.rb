@@ -162,14 +162,12 @@ class Option3
 
       prev.position = (cur.dep - prev.arr).fdiv(60).round
     end
-    rows
+    rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id] }
   end
 
   def as_ascii
     headers = %w[from to dep arr dwell dir connection]
-    puts Terminal::Table.new rows: rows.map { |t|
-                                     [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id]
-                                   }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services
     # puts '=' * 99

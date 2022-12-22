@@ -82,14 +82,14 @@ class Option3b
   end
 
   def rows
-    @haunis_trains.sort_by(&:dep)
+    @haunis_trains
+      .sort_by(&:dep)
+      .map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id] }
   end
 
   def as_ascii
     headers = %w[from to dep arr dwell dir connection]
-    puts Terminal::Table.new rows: rows.map { |t|
-                                     [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id]
-                                   }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services
     # puts '=' * 99
