@@ -81,8 +81,11 @@ class Option3b
     end
   end
 
+  def rows
+    @haunis_trains.sort_by(&:dep)
+  end
+
   def as_ascii
-    rows = (@haunis_trains).sort_by(&:dep)
     headers = %w[from to dep arr dwell dir connection]
     puts Terminal::Table.new rows: rows.map { |t|
                                      [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id]

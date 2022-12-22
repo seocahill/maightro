@@ -176,9 +176,7 @@ class Option2
     @local_trains
   end
 
-  def as_ascii
-    sort = %w[from to dep arr].index(@sort)
-    headers = %w[from to dep arr duration connection dwell]
+  def rows
     rows = schedule_ballina_trains.group_by(&:trip_id).map do |_g, t|
       if t.length == 2
         ot, rt = t
@@ -207,6 +205,12 @@ class Option2
     #                 end
     # end
     # rows = schedule_ballina_trains.map(&:values).sort_by { |t| t[4] }
+    rows
+  end
+
+  def as_ascii
+    sort = %w[from to dep arr].index(@sort)
+    headers = %w[from to dep arr duration connection dwell]
     puts Terminal::Table.new rows: rows.map(&:compact), headings: headers, title: 'An Maightró',
                              style: { all_separators: true }
     # puts '========='

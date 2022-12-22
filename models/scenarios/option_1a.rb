@@ -61,8 +61,7 @@ class Option1a
     ballina_trains + westport_trains + dub_trains
   end
 
-  def as_ascii
-    sort = %w[from to dep arr].index(@sort)
+  def rows
     rows = @train_trips.group_by(&:trip_id).map do |_g, t|
              if t.length == 2 && t.first.trip_id.include?('C-')
                bt, wt = t
@@ -90,7 +89,11 @@ class Option1a
       end
       nxt[6] = overlap.fdiv(60).abs
     end
+    rows
+  end
 
+  def as_ascii
+    sort = %w[from to dep arr].index(@sort)
     headers = %w[path connection dep arr duration trip_id dwell info]
     puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end

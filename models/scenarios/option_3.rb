@@ -155,13 +155,17 @@ class Option3
     (@claremorris_trains + @ic_trains).sort_by(&:dep)
   end
 
-  def as_ascii
+  def rows
     rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
     [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
       next if prev.nil?
 
       prev.position = (cur.dep - prev.arr).fdiv(60).round
     end
+    rows
+  end
+
+  def as_ascii
     headers = %w[from to dep arr dwell dir connection]
     puts Terminal::Table.new rows: rows.map { |t|
                                      [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id]
