@@ -39,7 +39,7 @@ class Option1
     end
   end
 
-  def as_ascii
+  def rows
     sort = %w[from to dep arr].index(@sort)
     rows = @train_trips
            .group_by(&:trip_id)
@@ -48,6 +48,9 @@ class Option1
               (t.last.arr - t.first.dep).fdiv(60).round]
            end
            .sort_by { |t| t[sort] }
+  end
+
+  def as_ascii
     headers = %w[from to dep arr dur]
     puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
