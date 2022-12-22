@@ -36,28 +36,25 @@ class Option3b
 
   def schedule_trains
     @ic_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
-
-    dep_time = Time.parse('05:00')
-    arr_time = Time.parse('05:00')
-    current_position = 'Ballyhaunis'
-
     @claremorris_trains = Option3.new.claremorris_trains
 
     until @claremorris_trains.empty?
       # get next 2 connects
       if connecting_train = @claremorris_trains.first
-        puts "processing #{connecting_train}"
         # calculate connecting time
-        connecting_time = @haunis_block
         # create train to meet connect
-        if current_position == 'Claremorris'
+        if connecting_train.from == 'Westport'
           # and block free
           # send train to haunis
           # @haunis_trains
+          connecting_train.arr += @haunis_block
+          connecting_train.to = "Ballyhaunis"
         else # going to Westport
           # if block free
           # start train from haunis instead
           # @haunis_trains
+          connecting_train.dep -= (@haunis_block + @min_dwell)
+          connecting_train.from = "Ballyhaunis"
         end
       end
       @haunis_trains << connecting_train
