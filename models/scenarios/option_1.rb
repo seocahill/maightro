@@ -48,6 +48,7 @@ class Option1
               (t.last.arr - t.first.dep).fdiv(60).round]
            end
            .sort_by { |t| t[sort] }
+    rows
   end
 
   def as_ascii

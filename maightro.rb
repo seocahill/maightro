@@ -7,10 +7,10 @@ require 'pry'
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
 get '/' do
-  @scenarios = %[option_1 option_1a option_2 option_3 option_3b]
   @timetables = []
-  @timetables = if params[:option]
-                  [Module.const_get(params[:option]).new.rows]
+  puts params.inspect
+  @timetables = if params["scenario"]
+                  [Module.const_get(params["scenario"]).new.rows]
                 else
                   []
                 end

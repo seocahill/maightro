@@ -4,18 +4,19 @@
       <!-- head -->
       <thead>
         <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Dep</th>
+          <th>Arr</th>
         </tr>
       </thead>
       <tbody>
-      <%= timetable.each do |row| %>
+      <% timetable.each do |row| %>
         <!-- row 1 -->
         <tr>
-        <%= row.each do |cell| %>
+        <% row[0..3].each do |cell| %>
           <td><%= cell %></td>
+        <% end %>
         </tr>
       <% end %>
       </tbody>
