@@ -152,6 +152,10 @@ class Option3
     end
   end
 
+  def claremorris_trains
+    (@claremorris_trains + @ic_trains).sort_by(&:dep)
+  end
+
   def as_ascii
     rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
     [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
