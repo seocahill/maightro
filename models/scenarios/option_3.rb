@@ -23,7 +23,6 @@ require 'terminal-table'
 require_relative '../journey_planner'
 require_relative 'option_2'
 
-
 # option 1 start from middle
 # start from Ballina, morning train. Finish in Ballina last connection to Westport.
 # make sure each Dublin-Wesport train is connected to:
@@ -42,7 +41,6 @@ require_relative 'option_2'
 # try 2 fallback to 1
 
 class Option3
-
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @min_dwell = 180
     @bal_block = 27 * 60
@@ -76,17 +74,17 @@ class Option3
     end
   end
 
-# Add claremorris local trains
+  # Add claremorris local trains
 
   def schedule_trains
     @ballina_trains = Option2.new.schedule_ballina_trains
-    @ic_trains = Option1.new(@date, "Claremorris", "Westport").train_trips
+    @ic_trains = Option1.new(@date, 'Claremorris', 'Westport').train_trips
 
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
     current_position = 'Claremorris'
     # the ballina castlebar trains are extended connectors ignore them
-    @connecting_trains = @ballina_trains.select { |t| [["Ballina", "Westport"]].include? [t.from, t.to].sort }
+    @connecting_trains = @ballina_trains.select { |t| [%w[Ballina Westport]].include? [t.from, t.to].sort }
 
     until arr_time > Time.parse('23:59')
       # get next 2 connects
@@ -99,22 +97,23 @@ class Option3
         if train_in_wrong_position(connecting_train, dep_time, current_position)
           train = if current_position == 'Claremorris'
                     # no dwell in manulla
-                    TrainPath.new(from: "Claremorris", to: "Westport", info: 'local', dep: dep_time,
-                                  arr: dep_time + @cla_block + @wes_block, position: 'Westport', trip_id: "LW")
+                    TrainPath.new(from: 'Claremorris', to: 'Westport', info: 'local', dep: dep_time,
+                                  arr: dep_time + @cla_block + @wes_block, position: 'Westport', trip_id: 'LW')
                   else
                     TrainPath.new(from: 'Westport', to: 'Claremorris', info: 'local', dep: dep_time,
-                                  arr: dep_time + @cla_block + @wes_block, position: 'Claremorris', trip_id: "LC")
+                                  arr: dep_time + @cla_block + @wes_block, position: 'Claremorris', trip_id: 'LC')
                   end
           @claremorris_trains << train
         else
           # calculate connecting time
-          connecting_time = if connecting_train.from == 'Ballina'
-            connecting_train.dep + @bal_block
-          elsif  connecting_train.from == 'Westport'
-            connecting_train.dep + @wes_block
-          else # castlebar
-            connecting_train.dep + @man_cas_block
-          end
+          connecting_time = case connecting_train.from
+                            when 'Ballina'
+                              connecting_train.dep + @bal_block
+                            when 'Westport'
+                              connecting_train.dep + @wes_block
+                            else # castlebar
+                              connecting_train.dep + @man_cas_block
+                            end
           # create train to meet connect
           if current_position == 'Claremorris'
             from = 'Claremorris'
@@ -129,20 +128,20 @@ class Option3
           end
 
           @claremorris_trains << TrainPath.new(from: from, to: to, dir: connecting_train.dir, dep: dep_time, arr: arr_time,
-                                              position: to, trip_id: connecting_train.trip_id)
+                                               position: to, trip_id: connecting_train.trip_id)
           # and pop off connecting trains queue
           @connecting_trains.delete connecting_train
         end
       else
         # just make local train
         local_train = if current_position == 'Claremorris'
-                                # no dwell in manulla
-                                TrainPath.new(from: 'Claremorris', to: 'Westport', dir: 'local', dep: dep_time,
-                                              arr: dep_time + @cla_block + @wes_block, position: 'Westport', trip_id: "LW")
-                              else
-                                TrainPath.new(from: 'Westport', to: 'Claremorris', dir: 'local', dep: dep_time,
-                                              arr: dep_time + @cla_block + @wes_block, position: 'Claremorris', trip_id: "LC")
-                              end
+                        # no dwell in manulla
+                        TrainPath.new(from: 'Claremorris', to: 'Westport', dir: 'local', dep: dep_time,
+                                      arr: dep_time + @cla_block + @wes_block, position: 'Westport', trip_id: 'LW')
+                      else
+                        TrainPath.new(from: 'Westport', to: 'Claremorris', dir: 'local', dep: dep_time,
+                                      arr: dep_time + @cla_block + @wes_block, position: 'Claremorris', trip_id: 'LC')
+                      end
         @claremorris_trains << local_train
       end
       # new dep_time and position
@@ -160,10 +159,13 @@ class Option3
     rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
     [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
       next if prev.nil?
+
       prev.position = (cur.dep - prev.arr).fdiv(60).round
     end
     headers = %w[from to dep arr dwell dir connection]
-    puts Terminal::Table.new rows: rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id] }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows.map { |t|
+                                     [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id]
+                                   }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services
     # puts '=' * 99
@@ -179,8 +181,8 @@ class Option3
   end
 
   def as_json
-    File.open("dispatch.json", "w") do |file|
-      file.write (@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
+    File.open('dispatch.json', 'w') do |file|
+      file.write(@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
     end
   end
 end

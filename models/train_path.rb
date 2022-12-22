@@ -28,7 +28,7 @@ class TrainPath
   end
 
   def manulla_time
-    if from == "Manulla Junction"
+    if from == 'Manulla Junction'
       dep
     else
       arr # from Westport, arriving in Manulla
@@ -36,11 +36,11 @@ class TrainPath
   end
 
   def arr_time
-    arr.strftime("%H:%M")
+    arr.strftime('%H:%M')
   end
 
   def dep_time
-    dep.strftime("%H:%M")
+    dep.strftime('%H:%M')
   end
 
   attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir, :position

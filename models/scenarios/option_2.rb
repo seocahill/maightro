@@ -24,7 +24,6 @@ require_relative '../journey_planner'
 require 'terminal-table'
 require_relative 'option_1'
 
-
 # option 1 start from middle
 # start from Ballina, morning train. Finish in Ballina last connection to Westport.
 # make sure each Dublin-Wesport train is connected to:
@@ -43,7 +42,6 @@ require_relative 'option_1'
 # try 2 fallback to 1
 
 class Option2
-
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @min_dwell = 180
     @bal_block = 27 * 60
@@ -62,7 +60,7 @@ class Option2
   def schedule_ballina_trains
     @results = JourneyPlanner.new.search(@date, @from, @to)
     timetable = Option1.new.train_trips
-    connecting_trains = timetable.select { |t| [t.from, t.to].include? "Westport" }
+    connecting_trains = timetable.select { |t| [t.from, t.to].include? 'Westport' }
     first_ballina_train = timetable.first
 
     dep_time = Time.parse('05:00')
@@ -75,7 +73,7 @@ class Option2
     @l_index = 0
     until arr_time > Time.parse('23:59')
       # get next 2 connects
-      connecting_train, next_connection = connecting_trains.min_by(2) { |t| t.manulla_time }
+      connecting_train, next_connection = connecting_trains.min_by(2, &:manulla_time)
       # if can do full local trip generate train and add to timetable.
       # a connection train can be from B to connect with W or D going to D or W, or from W to connect with D, going to B.
       # variables are: dir of connecting train, current position of Ballina train, time of connection, earliest time Ballina train can leave
@@ -120,7 +118,7 @@ class Option2
   def add_local_train(current_position, dep_time)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
     @local_trains << TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: dep_time + @full_trip,
-                                  position: end_station, trip_id: "LT-#{@l_index}")
+                                   position: end_station, trip_id: "LT-#{@l_index}")
   end
 
   def connection_info(_dir, _pos)
@@ -146,7 +144,8 @@ class Option2
     up_connection, down_connection = connection_info(_connecting_train.dir, _current_position)
     # train to connection from B or W dep on current position
     prev_train = @local_trains.last
-    up_train = TrainPath.new(from: _current_position, to: "Manulla", dir: up_connection, dep: dep, arr: arr, position: "Manulla", trip_id: _connecting_train.trip_id)
+    up_train = TrainPath.new(from: _current_position, to: 'Manulla', dir: up_connection, dep: dep, arr: arr,
+                             position: 'Manulla', trip_id: _connecting_train.trip_id)
     @local_trains << up_train
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
@@ -158,15 +157,16 @@ class Option2
       end_station = _connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
       arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
     end
-    down_train = TrainPath.new(from: "Manulla", to: end_station, dir: down_connection, dep: dep, arr: arr, position: end_station, trip_id: _connecting_train.trip_id)
+    down_train = TrainPath.new(from: 'Manulla', to: end_station, dir: down_connection, dep: dep, arr: arr,
+                               position: end_station, trip_id: _connecting_train.trip_id)
     @local_trains << down_train
 
     # In the case where train from Ballina must meet down Dublin and return, adj to Castlebar if possible
-    if up_train.from == "Ballina" && down_train.to == "Ballina"
+    if up_train.from == 'Ballina' && down_train.to == 'Ballina'
       cbar_offset = (@man_cas_block * 2) + @min_dwell
       if up_train.dep - cbar_offset > prev_train.arr + @min_dwell
-        up_train.to = "Castlebar"
-        down_train.from = "Castlebar"
+        up_train.to = 'Castlebar'
+        down_train.from = 'Castlebar'
         up_train.dep = up_train.dep - cbar_offset
         up_train.arr = up_train.arr - cbar_offset + @man_cas_block
         down_train.dep = down_train.dep - @man_cas_block - @min_dwell
@@ -183,18 +183,18 @@ class Option2
       if t.length == 2
         ot, rt = t
         [ot.from, rt.to, ot.dep.strftime('%H:%M'), rt.arr.strftime('%H:%M'), (rt.arr - ot.dep).fdiv(60).round,
-                ot.trip_id]
+         ot.trip_id]
       else
         [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'), (t.first.arr - t.first.dep).fdiv(60).round,
-                t.first.trip_id]
+         t.first.trip_id]
       end
     end.sort_by { |t| [t[2]] }
 
     # calculate dwell
     rows.each_cons(2) do |current, nxt|
       unless nxt
-         current[6] = 0
-         next
+        current[6] = 0
+        next
       end
 
       current[6] = (Time.parse(nxt[2]) - Time.parse(current[3])).fdiv(60)
@@ -207,7 +207,8 @@ class Option2
     #                 end
     # end
     # rows = schedule_ballina_trains.map(&:values).sort_by { |t| t[4] }
-    puts Terminal::Table.new rows: rows.map { |r| r.compact } , headings: headers, title: 'An Maightró', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows.map(&:compact), headings: headers, title: 'An Maightró',
+                             style: { all_separators: true }
     # puts '========='
     # puts "ex Ballina: #{@rows.select do |r|
     #   r.from.split('-').first == 'Ballina'
@@ -217,9 +218,9 @@ class Option2
     #   r.from.split('-').first.match(/(Castlebar|Westport)/)
     # end.map { |t| t.dep.strftime('%H:%M') }.join(', ')}"
     # puts '========='
-    counts = rows.group_by { |r| [r[0], r[1]] }.map { |g,t| g << t.count }
+    counts = rows.group_by { |r| [r[0], r[1]] }.map { |g, t| g << t.count }
     headers = %w[from to trains]
-    puts Terminal::Table.new rows: counts , headings: headers, title: 'An Maightró', style: { all_separators: true }
+    puts Terminal::Table.new rows: counts, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
 end
 

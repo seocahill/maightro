@@ -16,9 +16,7 @@ require 'terminal-table'
 require_relative '../journey_planner'
 require_relative 'option_3'
 
-
 class Option3b
-
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @min_dwell = 180
     @haunis_block = 16 * 60 # include 1 min dwell just to make it easier
@@ -36,7 +34,7 @@ class Option3b
   #### Ballyhaunis - Claremorris block
 
   def schedule_trains
-    @ic_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
+    @ic_trains = Option1.new(@date, 'Ballyhaunis', 'Westport').train_trips
     @claremorris_trains = Option3.new.claremorris_trains
 
     until @claremorris_trains.empty?
@@ -49,13 +47,13 @@ class Option3b
           # send train to haunis
           # @haunis_trains
           connecting_train.arr += @haunis_block
-          connecting_train.to = "Ballyhaunis"
+          connecting_train.to = 'Ballyhaunis'
         else # going to Westport
           # if block free
           # start train from haunis instead
           # @haunis_trains
           connecting_train.dep -= @haunis_block
-          connecting_train.from = "Ballyhaunis"
+          connecting_train.from = 'Ballyhaunis'
         end
       end
       @haunis_trains << connecting_train
@@ -70,15 +68,15 @@ class Option3b
       next if prev.nil?
 
       prev.position = (cur.dep - prev.arr).fdiv(60).round
-      if prev.position.negative?
-        p_cross_time = prev.from == "Westport" ? prev.arr - @haunis_block : prev.dep + @haunis_block
-        c_cross_time = cur.from == "Westport" ? cur.arr - @haunis_block : cur.dep + @haunis_block
-        if (p_cross_time - c_cross_time).abs <= 3
-          prev.dir = "crosses at " + p_cross_time.strftime("%H:%M")
-          cur.dir = "crosses at " + c_cross_time.strftime("%H:%M")
-        else
-          @haunis_trains.delete prev
-        end
+      next unless prev.position.negative?
+
+      p_cross_time = prev.from == 'Westport' ? prev.arr - @haunis_block : prev.dep + @haunis_block
+      c_cross_time = cur.from == 'Westport' ? cur.arr - @haunis_block : cur.dep + @haunis_block
+      if (p_cross_time - c_cross_time).abs <= 3
+        prev.dir = "crosses at #{p_cross_time.strftime('%H:%M')}"
+        cur.dir = "crosses at #{c_cross_time.strftime('%H:%M')}"
+      else
+        @haunis_trains.delete prev
       end
     end
   end
@@ -86,7 +84,9 @@ class Option3b
   def as_ascii
     rows = (@haunis_trains).sort_by(&:dep)
     headers = %w[from to dep arr dwell dir connection]
-    puts Terminal::Table.new rows: rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id] }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows.map { |t|
+                                     [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id]
+                                   }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services
     # puts '=' * 99
@@ -102,8 +102,8 @@ class Option3b
   end
 
   def as_json
-    File.open("dispatch.json", "w") do |file|
-      file.write (@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
+    File.open('dispatch.json', 'w') do |file|
+      file.write(@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
     end
   end
 end
