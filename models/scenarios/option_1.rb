@@ -7,9 +7,9 @@ require 'json'
 require 'pry'
 require 'time'
 require 'terminal-table'
-require_relative 'helper'
-require_relative 'journey_planner'
-require_relative 'train_path'
+require_relative '../helper'
+require_relative '../journey_planner'
+require_relative '../train_path'
 
 class Option1
   include Helper

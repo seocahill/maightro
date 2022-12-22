@@ -19,9 +19,9 @@ require 'pry-rescue'
 require 'pry-stack_explorer'
 
 require 'time'
-require 'terminal-table'
 require_relative 'option_2'
-require_relative 'journey_planner'
+require_relative '../journey_planner'
+require 'terminal-table'
 require_relative 'option_1'
 
 

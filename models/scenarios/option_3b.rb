@@ -13,7 +13,7 @@ require 'pry-stack_explorer'
 
 require 'time'
 require 'terminal-table'
-require_relative 'journey_planner'
+require_relative '../journey_planner'
 require_relative 'option_3'
 
 
