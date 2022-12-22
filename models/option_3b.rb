@@ -21,7 +21,8 @@ class Option3b
 
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @min_dwell = 180
-    @haunis_block = 15 * 3600
+    @haunis_block = 16 * 60 # include 1 min dwell just to make it easier
+    @clare_west_block = 37 * 60 # from tt.
 
     @date = date
     @from = from
@@ -53,21 +54,37 @@ class Option3b
           # if block free
           # start train from haunis instead
           # @haunis_trains
-          connecting_train.dep -= (@haunis_block + @min_dwell)
+          connecting_train.dep -= @haunis_block
           connecting_train.from = "Ballyhaunis"
         end
       end
       @haunis_trains << connecting_train
       @claremorris_trains.delete connecting_train
     end
+    attempt_to_cross_trains
+  end
+
+  def attempt_to_cross_trains
+    trains = @haunis_trains.sort_by(&:dep)
+    [nil, *trains, nil].each_cons(3) do |(prev, cur, _nxt)|
+      next if prev.nil?
+
+      prev.position = (cur.dep - prev.arr).fdiv(60).round
+      if prev.position.negative?
+        p_cross_time = prev.from == "Westport" ? prev.arr - @haunis_block : prev.dep + @haunis_block
+        c_cross_time = cur.from == "Westport" ? cur.arr - @haunis_block : cur.dep + @haunis_block
+        if (p_cross_time - c_cross_time).abs <= 3
+          prev.dir = "crosses at " + p_cross_time.strftime("%H:%M")
+          cur.dir = "crosses at " + c_cross_time.strftime("%H:%M")
+        else
+          @haunis_trains.delete prev
+        end
+      end
+    end
   end
 
   def as_ascii
     rows = (@haunis_trains).sort_by(&:dep)
-    [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
-      next if prev.nil?
-      prev.position = (cur.dep - prev.arr).fdiv(60).round
-    end
     headers = %w[from to dep arr dwell dir connection]
     puts Terminal::Table.new rows: rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id] }, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
