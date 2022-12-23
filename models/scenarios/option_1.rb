@@ -16,7 +16,7 @@ class Option1
 
   attr_reader :results, :train_trips
 
-  def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
+  def initialize(date = '20221222', sort = 'dep', from = 'Ballina', to = 'Westport')
     @results = JourneyPlanner.new.search(date, from, to)
     @sort = sort
     @train_trips = list_train_trips

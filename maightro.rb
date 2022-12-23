@@ -2,15 +2,17 @@
 
 require 'sinatra'
 require 'pry'
+require 'date'
 
 # pull in the helpers and controllers
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
 get '/' do
   @timetables = []
-  puts params.inspect
+  @default_date = Date.today.strftime "%Y-%m-%d"
   @timetables = if params["scenario"]
-                  [Module.const_get(params["scenario"]).new.rows]
+                  date = params["date"].split('-').join
+                  [Module.const_get(params["scenario"]).new(date, params["sort"]).rows]
                 else
                   []
                 end
