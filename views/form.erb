@@ -1,5 +1,5 @@
 <div class="mt-5 md:col-span-2 md:mt-0">
-<form method="GET" action="/">
+<form method="GET" hx-post="/timetable" hx-target="#table-and-form">
   <div class="overflow-hidden shadow sm:rounded-md">
     <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
       <div class="overflow-hidden shadow sm:rounded-md">
@@ -35,19 +35,6 @@
           <div class="flex items-center">
             <input id="push-nothing" name="scenario" value="Option3b" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
             <label for="push-nothing" class="ml-3 block text-sm font-medium text-gray-700">Ballyhaunis</label>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend class="contents text-base font-medium text-gray-900">Sort</legend>
-        <div class="mt-4 space-y-4">
-          <div class="flex items-center">
-            <input id="push-everything" name="sort" value="dep" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
-            <label for="push-everything" class="ml-3 block text-sm font-medium text-gray-700">By time</label>
-          </div>
-          <div class="flex items-center">
-            <input id="push-email" name="sort" value="from" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
-            <label for="push-email" class="ml-3 block text-sm font-medium text-gray-700">By station</label>
           </div>
         </div>
       </fieldset>

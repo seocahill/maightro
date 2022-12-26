@@ -19,4 +19,14 @@ get '/' do
   erb :index
 end
 
+post '/timetable' do
+  @timetables = []
+  @timetables = if params["scenario"]
+                  [Module.const_get(params["scenario"]).new.rows]
+                else
+                  []
+                end
+  erb :index
+end
+
 
