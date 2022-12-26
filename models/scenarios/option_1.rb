@@ -16,9 +16,8 @@ class Option1
 
   attr_reader :results, :train_trips
 
-  def initialize(date = '20221222', sort = 'dep', from = 'Ballina', to = 'Westport')
+  def initialize(date = '20221222', from = 'Ballina', to = 'Westport')
     @results = JourneyPlanner.new.search(date, from, to)
-    @sort = sort
     @train_trips = list_train_trips
   end
 
@@ -40,14 +39,13 @@ class Option1
   end
 
   def rows
-    sort = %w[from to dep arr].index(@sort)
     rows = @train_trips
            .group_by(&:trip_id)
            .map do |_g, t|
              [t.first.from, t.last.to, t.first.dep.strftime('%H:%M'), t.last.arr.strftime('%H:%M'),
               (t.last.arr - t.first.dep).fdiv(60).round]
            end
-           .sort_by { |t| t[sort] }
+           .sort_by { |t| t[2] }
     rows
   end
 

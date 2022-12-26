@@ -1,5 +1,13 @@
 # maightr-
 
+## Using
+
+- tailwind
+- htmx https://htmx.org/
+- sinatra
+- simple datatables https://github.com/fiduswriter/Simple-DataTables
+
+### Overview
 enter date - generate timetable
 
 
@@ -38,7 +46,7 @@ Maightro timetable, choose your flavour:
 
 
 ```
-Sure! Here is an outline of an algorithm that could be used to schedule trains on a single track with multiple stations:
+Pdeudocode:
 
     Initialize an empty schedule for the trains.
     Initialize a queue of trains waiting to enter the track, with the trains at the beginning of the queue being the ones that arrived first.

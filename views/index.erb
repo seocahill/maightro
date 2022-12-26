@@ -7,6 +7,6 @@
   <div id="table-and-form">
     <%= erb :form %>
     <hr>
-    <%= erb :timetable %>
+    <%= erb :timetable if @timetables.any? %>
   </div>
 </div>
