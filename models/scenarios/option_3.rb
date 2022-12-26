@@ -77,7 +77,7 @@ class Option3
   # Add claremorris local trains
 
   def schedule_trains
-    @ballina_trains = Option2.new.schedule_ballina_trains
+    @ballina_trains = Option2.new(@date).schedule_ballina_trains
     @ic_trains = Option1.new(@date, 'Claremorris', 'Westport').train_trips
 
     dep_time = Time.parse('05:00')

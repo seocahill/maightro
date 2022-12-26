@@ -35,7 +35,7 @@ class Option3b
 
   def schedule_trains
     @ic_trains = Option1.new(@date, 'Ballyhaunis', 'Westport').train_trips
-    @claremorris_trains = Option3.new.claremorris_trains
+    @claremorris_trains = Option3.new(@date).claremorris_trains
 
     until @claremorris_trains.empty?
       # get next 2 connects
