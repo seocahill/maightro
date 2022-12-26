@@ -26,7 +26,7 @@ post '/timetable' do
                 else
                   []
                 end
-  erb :index
+  erb :results
 end
 
 
