@@ -5,7 +5,7 @@
 require 'uri'
 require 'json'
 require 'net/http'
-require 'pry'
+# require 'pry'
 
 require 'time'
 require 'terminal-table'

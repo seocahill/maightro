@@ -4,7 +4,7 @@
 # Status quo
 
 require 'json'
-require 'pry'
+# require 'pry'
 require 'time'
 require 'terminal-table'
 require_relative '../helper'
