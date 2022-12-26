@@ -8,4 +8,8 @@ run \
 
 copy . ./
 
+env RACK_ENV=production
+
+expose 4567
+
 cmd ["ruby", "maightro.rb"]
