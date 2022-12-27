@@ -10,7 +10,7 @@ Dir.glob('./models/**/*.rb').each { |file| require file }
 get '/' do
   @timetables = []
   @default_date = Date.today.strftime "%Y-%m-%d"
-  @default_session = "Option1"
+  @default_scenario = "Option1"
   erb :index
 end
 
