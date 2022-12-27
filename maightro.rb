@@ -21,7 +21,7 @@ post '/timetable' do
 
   @timetables = if params["scenario"]
                   date = params["date"].split('-').join
-                  [Module.const_get(params["scenario"]).new(date).rows]
+                  [Module.const_get(params["scenario"]).new(date, params["from"], params["to"]).rows]
                 else
                   []
                 end

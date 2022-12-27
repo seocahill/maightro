@@ -13,7 +13,7 @@
         <div class="flex-1 flex flex-col md:flex-row">
           <div class="w-full flex-1 mx-2">
             <div class="my-2 p-1 bg-white  rounded">
-              <select class="form-select appearance-none
+              <select name="from" class="form-select appearance-none
                 block
                 w-full
                 px-3
@@ -28,10 +28,12 @@
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Starting station">
-                  <option selected value="1">Ballina</option>
-                  <option value="2">Foxford</option>
-                  <option value="3">Castlbar</option>
-                  <option value="3">Westport</option>
+                  <option selected value="Ballina">Ballina</option>
+                  <option value="Foxford">Foxford</option>
+                  <option value="Castlebar">Castlebar</option>
+                  <option value="Westport">Westport</option>
+                  <option value="Claremorris">Claremorris</option>
+                  <option value="Ballyhaunis">Ballyhaunis</option>
               </select>
             </div>
           </div>
@@ -39,7 +41,7 @@
         <div class="flex-1 flex flex-col md:flex-row">
           <div class="w-full flex-1 mx-2">
             <div class="my-2 p-1 bg-white flex rounded">
-              <select class="form-select appearance-none
+              <select name="to" class="form-select appearance-none
                 block
                 w-full
                 px-3
@@ -54,10 +56,12 @@
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="End station">
-                  <option value="1">Ballina</option>
-                  <option value="2">Foxford</option>
-                  <option value="3">Castlbar</option>
-                  <option selected value="3">Westport</option>
+                  <option value="Ballina">Ballina</option>
+                  <option value="Foxford">Foxford</option>
+                  <option value="Castlebar">Castlebar</option>
+                  <option selected value="Westport">Westport</option>
+                  <option value="Claremorris">Claremorris</option>
+                  <option value="Ballyhaunis">Ballyhaunis</option>
               </select>
             </div>
           </div>
@@ -70,7 +74,7 @@
         <div class="flex justify-center">
           <div class="form-check form-check-inline">
             <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1' %>checked<% end %> id="Option1" value="Option1">
-            <label class="form-check-label inline-block text-gray-800 pr-2" for="Option1">Status quo</label>
+            <label class="form-check-label inline-block text-gray-800 pr-2" for="Option1">Current</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1a' %>checked<% end %> id="Option1a" value="Option1a">
