@@ -28,12 +28,9 @@
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Starting station">
-                  <option selected value="Ballina">Ballina</option>
-                  <option value="Foxford">Foxford</option>
-                  <option value="Castlebar">Castlebar</option>
-                  <option value="Westport">Westport</option>
-                  <option value="Claremorris">Claremorris</option>
-                  <option value="Ballyhaunis">Ballyhaunis</option>
+                  <% @options.each do |opt| %>
+                  <option <% if @from == opt %>selected<% end %> value="<%= opt %>" ><%= opt %></option>
+                <% end %>
               </select>
             </div>
           </div>
@@ -56,12 +53,9 @@
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="End station">
-                  <option value="Ballina">Ballina</option>
-                  <option value="Foxford">Foxford</option>
-                  <option value="Castlebar">Castlebar</option>
-                  <option selected value="Westport">Westport</option>
-                  <option value="Claremorris">Claremorris</option>
-                  <option value="Ballyhaunis">Ballyhaunis</option>
+                <% @options.each do |opt| %>
+                  <option <% if @to == opt %>selected<% end %> value="<%= opt %>" ><%= opt %></option>
+                <% end %>
               </select>
             </div>
           </div>

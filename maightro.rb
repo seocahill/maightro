@@ -8,14 +8,20 @@ require 'date'
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
 get '/' do
+  @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
   @default_date = Date.today.strftime "%Y-%m-%d"
   @default_scenario = "Option1"
+  @to = "Westport"
+  @from = "Ballina"
   erb :index
 end
 
 post '/timetable' do
+  @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
+  @to = "Westport"
+  @from = "Ballina"
   @default_date = params['date']
   @default_scenario = params["scenario"]
 
