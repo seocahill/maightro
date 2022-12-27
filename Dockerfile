@@ -9,7 +9,8 @@ run \
 copy . ./
 
 env RACK_ENV=production
+env PORT="8080"
 
-expose 4567
+expose 8080
 
 cmd ["ruby", "maightro.rb"]
