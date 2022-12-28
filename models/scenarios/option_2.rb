@@ -21,6 +21,7 @@ require 'net/http'
 require 'time'
 require_relative 'option_2'
 require_relative '../journey_planner'
+require_relative '../helper'
 require 'terminal-table'
 require_relative 'option_1'
 
@@ -42,6 +43,8 @@ require_relative 'option_1'
 # try 2 fallback to 1
 
 class Option2
+  include Helper
+
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @min_dwell = 180
     @bal_block = 27 * 60
@@ -197,6 +200,11 @@ class Option2
 
       current[6] = (Time.parse(nxt[2]) - Time.parse(current[3])).fdiv(60)
     end
+
+    # calculate stops
+    rows.each do |r|
+       r << stops(r)
+    end
     # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
     #   cur.position = if prev.nil?
     #                   0
@@ -205,7 +213,6 @@ class Option2
     #                 end
     # end
     # rows = schedule_ballina_trains.map(&:values).sort_by { |t| t[4] }
-    rows
   end
 
   def as_ascii
