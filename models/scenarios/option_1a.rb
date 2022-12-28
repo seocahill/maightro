@@ -23,6 +23,8 @@ class Option1a
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @results = JourneyPlanner.new.search(date, from, to)
     @sort = sort
+    @from = from
+    @to = to
     @train_trips = list_train_trips
   end
 
@@ -90,6 +92,23 @@ class Option1a
       nxt[6] = overlap.fdiv(60).abs
     end
     rows
+
+    # calculate stops
+    rows.each do |r|
+      next unless stops = stops(r)
+
+      from = r[0] != "Ballina" ? @to : @from
+      if start = stops.detect {|stop| stop[0] == from }
+        r[0] = from
+        r[2] = start[1]
+      end
+
+      to = r[1] == "Ballina" ? @from : @to
+      if finish = stops.detect {|stop| stop[0] == to  }
+        r[1] = to
+        r[3] = finish[1]
+      end
+    end
   end
 
   def as_ascii

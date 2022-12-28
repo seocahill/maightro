@@ -39,7 +39,7 @@ module Helper
     elsif row[0] == "Ballina" && row[1] == "Castlebar"
       bw[0..1]
     elsif row[1] == "Ballina" && row[0] == "Castlebar"
-      wb[0..1]
+      wb[1..2]
     end
   end
 

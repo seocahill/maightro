@@ -203,7 +203,19 @@ class Option2
 
     # calculate stops
     rows.each do |r|
-       r << stops(r)
+      next unless stops = stops(r)
+
+      from = r[0] != "Ballina" ? @to : @from
+      if start = stops.detect {|stop| stop[0] == from }
+        r[0] = from
+        r[2] = start[1]
+      end
+
+      to = r[1] == "Ballina" ? @from : @to
+      if finish = stops.detect {|stop| stop[0] == to  }
+        r[1] = to
+        r[3] = finish[1]
+      end
     end
     # [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
     #   cur.position = if prev.nil?
