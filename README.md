@@ -98,3 +98,28 @@ def schedule_trains(trains)
 end
 
 ```
+
+Train scheduling is a complex problem that involves optimizing various objectives, such as minimizing travel time for passengers, maximizing the utilization of resources (e.g., trains, tracks, etc.), and minimizing operating costs. There are many algorithms and approaches that have been proposed to solve this problem, including mathematical programming, heuristics, and simulation-based approaches.
+
+Some examples of algorithms and approaches that have been used to solve train scheduling problems include:
+
+    Integer linear programming (ILP) models: These models formulate the train scheduling problem as a mathematical optimization problem, where the objective is to minimize a cost function (e.g., total travel time) subject to a set of constraints (e.g., track capacity, train availability, etc.). ILP models can provide optimal solutions, but they can be computationally expensive to solve for large-scale problems.
+
+    Heuristic algorithms: These algorithms use heuristics (i.e., rules of thumb) to generate feasible solutions to the train scheduling problem. Heuristic algorithms are often faster than ILP models, but they may not always produce optimal solutions. Examples of heuristic algorithms for train scheduling include simulated annealing, tabu search, and genetic algorithms.
+
+    Simulation-based approaches: These approaches use computer simulations to model the train scheduling problem and evaluate different scenarios. Simulation-based approaches can be used to optimize various objectives and take into account various constraints and uncertainties (e.g., delays, passenger demand, etc.).
+
+There are many research papers and articles that have been published on the topic of train scheduling. Some examples of papers that describe the problem in detail and propose algorithms and approaches for solving it include:
+
+    "A review of train scheduling models and algorithms" by X. Liu and K. G. Gebremedhin (Transportation Research Part B: Methodological, 2016)
+
+    "A simulation-based train scheduling model for the Norwegian railway network" by J. E. Rødseth and B. O. Næss (Transportation Research Part C: Emerging Technologies, 2009)
+
+    "A heuristic approach to the train scheduling problem" by J. M. Arroyo, J. M. Moreno-Pérez, and A. Muñoz (Transportation Research Part C: Emerging Technologies, 2003)
+
+I hope this information is helpful! Let me know if you have any further questions or if you would like further guidance on finding additional resources on the topic of train scheduling.
+
+
+ A greedy algorithm is an algorithmic paradigm that follows the problem-solving heuristic of making the locally optimal choice at each stage with the hope of finding a global optimum. The brute-force approach that we implemented does not follow this heuristic, as it simply checks all possible times without any regard for optimality.
+
+ This algorithm uses a greedy approach by finding the closest connection time that is later than the current time at each iteration, and scheduling the train to arrive at that connection time if it falls within a certain range around it. If the current time is not within this range, the train is scheduled to depart at the current time. The algorithm then advances the current time by the total trip time and repeats the process until the current time exceeds the last arrival time.

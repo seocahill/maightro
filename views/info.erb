@@ -1,0 +1,13 @@
+<% case @scenario %>
+  <% when "option1" then %>
+    <p class="x-auto mt-4 text-lg leading-8 text-gray-600 text-justify">If you live in Ballina or Foxford the current Maytró is pretty good! For other destinations there are just a handful of usable trains each day but the connections are lousy.</p>
+  <% when "option1a" then %>
+    <p class="x-auto mt-4 text-lg leading-8 text-gray-600 text-justify">The algorithm applied here simply organises the existing schedule to make the best connections. Still not many trains to Westport but all are usable at least.</p>
+  <% when "option2" then %>
+    <p class="x-auto mt-4 text-lg leading-8 text-gray-600 text-justify">This options maximises the use of the Ballina railcar while making sure it still connects with Dublin/Westport trains and would provide a frequent, mostly direct service between Ballina and Westport.</p>
+  <% when "option3" then %>
+    <p class="x-auto mt-4 text-lg leading-8 text-gray-600 text-justify">This option expands Maightró to Claremorris and would require another railcar like the Ballina one. Algorithm schedules trains to connect with Ballina service where possible.
+  <% when "option3b" then %>
+    <p class="x-auto mt-4 text-lg leading-8 text-gray-600 text-justify">This option extends the Claremorris local train to travel as far as Ballyhaunis, meaning five of the six most populous towns in Mayou would be on the Maytró. </p>
+<% end %>
+

@@ -11,17 +11,22 @@ get '/' do
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
   @default_date = Date.today.strftime "%Y-%m-%d"
-  @default_scenario = "Option1"
+  # @default_scenario = "Option1"
   @to = "Westport"
   @from = "Ballina"
   erb :index
 end
 
+get '/info' do
+  @scenario = params["scenario"].downcase
+  erb :info
+end
+
 post '/timetable' do
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
-  @to = "Westport"
-  @from = "Ballina"
+  @to = params["to"]
+  @from = params["from"]
   @default_date = params['date']
   @default_scenario = params["scenario"]
 
@@ -33,5 +38,3 @@ post '/timetable' do
                 end
   erb :results
 end
-
-
