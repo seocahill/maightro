@@ -7,6 +7,13 @@
 - sinatra
 - simple datatables https://github.com/fiduswriter/Simple-DataTables
 
+### Todo
+- all options should support to / from
+- fix datatables bug
+- filter just from column
+- perhaps more info on each timetable (e.g connections)
+- maybe price if available?
+
 ### Overview
 enter date - generate timetable
 
