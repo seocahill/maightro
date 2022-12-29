@@ -128,7 +128,7 @@ class Option3
           end
 
           @claremorris_trains << TrainPath.new(from: from, to: to, dir: connecting_train.dir, dep: dep_time, arr: arr_time,
-                                               position: to, trip_id: connecting_train.trip_id)
+                                               position: to, trip_id: connecting_train.trip_id, connection: connecting_train)
           # and pop off connecting trains queue
           @connecting_trains.delete connecting_train
         end
@@ -162,11 +162,13 @@ class Option3
 
       prev.position = (cur.dep - prev.arr).fdiv(60).round
     end
-    rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t.trip_id] }
+    rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t&.connection&.from, t&.connection&.to] }
+
+    # TODO add to / from filter: seem like it would be easier ot use consistant trip codes? or perhaps add a connect code?
   end
 
   def as_ascii
-    headers = %w[from to dep arr dwell dir connection]
+    headers = %w[from to dep arr dwell dir connect_from connect_to]
     puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
 
     ## WCW services

@@ -19,7 +19,7 @@ end
 
 get '/info' do
   @scenario = params["scenario"].downcase
-  erb :info
+  erb :info, layout: false
 end
 
 post '/timetable' do
@@ -36,5 +36,5 @@ post '/timetable' do
                 else
                   []
                 end
-  erb :results
+  erb :results, layout: false
 end
