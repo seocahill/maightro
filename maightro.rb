@@ -22,6 +22,10 @@ get '/info' do
   erb :info, layout: false
 end
 
+get '/about' do
+  erb :about
+end
+
 post '/timetable' do
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
