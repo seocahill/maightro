@@ -29,7 +29,6 @@ class BaseOption
     @stop_info = YAML.load(File.read("config.yaml"))
     @turnaround = 180.0 # min 3 minutes to reverse direction
     @dwell = 60.0 # max of arr - dep when present
-    binding.pry
   end
 
   def generate_configuration
