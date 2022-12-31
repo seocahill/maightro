@@ -19,8 +19,8 @@ class TrainPath
       dep: parse_time(train['dep']['dTimeS']),
       info: "to #{train['jny']['dirTxt']}",
       dir: train['jny']['dirTxt'],
-      trip_id: trip['cid']
-      stops: [] #FIXME
+      trip_id: trip['cid'],
+      stops: populate_stop_information(train, stations)
     )
   end
 

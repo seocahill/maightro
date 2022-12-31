@@ -33,6 +33,15 @@ module Helper
     end
   end
 
+  def populate_stop_information(train, stations)
+    train.dig('jny', 'stopL').map do |stop|
+      name = find_station(stop, stations)]
+      # dep time except for last stop
+      time = parse_time(stop["dTimeS"]) || parse_time(stop['aTimeS'])
+      [name, station]
+    end
+  end
+
   def stops(from, to, dep)
     results = [[from, dep]]
     current = dep

@@ -39,22 +39,29 @@ class Option1a
     local_idx = 0
 
     westport_trains.each do |wt|
+      # mark as covey train
+      wt.covey_id = wt.trip_id
       from = wt.dep - (29 * 60) # 27 min + 2 dwell/transfer
       # group costello
       stops = stops('Ballina', 'Manulla', from)
-      ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: wt.dep, trip_id: wt.trip_id, stops: stops)
+      wt.costello_id = wt.trip_id
+      ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: wt.dep, costello_id: wt.trip_id, stops: stops)
 
       arr_time = wt.dep + (27 * 60)
       # group nephin
       stops = stops('Manulla', 'Ballina', wt.dep)
+      wt.nephin_id =  wt.trip_id
       ballina_trains << TrainPath.new(from: 'Manulla', to: 'Ballina', dep: wt.dep, arr: arr_time,
-                                      trip_id: "L-#{local_idx}", stops: stops)
+                                      nephin_id: wt.trip_id, stops: stops)
       local_idx += 1
     end
 
     dub_trains.each do |dt|
+      # mark as covey train
+      dt.covey_id = dt.trip_id
       from = dt.arr - (29 * 60) # 27 min + 2 dwell/transfer
       # group nephin
+      dt.nephin_id =  dt.trip_id
       stops = stops('Ballina', 'Manulla', from)
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: dt.arr, trip_id: "L-#{local_idx}", stops: stops)
       local_idx += 1
@@ -62,6 +69,7 @@ class Option1a
       depart_time = dt.arr
       arr_time = depart_time + (27 * 60)
       # group costello
+      dt.costello_id =  dt.trip_id
       stops = stops('Manulla', 'Ballina', depart_time)
       ballina_trains << TrainPath.new(from: 'Manulla', to: 'Ballina', dep: depart_time, arr: arr_time,
                                       trip_id: dt.trip_id, stops: stops)
@@ -70,28 +78,22 @@ class Option1a
     ballina_trains + westport_trains + dub_trains
   end
 
-  # need to improve this, all destinations, al lines supported, how best to do?
-  # could continue grouping but need to also group Bal train and Claremorris Direction trains together
-  # then there would be three groups: Bal-Wes, Wes-Clare, Bal-Clare
-  # also add stops (should already by done tbf when trains are created, either manually or from IE api)
-  # search would select correct group first then filter trains by stop to deliver final results
-  # this solution should work globally
   def rows
-    # find out which line you need and then group based on that line
-    rows = @train_trips.group_by(&:trip_id).map do |_g, t|
-             if t.length == 2 && t.first.trip_id.include?('C-')
+    # find route group from search terms: nephin, covey, costello
+    route, stops = find_route(@from, @to)
+    # group by group trip ids
+    rows = @train_trips.group_by(&:"#{route}_id")
+    # fiter trains
+    rows.map do |_g, t|
+             if t.length == 2
                bt, wt = t
                [bt.from, wt.to, bt.dep.strftime('%H:%M'), wt.arr.strftime('%H:%M'), (wt.arr - bt.dep).fdiv(60).round,
                 bt.trip_id]
-             elsif t.length == 2 && t.first.trip_id.include?('R-')
-               bt, dt = t
-               [dt.from, bt.to, dt.dep.strftime('%H:%M'), bt.arr.strftime('%H:%M'), (bt.arr - dt.dep).fdiv(60).round,
-                dt.trip_id]
              else
                [t.first.from, t.first.to, t.first.dep.strftime('%H:%M'), t.first.arr.strftime('%H:%M'),
                 (t.first.arr - t.first.dep).fdiv(60).round, t.first.trip_id]
              end
-           end.compact.sort_by { |t| t[2] }.reject { |t| t[5].include?('L-') }
+           end.compact.sort_by { |t| t[2] }
 
     # check for clashes and adjust tt to fix
     rows[0][6] = 0 # first train has no dwell
