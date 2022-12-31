@@ -29,7 +29,7 @@ module Helper
     [nephin, covey, costello, nephin.reverse, covey.reverse, costello.reverse].each do |r|
       next unless sdx = r.index(from)
       next unless edx = r[sdx..].index(to)
-      return r[sdx..edx]
+      return [r, r[sdx..edx]]
     end
   end
 
