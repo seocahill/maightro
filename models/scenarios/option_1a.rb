@@ -32,6 +32,7 @@ class Option1a
     all_trips = Option1.new.train_trips
     ballina_trains = []
 
+    # covey trains already grouped
     westport_trains = all_trips.flatten.select { |t| t.info == 'to Westport' }
     dub_trains = all_trips.flatten.select { |t| t.info == 'to Dublin Heuston' }
 
@@ -39,31 +40,44 @@ class Option1a
 
     westport_trains.each do |wt|
       from = wt.dep - (29 * 60) # 27 min + 2 dwell/transfer
-      ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: wt.dep, trip_id: wt.trip_id)
+      # group costello
+      stops = stops('Ballina', 'Manulla', from)
+      ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: wt.dep, trip_id: wt.trip_id, stops: stops)
 
       arr_time = wt.dep + (27 * 60)
-      # trip id is nil here because this train is connection from Dublin, not Maightro
+      # group nephin
+      stops = stops('Manulla', 'Ballina', wt.dep)
       ballina_trains << TrainPath.new(from: 'Manulla', to: 'Ballina', dep: wt.dep, arr: arr_time,
-                                      trip_id: "L-#{local_idx}")
+                                      trip_id: "L-#{local_idx}", stops: stops)
       local_idx += 1
     end
 
     dub_trains.each do |dt|
       from = dt.arr - (29 * 60) # 27 min + 2 dwell/transfer
-      # trip id is nil here because this train is connection to Dublin, not Maightro
-      ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: dt.arr, trip_id: "L-#{local_idx}")
+      # group nephin
+      stops = stops('Ballina', 'Manulla', from)
+      ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla', dep: from, arr: dt.arr, trip_id: "L-#{local_idx}", stops: stops)
       local_idx += 1
 
       depart_time = dt.arr
       arr_time = depart_time + (27 * 60)
+      # group costello
+      stops = stops('Manulla', 'Ballina', depart_time)
       ballina_trains << TrainPath.new(from: 'Manulla', to: 'Ballina', dep: depart_time, arr: arr_time,
-                                      trip_id: dt.trip_id)
+                                      trip_id: dt.trip_id, stops: stops)
     end
 
     ballina_trains + westport_trains + dub_trains
   end
 
+  # need to improve this, all destinations, al lines supported, how best to do?
+  # could continue grouping but need to also group Bal train and Claremorris Direction trains together
+  # then there would be three groups: Bal-Wes, Wes-Clare, Bal-Clare
+  # also add stops (should already by done tbf when trains are created, either manually or from IE api)
+  # search would select correct group first then filter trains by stop to deliver final results
+  # this solution should work globally
   def rows
+    # find out which line you need and then group based on that line
     rows = @train_trips.group_by(&:trip_id).map do |_g, t|
              if t.length == 2 && t.first.trip_id.include?('C-')
                bt, wt = t

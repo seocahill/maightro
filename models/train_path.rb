@@ -8,7 +8,7 @@ class TrainPath
   include Helper
 
   def attributes
-    %i[from to dep arr dwell info trip_id dir position stops connection]
+    %i[from to dep arr dwell info trip_id dir position stops connection nephin_id covey_id costello_id]
   end
 
   def self.create(train, trip, stations)
@@ -20,6 +20,7 @@ class TrainPath
       info: "to #{train['jny']['dirTxt']}",
       dir: train['jny']['dirTxt'],
       trip_id: trip['cid']
+      stops: [] #FIXME
     )
   end
 
@@ -43,5 +44,7 @@ class TrainPath
     dep.strftime('%H:%M')
   end
 
-  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir, :position, :stops, :connection
+  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir,
+                :position, :stops, :connection, :nephin_id, :covey_id,
+                :costello_id
 end
