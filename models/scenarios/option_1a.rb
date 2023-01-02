@@ -52,13 +52,14 @@ class Option1a
       ic.covey_id = ic.trip_id
       ic.nephin_id = ic.trip_id
       ic.costello_id = ic.trip_id
-      from = ic.dep - (29 * 60) # 27 min + 2 dwell/transfer
+      time_at_junction = ic.stops.detect { |s| s[0] = 'Manulla Junction' }.dig(1)
+      from = time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
       # group costello
       stops = stops('Ballina', 'Manulla Junction', from)
       ic.costello_id = ic.trip_id
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: from, arr: ic.dep, costello_id: ic.trip_id, stops: stops)
 
-      depart_time = ic.arr
+      depart_time = time_at_junction
       arr_time = depart_time + (27 * 60)
       # group nephin
       stops = stops('Manulla Junction', 'Ballina', depart_time)
@@ -72,12 +73,14 @@ class Option1a
       ic.covey_id = ic.trip_id
       ic.costello_id = ic.trip_id
       ic.nephin_id = ic.trip_id
-      from = ic.dep - (29 * 60) # 27 min + 2 dwell/transfer
+      time_at_junction = ic.stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
+      from = time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
       # group nephin
       stops = stops('Ballina', 'Manulla Junction', from)
+      # binding.pry
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: from, arr: ic.dep, nephin_id: ic.trip_id, stops: stops)
 
-      depart_time = ic.arr
+      depart_time = time_at_junction
       arr_time = depart_time + (27 * 60)
       # group costello
       ic.costello_id =  ic.trip_id
