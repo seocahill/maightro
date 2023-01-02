@@ -45,7 +45,7 @@ class Option1
              [t.first.from, t.last.to, t.first.dep.strftime('%H:%M'), t.last.arr.strftime('%H:%M'),
               (t.last.arr - t.first.dep).fdiv(60).round]
            end
-           .sort_by { |t| t[2] }
+           .sort_by { |t| t[0] }
     rows
   end
 

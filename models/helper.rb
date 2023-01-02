@@ -22,30 +22,41 @@ module Helper
   # end
 
   def find_route(from, to)
-    nephin = ["Ballina", "Foxford", "Manulla Junction", "Castlebar", "Westport"]
-    covey = ["Westport", "Castlebar", "Manulla Junction", "Claremorris", "Ballyhaunis"]
-    costello = ["Ballyhaunis", "Claremorris", "Manulla Junction", "Foxford", "Ballina"]
+    routes = {
+      nephin: ["Ballina", "Foxford", "Manulla Junction", "Castlebar", "Westport"],
+      covey: ["Westport", "Castlebar", "Manulla Junction", "Claremorris", "Ballyhaunis"],
+      costello: ["Ballyhaunis", "Claremorris", "Manulla Junction", "Foxford", "Ballina"]
+    }
 
-    [nephin, covey, costello, nephin.reverse, covey.reverse, costello.reverse].each do |r|
-      next unless sdx = r.index(from)
-      next unless edx = r[sdx..].index(to)
-      return [r, r[sdx..edx]]
-    end
-  end
+    matched_routes = []
+    matched_stops = []
 
-  def populate_stop_information(train, stations)
-    train.dig('jny', 'stopL').map do |stop|
-      name = find_station(stop, stations)
-      # dep time except for last stop
-      time = parse_time(stop["dTimeS"]) || parse_time(stop['aTimeS'])
-      [name, station]
+    routes.each do |(route, stops)|
+      # out
+      if sdx = stops.index(from)
+        if edx = stops[sdx..].index(to)
+          matched_routes << route
+          matched_stops += stops[sdx..(sdx + edx)]
+        end
+      end
+
+      # back
+      back = stops.reverse
+      if sdx = back.index(from)
+        if edx = back[sdx..].index(to)
+          matched_routes << route
+          matched_stops += back[sdx..(sdx + edx)]
+        end
+      end
     end
+    [matched_routes.uniq, matched_stops.uniq]
   end
 
   def stops(from, to, dep)
     results = [[from, dep]]
     current = dep
-    find_route(from, to).each_cons(2) do |f,t|
+    route, stops = find_route(from, to)
+    stops.each_cons(2) do |f,t|
       next unless f && t
 
       current += (@stop_info[f][t] + @dwell)
@@ -87,7 +98,16 @@ module Helper
 
     def find_station(current, stations)
       index = current['locX']
-      stations.dig(index, 'name').split.first
+      stations.dig(index, 'name')
+    end
+
+    def populate_stop_information(train, stations)
+      train.dig('jny', 'stopL').map do |stop|
+        name = find_station(stop, stations)
+        # dep time except for last stop
+        time = parse_time(stop["dTimeS"]) || parse_time(stop['aTimeS'])
+        [name, time]
+      end
     end
   end
 end

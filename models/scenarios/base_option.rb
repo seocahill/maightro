@@ -44,7 +44,7 @@ class BaseOption
     end
 
     # covey
-    covey_line = JourneyPlanner.new.search(date, "Westport", "Claremorris")
+    covey_line = JourneyPlanner.new.search(date, "Westport", "Ballyhaunis")
     covey_line.trains_out.each do |trip|
       extract_trip_durations(trip, covey_line.stations)
     end

@@ -14,5 +14,8 @@ Castlebar:
 Claremorris:
   Castlebar: 1020.0
   Manulla Junction: 780.0
+  Ballyhaunis: 780.0
 Westport:
   Castlebar: 780.0
+Ballyhaunis:
+  Claremorris: 840.0
