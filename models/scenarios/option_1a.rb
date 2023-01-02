@@ -126,7 +126,6 @@ class Option1a
         # return train result for tt
         [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; ')]
       end.compact
-      binding.pry
       results += rows
     end
     results
