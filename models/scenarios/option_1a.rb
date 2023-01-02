@@ -124,9 +124,10 @@ class Option1a
         next unless stops[@from] && stops[@to]
         next unless stops[@from] < stops[@to]
         # return train result for tt
-        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; ')]
+        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
-      results += rows
+      # search will return dups for certain sections
+      rows.each { |row| results << row unless results.any? { |res| res[5] == row[5] } }
     end
     results
   end
