@@ -52,7 +52,7 @@ class Option1a
       ic.covey_id = ic.trip_id
       ic.nephin_id = ic.trip_id
       ic.costello_id = ic.trip_id
-      time_at_junction = ic.stops.detect { |s| s[0] = 'Manulla Junction' }.dig(1)
+      time_at_junction = ic.stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
       from = time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
       # group costello
       stops = stops('Ballina', 'Manulla Junction', from)
@@ -126,6 +126,7 @@ class Option1a
         # return train result for tt
         [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; ')]
       end.compact
+      binding.pry
       results += rows
     end
     results
