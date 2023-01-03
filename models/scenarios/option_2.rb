@@ -61,9 +61,7 @@ class Option2
   end
 
   def schedule_ballina_trains
-    timetable = Option1.new.train_trips
-    connecting_trains = timetable.select { |t| [t.from, t.to].include? 'Westport' }
-    first_ballina_train = timetable.first
+    connecting_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
 
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
