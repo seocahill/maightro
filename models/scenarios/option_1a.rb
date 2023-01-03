@@ -33,26 +33,26 @@ class Option1a
     @sort = sort
     @from = from
     @to = to
-    @train_trips = list_train_trips
+    @train_trips = schedule_train_trips
     fix_overlapping_trains # DEBUG
   end
 
-  def list_train_trips
-    all_trips = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
+  def schedule_train_trips
+    ic_trips = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
     ballina_trains = []
 
     # covey trains already grouped
-    dir_westport_trains = all_trips.flatten.select { |t| t.info == 'to Westport' }
-    dir_dub_trains = all_trips.flatten.select { |t| t.info == 'to Dublin Heuston' }
-    trip_time = duration('Ballina', 'Manulla Junction')
+    dir_westport_trains = ic_trips.flatten.select { |t| t.info == 'to Westport' }
+    dir_dub_trains = ic_trips.flatten.select { |t| t.info == 'to Dublin Heuston' }
+    branch_trip_time = duration('Ballina', 'Manulla Junction')
 
     dir_dub_trains.each do |ic|
-      dep_ballina = ic.time_at_junction - trip_time - @dwell
+      dep_ballina = ic.time_at_junction - branch_trip_time - @dwell
       # group costello
       stops = stops('Ballina', 'Manulla Junction', dep_ballina)
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: dep_ballina, arr: ic.dep, costello_id: ic.trip_id, stops: stops)
 
-      arr_time = ic.time_at_junction + trip_time
+      arr_time = ic.time_at_junction + branch_trip_time
       # group nephin
       stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction)
       ballina_trains << TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time,
@@ -61,13 +61,13 @@ class Option1a
 
     dir_westport_trains.each do |ic|
       # all routes!
-      dep_ballina = ic.time_at_junction - trip_time - @dwell
+      dep_ballina = ic.time_at_junction - branch_trip_time - @dwell
       # group nephin
       stops = stops('Ballina', 'Manulla Junction', dep_ballina)
       # binding.pry
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: dep_ballina, arr: ic.dep, nephin_id: ic.trip_id, stops: stops)
 
-      arr_time = ic.time_at_junction + trip_time
+      arr_time = ic.time_at_junction + branch_trip_time
       # group costello
       stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction)
       ballina_trains << TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time,
@@ -78,7 +78,7 @@ class Option1a
   end
 
   def fix_overlapping_trains
-    # TODO: when changing check path exists on Dublin - Wesport.
+    # TODO: when changing check path exists on Dublin - Westport.
      @train_trips.reject {|t| t.nephin_id.nil? }.group_by(&:nephin_id).sort_by {|trip_id, trains| trains.map(&:dep).min }.each_cons(2) do |current, nxt|
       current_train_arr = current[1].flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.max { |a,b| a[1] <=> b[1] }.dig(1)
       next_train_dep = nxt[1].flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.min { |a,b| a[1] <=> b[1] }.dig(1)
