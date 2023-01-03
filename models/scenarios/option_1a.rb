@@ -29,6 +29,7 @@ class Option1a
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @stop_info = YAML.load(File.read("config.yaml"))
     @dwell = 60.0
+    @turnaround = @dwell * 3
     @date = date
     @sort = sort
     @from = from
@@ -79,16 +80,18 @@ class Option1a
 
   def fix_overlapping_trains
     # TODO: when changing check path exists on Dublin - Westport.
-     @train_trips.reject {|t| t.nephin_id.nil? }.group_by(&:nephin_id).sort_by {|trip_id, trains| trains.map(&:dep).min }.each_cons(2) do |current, nxt|
+    sorted_nephin_trains = @train_trips.reject {|t| t.nephin_id.nil? }.group_by(&:nephin_id).sort_by {|trip_id, trains| trains.map(&:dep).min }
+    sorted_nephin_trains.each_cons(2) do |current, nxt|
       current_train_arr = current[1].flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.max { |a,b| a[1] <=> b[1] }.dig(1)
       next_train_dep = nxt[1].flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.min { |a,b| a[1] <=> b[1] }.dig(1)
       overlap = current_train_arr - next_train_dep
       if overlap.positive?
+        adjustment = overlap + @turnaround
         nxt[1].each do |train|
-          train.dep += (overlap + 180)
-          train.arr += (overlap + 180)
-          train.stops.each { |stop| stop[1] += (overlap + 180) }
-          train.info = "advanced by #{overlap.fdiv(60)} mins to avoid clash"
+          train.dep += adjustment
+          train.arr += adjustment
+          train.stops.each { |stop| stop[1] += adjustment }
+          train.info = "advanced by #{adjustment.fdiv(60)} mins to avoid clash"
         end
       end
     end
@@ -117,8 +120,8 @@ class Option1a
   end
 
   def as_ascii
-    sort = %w[from to dep arr].index(@sort)
-    headers = %w[from to dep arr]
+    headers = %w[from to dep arr info trip_id]
+    sort = headers.index(@sort)
     puts Terminal::Table.new rows: rows.sort_by { |r| r[sort] }, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
 end
