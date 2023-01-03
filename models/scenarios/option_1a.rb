@@ -5,14 +5,14 @@
 # Naive Algorithm:
 # - Find and fix useless trains
 # - Check if Ballina train can be inserted
-# - If that doesn't wor alter Westport making sure path is available.
+# - If that doesn't work alter Westport making sure path is available (todo)
 # - BMT duration is 27.  Minimum dwell is 3 minutes.
 
 ## TODO
-# - dups
-# - time dwells should match
-# - costello
-
+# - standardize time lookup
+# - refactor
+# - would be nice to check if train can be reschudled i.e
+# - get all trains on port - wes for window and see if can be crossed at station, adjust.
 
 require 'uri'
 require 'json'
