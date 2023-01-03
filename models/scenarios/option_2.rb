@@ -61,7 +61,6 @@ class Option2
   end
 
   def schedule_ballina_trains
-    @results = JourneyPlanner.new.search(@date, @from, @to)
     timetable = Option1.new.train_trips
     connecting_trains = timetable.select { |t| [t.from, t.to].include? 'Westport' }
     first_ballina_train = timetable.first
