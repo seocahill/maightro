@@ -14,18 +14,10 @@
 # - would be nice to check if train can be reschudled i.e
 # - get all trains on port - wes for window and see if can be crossed at station, adjust.
 
-require 'uri'
-require 'json'
-require 'net/http'
-# require 'pry'
-
-require 'time'
-require 'terminal-table'
 require_relative 'base_option'
 require_relative 'option_1'
 
 class Option1a < BaseOption
-  include Helper
 
   def exec_option
     @train_trips = schedule_train_trips
