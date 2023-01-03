@@ -14,17 +14,6 @@ require_relative '../train_path'
 class BaseOption
   include Helper
 
-=begin
-  # structure
-  "secL"=>
-   [{"type"=>"JNY",
-     "jny"=>
-      {
-       "stopL"=>
-        [{"locX"=>0, "dTimeS"=>"093500", "dDirTxt"=>"Manulla Junction"},
-         {"locX"=>2, "aTimeS"=>"094600",  "dTimeS"=>"094600"},
-         {"locX"=>1, "aTimeS"=>"100200", "aProgType"=>"PROGNOSED"}],
-=end
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @stop_info = YAML.load(File.read("config.yaml"))
     @dwell = 60.0
