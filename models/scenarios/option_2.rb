@@ -203,7 +203,7 @@ class Option2
 
     # calculate stops
     rows.each do |r|
-      next unless stops = stops(r)
+      next unless stops = _stops(r)
 
       from = r[0] != "Ballina" ? @to : @from
       if start = stops.detect {|stop| stop[0] == from }
@@ -244,6 +244,30 @@ class Option2
     counts = rows.group_by { |r| [r[0], r[1]] }.map { |g, t| g << t.count }
     headers = %w[from to trains]
     puts Terminal::Table.new rows: counts, headings: headers, title: 'An Maightró', style: { all_separators: true }
+  end
+
+  private
+
+  def _stops(row)
+    bw = [
+        ["Foxford", (Time.parse(row[2]) + (16*60)).strftime("%H:%M")],
+        ["Manulla", (Time.parse(row[2]) + (27*60)).strftime("%H:%M")],
+        ["Castlebar", (Time.parse(row[2]) + (36*60)).strftime("%H:%M")],
+      ]
+    wb = [
+      ["Castlebar", (Time.parse(row[2]) + (14*60)).strftime("%H:%M")],
+      ["Manulla", (Time.parse(row[2]) + (20*60)).strftime("%H:%M")],
+      ["Foxford", (Time.parse(row[2]) + (31*60)).strftime("%H:%M")],
+      ]
+    if row[0] == "Ballina" && row[1] == "Westport"
+      bw
+    elsif row[1] == "Ballina" && row[0] == "Westport"
+      wb
+    elsif row[0] == "Ballina" && row[1] == "Castlebar"
+      bw[0..1]
+    elsif row[1] == "Ballina" && row[0] == "Castlebar"
+      wb[1..2]
+    end
   end
 end
 

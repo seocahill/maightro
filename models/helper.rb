@@ -61,7 +61,7 @@ module Helper
     results
   end
 
-  def duration(from, to)
+  def total_duration(from, to)
     _routes, stops = find_route(from, to)
     stops.each_cons(2).map do |f, t|
       @stop_info[f][t]
