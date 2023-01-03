@@ -41,51 +41,35 @@ class Option1a
     all_trips = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
     ballina_trains = []
 
-    # FIXME group keys are wrong somehow
-
     # covey trains already grouped
     dir_westport_trains = all_trips.flatten.select { |t| t.info == 'to Westport' }
     dir_dub_trains = all_trips.flatten.select { |t| t.info == 'to Dublin Heuston' }
 
     dir_dub_trains.each do |ic|
-      # mark as covey and nephin train
-      ic.covey_id = ic.trip_id
-      ic.nephin_id = ic.trip_id
-      ic.costello_id = ic.trip_id
-      time_at_junction = ic.stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
-      from = time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
+      from = ic.time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
       # group costello
       stops = stops('Ballina', 'Manulla Junction', from)
-      ic.costello_id = ic.trip_id
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: from, arr: ic.dep, costello_id: ic.trip_id, stops: stops)
 
-      depart_time = time_at_junction
-      arr_time = depart_time + (27 * 60)
+      arr_time = ic.time_at_junction + (27 * 60)
       # group nephin
-      stops = stops('Manulla Junction', 'Ballina', depart_time)
-      ic.nephin_id =  ic.trip_id
-      ballina_trains << TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: depart_time, arr: arr_time,
+      stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction)
+      ballina_trains << TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time,
                                       nephin_id: ic.trip_id, stops: stops)
     end
 
     dir_westport_trains.each do |ic|
       # all routes!
-      ic.covey_id = ic.trip_id
-      ic.costello_id = ic.trip_id
-      ic.nephin_id = ic.trip_id
-      time_at_junction = ic.stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
-      from = time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
+      from = ic.time_at_junction - (29 * 60) # 27 min + 2 dwell/transfer
       # group nephin
       stops = stops('Ballina', 'Manulla Junction', from)
       # binding.pry
       ballina_trains << TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: from, arr: ic.dep, nephin_id: ic.trip_id, stops: stops)
 
-      depart_time = time_at_junction
-      arr_time = depart_time + (27 * 60)
+      arr_time = ic.time_at_junction + (27 * 60)
       # group costello
-      ic.costello_id =  ic.trip_id
-      stops = stops('Manulla Junction', 'Ballina', depart_time)
-      ballina_trains << TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: depart_time, arr: arr_time,
+      stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction)
+      ballina_trains << TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time,
                                       costello_id: ic.trip_id, stops: stops)
     end
 
@@ -93,8 +77,7 @@ class Option1a
   end
 
   def fix_overlapping_trains
-    # ballina westport connections need to be optimized
-    # need to sort that's the issue
+    # TODO: when changing check path exists on Dublin - Wesport.
      @train_trips.reject {|t| t.nephin_id.nil? }.group_by(&:nephin_id).sort_by {|trip_id, trains| trains.map(&:dep).min }.each_cons(2) do |current, nxt|
       current_train_arr = current[1].flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.max { |a,b| a[1] <=> b[1] }.dig(1)
       next_train_dep = nxt[1].flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.min { |a,b| a[1] <=> b[1] }.dig(1)
@@ -111,10 +94,10 @@ class Option1a
   end
 
   def rows
+    results = []
     # find route group from search terms: nephin, covey, costello
     routes, _stops = find_route(@from, @to)
     # seach can return multiple routes
-    results = []
     routes.each do |route|
       # group by group trip ids
       rows = @train_trips.reject { |t| t.send("#{route}_id").nil? }.group_by(&:"#{route}_id").map do |trip_id, trains|
@@ -126,7 +109,7 @@ class Option1a
         # return train result for tt
         [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
-      # search will return dups for certain sections
+      # search will return dups for certain sections, unique on trip (route) id
       rows.each { |row| results << row unless results.any? { |res| res[5] == row[5] } }
     end
     results

@@ -20,8 +20,15 @@ class TrainPath
       info: "to #{train['jny']['dirTxt']}",
       dir: train['jny']['dirTxt'],
       trip_id: trip['cid'],
+      covey_id: trip['cid'],
+      nephin_id: trip['cid'],
+      costello_id: trip['cid'],
       stops: populate_stop_information(train, stations)
     )
+  end
+
+  def time_at_junction
+    stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
   end
 
   def values
