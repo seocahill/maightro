@@ -9,13 +9,13 @@ class Option2Test < Test::Unit::TestCase
     @wb = Option2.new("20221222", "Westport", "Ballina").rows
     @bc = Option2.new("20221222", "Ballina", "Castlebar").rows
     @cb = Option2.new("20221222", "Castlebar", "Ballina").rows
-    @covey = Option2.new("20221222", "Claremorris", "Foxford").rows
+    @covey = Option2.new("20221222", "Claremorris", "Westport").rows
+    @costello = Option2.new("20221222", "Ballyhaunis", "Foxford").rows
   end
 
   def test_min_dwell
     # can't be less than 3 minutes
     rows = (@bw + @wb).sort_by { |r| r[2] }
-    # binding.pry # duration is wrong taking 53 mins instead of 49?
     # assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
   end
 
@@ -51,5 +51,9 @@ class Option2Test < Test::Unit::TestCase
 
   def test_covey
     assert_equal @covey.count, 5
+  end
+
+  def test_costello
+    assert_equal @costello.count, 5
   end
 end

@@ -67,7 +67,7 @@ class Option2 < BaseOption
         # the destination of the local train is determined by the direction of the connecting train
         add_connecting_train(connecting_train, current_position, dep_time, next_connection)
         # and pop off connecting trains queue
-        # @ic_trains << connecting_train
+        @ic_trains << connecting_train
         connecting_trains.delete connecting_train
       end
       # new dep_time and position
@@ -84,19 +84,23 @@ class Option2 < BaseOption
     return true unless connecting_train
 
     # dwell, time from current position to get to opposite position and back to junction (if applicable)
-    trip_duration = if connecting_train.to == 'Westport' && current_position == 'Westport'
-                      @full_trip + @turnaround + @bal_block
-                    elsif connecting_train.to == 'Westport' && current_position == 'Ballina'
-                      @full_trip + @turnaround + @wes_block
-                    elsif current_position == 'Ballina' # to dublin
-                      @full_trip + @turnaround + @full_trip + @turnaround + @bal_block
-                    elsif current_position == 'Westport'
-                      @full_trip + @turnaround + @bal_block
-                    elsif current_position == 'Castlebar'
-                      return false
-                    end
+    trip_duration = duration_of_trip_and_connection(connecting_train, current_position)
 
     dep_time + trip_duration < connecting_train.time_at_junction
+  end
+
+  def duration_of_trip_and_connection(connecting_train, current_position)
+    if connecting_train.to == 'Westport' && current_position == 'Westport'
+      @full_trip + @turnaround + @bal_block
+    elsif connecting_train.to == 'Westport' && current_position == 'Ballina'
+      @full_trip + @turnaround + @wes_block
+    elsif current_position == 'Ballina' # to dublin
+      @full_trip + @turnaround + @full_trip + @turnaround + @bal_block
+    elsif current_position == 'Westport'
+      @full_trip + @turnaround + @bal_block
+    elsif current_position == 'Castlebar'
+      (@full_trip * 2) # this will evaluate to false
+    end
   end
 
   def add_local_train(current_position, dep_time)
@@ -107,12 +111,10 @@ class Option2 < BaseOption
                                    position: end_station, trip_id: trip_id, nephin_id: trip_id, stops: stops)
   end
 
-  def connection_info(_dir, _pos)
-    if _dir == 'Dublin Heuston' && _pos == 'Ballina'
-      ['To Dublin', 'local']
-    else
-      ['local', 'From Dublin']
-    end
+  def connection_info(dir, pos)
+    return ['To Dublin', 'local'] if (dir == 'Dublin Heuston' && pos == 'Ballina')
+
+    ['local', 'From Dublin']
   end
 
   # will comprise of two trips as railcar is always in B or W and must meet connect at M
@@ -125,8 +127,16 @@ class Option2 < BaseOption
     # train to connection from B or W dep on current position
     prev_train = @local_trains.last
     stops = stops(current_position, 'Manulla Junction', dep)
+
     up_train = TrainPath.new(from: current_position, to: 'Manulla Junction', dir: up_connection, dep: dep, arr: arr,
-                             position: 'Manulla Junction', trip_id: connecting_train.trip_id, nephin_id: connecting_train.trip_id, stops: stops)
+                             position: 'Manulla Junction', stops: stops)
+
+    # assign train to up route/s
+    find_route(current_position, connecting_train.stops.last[0]).dig(0).each do |route|
+      up_train.send("#{route}_id=", connecting_train.trip_id)
+    end
+
+    # add train to collection
     @local_trains << up_train
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
@@ -140,7 +150,12 @@ class Option2 < BaseOption
     end
     stops = stops('Manulla Junction', end_station, dep)
     down_train = TrainPath.new(from: 'Manulla Junction', to: end_station, dir: down_connection, dep: dep, arr: arr,
-                               position: end_station, trip_id: connecting_train.trip_id, nephin_id: connecting_train.trip_id, stops: stops)
+                               position: end_station, stops: stops)
+    # assign train to down route/s
+    find_route(connecting_train.stops.first[0], end_station).dig(0).each do |route|
+      down_train.send("#{route}_id=", connecting_train.trip_id)
+    end
+
     @local_trains << down_train
 
     # In the case where train from Ballina must meet down Dublin and return, adj to Castlebar if possible
