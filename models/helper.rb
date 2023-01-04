@@ -55,7 +55,8 @@ module Helper
     stops.each_cons(2) do |f,t|
       next unless f && t
 
-      current += (@stop_info[f][t] + @dwell)
+      # seems like dwell is included already
+      current += @stop_info[f][t]
       results << [t, current]
     end
     results

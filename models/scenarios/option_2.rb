@@ -10,11 +10,6 @@
 # - If next connection is from Ballina and must return to Ballina with down Dublin passengers, see if local train can run to Westport or Castlebar instead of just waiting.
 # Fixme: Train times overlap, shouldn't be possible
 
-# require 'pry'
-# require 'pry-byebug'
-# require 'pry-rescue'
-# require 'pry-stack_explorer'
-
 require_relative 'base_option'
 require_relative 'option_1'
 
@@ -120,16 +115,16 @@ class Option2 < BaseOption
 
   def add_connecting_train(connecting_train, current_position, _dep_time, next_connection)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
-    # times must be relative to connection (and origin station) not _dep_time!
+    # "time at junction" is actually time departing junction, add 1 min dwell
+    arr = connecting_train.time_at_junction - @dwell
     dep = case current_position
           when 'Ballina'
-            connecting_train.time_at_junction - @bal_block
+            arr - @bal_block
           when 'Castlebar'
-            connecting_train.time_at_junction -  @man_cas_block
+            arr - @man_cas_block
           else
-            connecting_train.time_at_junction -  @wes_block
+            arr - @wes_block
           end
-    arr = connecting_train.time_at_junction
     up_connection, down_connection = connection_info(connecting_train.dir, current_position)
     # train to connection from B or W dep on current position
     prev_train = @local_trains.last
@@ -140,7 +135,7 @@ class Option2 < BaseOption
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @turnaround
-    if next_connection && (next_connection.time_at_junction - arr < ((@wes_block * 2) + @turnaround))
+    if next_connection && (next_connection.time_at_junction - @dwell - arr < ((@wes_block * 2) + @turnaround))
       end_station = 'Castlebar'
       arr = dep + @man_cas_block
     else
@@ -159,10 +154,10 @@ class Option2 < BaseOption
         up_train.to = 'Castlebar'
         down_train.from = 'Castlebar'
         up_train.dep = up_train.dep - cbar_offset
-        up_train.stops = stops('Castlebar', up_train.to, up_train.dep)
+        up_train.stops = stops(up_train.from, up_train.to, up_train.dep)
         up_train.arr = up_train.arr - cbar_offset + @man_cas_block
         down_train.dep = down_train.dep - @man_cas_block - @turnaround
-        down_train.stops = stops(down_train.from, 'Castlebar', down_train.dep)
+        down_train.stops = stops(down_train.from, down_train.to, down_train.dep)
         up_train.trip_id = "LC-#{@l_index}"
         up_train.nephin_id = up_train.trip_id
       end
