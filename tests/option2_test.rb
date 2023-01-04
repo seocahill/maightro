@@ -9,6 +9,7 @@ class Option2Test < Test::Unit::TestCase
     @wb = Option2.new("20221222", "Westport", "Ballina").rows
     @bc = Option2.new("20221222", "Ballina", "Castlebar").rows
     @cb = Option2.new("20221222", "Castlebar", "Ballina").rows
+    @covey = Option2.new("20221222", "Claremorris", "Foxford").rows
   end
 
   def test_min_dwell
@@ -46,5 +47,9 @@ class Option2Test < Test::Unit::TestCase
     assert_equal Option2.new.stops("Westport", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), man_arr
     wes_arr = Time.parse("12:23")
     assert_equal Option2.new.stops("Manulla Junction", "Westport", dep).max_by { |t| t[1] }.dig(1), wes_arr
+  end
+
+  def test_covey
+    assert_equal @covey.count, 5
   end
 end

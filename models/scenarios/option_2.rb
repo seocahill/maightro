@@ -41,6 +41,7 @@ class Option2 < BaseOption
     @wes_block = duration("Westport", "Manulla Junction")
     @man_cas_block = duration("Castlebar", "Manulla Junction")
     @local_trains = []
+    @ic_trains = []
 
     @full_trip = @bal_block + @turnaround + @wes_block
     connecting_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
@@ -66,6 +67,7 @@ class Option2 < BaseOption
         # the destination of the local train is determined by the direction of the connecting train
         add_connecting_train(connecting_train, current_position, dep_time, next_connection)
         # and pop off connecting trains queue
+        # @ic_trains << connecting_train
         connecting_trains.delete connecting_train
       end
       # new dep_time and position
@@ -74,7 +76,7 @@ class Option2 < BaseOption
       current_position = @local_trains.last.position
       @l_index += 1
     end
-    @local_trains
+    @local_trains + @ic_trains
   end
 
   def full_train_trip_possible(connecting_train, current_position, dep_time)
@@ -113,18 +115,12 @@ class Option2 < BaseOption
     end
   end
 
+  # will comprise of two trips as railcar is always in B or W and must meet connect at M
   def add_connecting_train(connecting_train, current_position, _dep_time, next_connection)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
     # "time at junction" is actually time departing junction, add 1 min dwell
     arr = connecting_train.time_at_junction - @dwell
-    dep = case current_position
-          when 'Ballina'
-            arr - @bal_block
-          when 'Castlebar'
-            arr - @man_cas_block
-          else
-            arr - @wes_block
-          end
+    dep = arr - duration(current_position, 'Manulla Junction')
     up_connection, down_connection = connection_info(connecting_train.dir, current_position)
     # train to connection from B or W dep on current position
     prev_train = @local_trains.last
