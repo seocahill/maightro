@@ -90,6 +90,7 @@ class Option3 < BaseOption
         # if connecting_train&.trip_id =~ /^(C|R)-[0-9]$/
         #   @connecting_trains.delete connecting_train
         if train_in_wrong_position(connecting_train, current_position)
+
           train = if current_position == 'Claremorris'
                     # no dwell in manulla
                     arr_time = dep_time + duration("Claremorris", "Westport")
@@ -104,17 +105,18 @@ class Option3 < BaseOption
                   end
           @claremorris_trains << train
         else
+
           # create train to meet connect
           train = if current_position == 'Claremorris'
                     dep_time = connecting_train.time_at_junction - duration("Claremorris", "Manulla Junction")
                     arr_time = dep_time + @dwell + duration("Manulla Junction", "Westport")
                     stops = stops("Claremorris", "Westport", dep_time)
-                    TrainPath.new(from: 'Claremorris', to: 'Westport', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops)
+                    TrainPath.new(from: 'Claremorris', to: 'Westport', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops, covey_return_id: trip_id)
                   else
                     dep_time = connecting_train.time_at_junction - duration("Westport", "Manulla Junction")
                     arr_time = dep_time + @dwell + duration("Manulla Junction", "Claremorris")
                     stops = stops("Westport", "Claremorris", dep_time)
-                    TrainPath.new(from: 'Westport', to: 'Claremorris', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops)
+                    TrainPath.new(from: 'Westport', to: 'Claremorris', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops, covey_id: trip_id)
                   end
           # from: uptrain origin, to: connecting train destination
           if route = find_route(train.from, connecting_train.stops.last[0]).dig(0)

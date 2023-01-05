@@ -10,7 +10,7 @@ class Option3Test < Test::Unit::TestCase
     @bc = Option3.new("20221222", "Ballina", "Castlebar").rows
     @cb = Option3.new("20221222", "Castlebar", "Ballina").rows
     @covey = Option3.new("20221222", "Claremorris", "Westport").rows
-    @covey_ret = Option3.new("20221222", "Westport", "Claremorris").rows
+    @covey_return = Option3.new("20221222", "Westport", "Claremorris").rows
     @costello = Option3.new("20221222", "Foxford", "Claremorris").rows
   end
 
