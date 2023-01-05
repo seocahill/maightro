@@ -15,40 +15,28 @@ class Option1 < BaseOption
 
   def exec_option
     @results = JourneyPlanner.new.search(@date, @from, @to)
+    @route, _stops = find_route(@from, @to)
     @train_trips = list_train_trips
   end
 
   def list_train_trips
-    [].tap do |trips|
-      stations = @results.stations
+    [].tap do |trains|
       @results.trains_out.each do |trip|
-        trip['secL'].each do |train|
-          trips << TrainPath.create(train, trip, stations)
-        end
+        add_trains(trains, trip)
       end
 
       @results.trains_ret.each do |trip|
-        trip['secL'].each do |train|
-          trips << TrainPath.create(train, trip, stations)
-        end
+        add_trains(trains, trip)
       end
     end
   end
 
-  def rows
-    rows = @train_trips
-           .group_by(&:trip_id)
-           .map do |_g, t|
-             [t.first.from, t.last.to, t.first.dep.strftime('%H:%M'), t.last.arr.strftime('%H:%M'),
-              (t.last.arr - t.first.dep).fdiv(60).round]
-           end
-           .sort_by { |t| t[0] }
-    rows
-  end
-
-  def as_ascii
-    headers = %w[from to dep arr dur]
-    puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró', style: { all_separators: true }
+  def add_trains(trains, trip)
+    trip['secL'].each do |train|
+      train = TrainPath.create(train, trip, @results.stations)
+      train.send("#{@route}_id=", train.trip_id)
+      trains << train
+    end
   end
 end
 
