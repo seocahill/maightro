@@ -164,19 +164,25 @@ class Option2 < BaseOption
 
     @local_trains << down_train
 
-    # In the case where train from Ballina must meet down Dublin and return, adj to Castlebar if possible
+    # Castlebar adjustment: In the case where train from Ballina must meet down Dublin and return, run to Castlebar if possible
     if up_train.from == 'Ballina' && down_train.to == 'Ballina'
       cbar_offset = (@man_cas_block * 2) + @turnaround
       if up_train.dep - cbar_offset > prev_train.arr + @turnaround
-        up_train.to = 'Castlebar'
-        down_train.from = 'Castlebar'
-        up_train.dep = up_train.dep - cbar_offset
-        up_train.stops = stops(up_train.from, up_train.to, up_train.dep)
-        up_train.arr = up_train.arr - cbar_offset + @man_cas_block
-        down_train.dep = down_train.dep - @man_cas_block - @turnaround
-        down_train.stops = stops(down_train.from, down_train.to, down_train.dep)
-        up_train.trip_id = "LC-#{@l_index}"
-        up_train.nephin_id = up_train.trip_id
+        up_train.tap do |train|
+          train.to = 'Castlebar'
+          train.dep = train.dep - cbar_offset
+          train.stops = stops(train.from, train.to, train.dep)
+          train.arr = train.arr - cbar_offset + @man_cas_block
+          train.trip_id = "LCA-#{@l_index}"
+          train.nephin_id = train.trip_id
+        end
+        down_train.tap do |train|
+          train.from = 'Castlebar'
+          train.dep = train.dep - @man_cas_block - @turnaround
+          train.stops = stops(train.from, train.to, train.dep)
+          train.trip_id = "LCA-#{@l_index}"
+          train.nephin_return_id = train.trip_id
+        end
       end
     end
 
