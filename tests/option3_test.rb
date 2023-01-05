@@ -13,6 +13,7 @@ class Option3Test < Test::Unit::TestCase
     @covey_return = Option3.new("20221222", "Westport", "Claremorris").rows
     @costello = Option3.new("20221222", "Foxford", "Claremorris").rows
     @costello_return = Option3.new("20221222", "Claremorris", "Foxford").rows
+    @castlebar_westport =  Option3.new("20221222", "Castlebar", "Westport").rows
   end
 
   def test_min_dwell
@@ -53,6 +54,7 @@ class Option3Test < Test::Unit::TestCase
   def test_covey
     assert_equal @covey.count, 11
     assert_equal @covey_return.count, 10
+    assert_equal @castlebar_westport.count, 19
   end
 
   def test_costello
