@@ -16,10 +16,17 @@ class Option3Test < Test::Unit::TestCase
     @castlebar_westport =  Option3.new("20221222", "Castlebar", "Westport").rows
   end
 
-  def test_min_dwell
+  def test_min_dwell_local_trains
     # can't be less than 3 minutes
     rows = (@bw + @wb).sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+
+    rows = (@covey + @covey_return).select { |t| t.dig(5) =~ /LC/ }.sort_by { |r| r[2] }
+    assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+  end
+
+  def test_train_passing
+    # TODO
   end
 
   def test_trip_counts
@@ -35,20 +42,6 @@ class Option3Test < Test::Unit::TestCase
 
     assert_equal (@bw).sort_by { |r| r[2] }.map { |t| (Time.parse(t[3]) - Time.parse(t[2])).fdiv(60)}.max, 53.0
     assert_equal (@cb).sort_by { |r| r[2] }.map { |t| (Time.parse(t[3]) - Time.parse(t[2])).fdiv(60)}.max, 36.0
-  end
-
-  def test_block_timing
-    dep = Time.parse("12:00")
-    mal_arr = Time.parse("12:27")
-    assert_equal Option3.new.stops("Ballina", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), mal_arr
-
-    bal_arr = Time.parse("12:27")
-    assert_equal Option3.new.stops("Manulla Junction", "Ballina", dep).max_by { |t| t[1] }.dig(1), bal_arr
-
-    man_arr = Time.parse("12:19")
-    assert_equal Option3.new.stops("Westport", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), man_arr
-    wes_arr = Time.parse("12:23")
-    assert_equal Option3.new.stops("Manulla Junction", "Westport", dep).max_by { |t| t[1] }.dig(1), wes_arr
   end
 
   def test_covey

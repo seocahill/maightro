@@ -27,6 +27,10 @@ class Option1aTest < Test::Unit::TestCase
     assert (@bw).sort_by { |r| r[2] }.map { |t| (Time.parse(t[3]) - Time.parse(t[2])).fdiv(60)}.max <= 53.0
   end
 
+  def test_train_passing
+    # TODO
+  end
+
   def test_block_timing
     dep = Time.parse("12:00")
     mal_arr = Time.parse("12:27")
