@@ -51,6 +51,7 @@ class Option3 < BaseOption
 
     @cla_block = 14 * 60
     @claremorris_trains = []
+    @trip_id_idx = 0
     schedule_trains
   end
 
@@ -82,6 +83,7 @@ class Option3 < BaseOption
     until arr_time > Time.parse('23:59')
       # get next 2 connects
       if connecting_train = @connecting_trains.first
+        trip_id = "LCY-#{@trip_id_idx}"
         # Need to check here if the local Clare train is in correct position e.g:
         # If meeting ex Ballina needs to be in Westport
         # If meeting ex Westport needs to be in Claremorris
@@ -90,38 +92,39 @@ class Option3 < BaseOption
         if train_in_wrong_position(connecting_train, current_position)
           train = if current_position == 'Claremorris'
                     # no dwell in manulla
+                    arr_time = dep_time + duration("Claremorris", "Westport")
+                    stops = stops("Claremorris", "'Westport", dep_time)
                     TrainPath.new(from: 'Claremorris', to: 'Westport', info: 'local', dep: dep_time,
-                                  arr: dep_time + @cla_block + @wes_block, position: 'Westport', trip_id: 'LW')
+                                  arr: arr_time, position: 'Westport', trip_id: trip_id, covey_return_id: trip_id, stops: stops)
                   else
+                    arr_time = dep_time + duration("Westport", "Claremorris")
+                    stops = stops("Westport", "Claremorris", dep_time)
                     TrainPath.new(from: 'Westport', to: 'Claremorris', info: 'local', dep: dep_time,
-                                  arr: dep_time + @cla_block + @wes_block, position: 'Claremorris', trip_id: 'LC')
+                                  arr: arr_time, position: 'Claremorris', trip_id: trip_id, covey_id: trip_id, stops: stops)
                   end
           @claremorris_trains << train
         else
-          # calculate connecting time
-          connecting_time = case connecting_train.from
-                            when 'Ballina'
-                              connecting_train.dep + @bal_block
-                            when 'Westport'
-                              connecting_train.dep + @wes_block
-                            else # castlebar
-                              connecting_train.dep + @man_cas_block
-                            end
           # create train to meet connect
-          if current_position == 'Claremorris'
-            from = 'Claremorris'
-            to = 'Westport'
-            dep_time = connecting_time - @cla_block
-            arr_time = dep_time + @min_dwell + @wes_block
-          else
-            from = 'Westport'
-            to = 'Claremorris'
-            dep_time = connecting_time - @wes_block
-            arr_time = dep_time + @min_dwell + @cla_block
+          train = if current_position == 'Claremorris'
+                    dep_time = connecting_train.time_at_junction - duration("Claremorris", "Manulla Junction")
+                    arr_time = dep_time + @dwell + duration("Manulla Junction", "Westport")
+                    stops = stops("Claremorris", "Westport", dep_time)
+                    TrainPath.new(from: 'Claremorris', to: 'Westport', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops)
+                  else
+                    dep_time = connecting_train.time_at_junction - duration("Westport", "Manulla Junction")
+                    arr_time = dep_time + @dwell + duration("Manulla Junction", "Claremorris")
+                    stops = stops("Westport", "Claremorris", dep_time)
+                    TrainPath.new(from: 'Westport', to: 'Claremorris', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops)
+                  end
+          # from: uptrain origin, to: connecting train destination
+          if route = find_route(train.from, connecting_train.stops.last[0]).dig(0)
+            train.send("#{route}_id=", trip_id)
           end
-
-          @claremorris_trains << TrainPath.new(from: from, to: to, dir: connecting_train.dir, dep: dep_time, arr: arr_time,
-                                               position: to, trip_id: connecting_train.trip_id, connection: connecting_train)
+          # from: connecting train origin, to: downtrain destination
+          if route = find_route(connecting_train.stops.first[0], train.to).dig(0)
+            train.send("#{route}_id=", trip_id)
+          end
+          @claremorris_trains << train
           # and pop off connecting trains queue
           @connecting_trains.delete connecting_train
         end
@@ -129,18 +132,23 @@ class Option3 < BaseOption
         # just make local train
         local_train = if current_position == 'Claremorris'
                         # no dwell in manulla
+                        stops = stops("Claremorris", "Westport", dep_time)
+                        arr_time = dep_time + duration("Claremorris", "Westport")
                         TrainPath.new(from: 'Claremorris', to: 'Westport', dir: 'local', dep: dep_time,
-                                      arr: dep_time + @cla_block + @wes_block, position: 'Westport', trip_id: 'LW')
+                                      arr: arr_time, position: 'Westport', trip_id: trip_id, covey_return_id: trip_id, stops: stops)
                       else
+                        stops = stops("Westport", "Claremorris", dep_time)
+                        arr_time = dep_time + duration("Westport", "Claremorris")
                         TrainPath.new(from: 'Westport', to: 'Claremorris', dir: 'local', dep: dep_time,
-                                      arr: dep_time + @cla_block + @wes_block, position: 'Claremorris', trip_id: 'LC')
+                                      arr: arr_time, position: 'Claremorris', trip_id: trip_id, covey_id: trip_id, stops: stops)
                       end
         @claremorris_trains << local_train
       end
       # new dep_time and position
       arr_time = @claremorris_trains.last.arr
       dep_time = @claremorris_trains.last.arr + @min_dwell
-      current_position = @claremorris_trains.last.position
+      current_position = @claremorris_trains.last.to
+      @trip_id_idx += 1
     end
     @train_trips = (@claremorris_trains + @trains).sort_by(&:dep)
   end
