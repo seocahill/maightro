@@ -32,6 +32,8 @@ require_relative 'option_1'
 
 class Option2 < BaseOption
 
+  attr_reader :train_trips
+
   def exec_option
     @train_trips = schedule_ballina_trains
   end

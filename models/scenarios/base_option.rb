@@ -76,6 +76,12 @@ class BaseOption
     puts Terminal::Table.new rows: rows.sort_by { |r| r[sort] }, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
 
+  def as_json
+    File.open('dispatch.json', 'w') do |file|
+      file.write(rows).sort_by(&:dep).map { |t| t.to_h.to_json }
+    end
+  end
+
   private
 
   def extract_trip_durations(trip, stations)

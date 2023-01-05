@@ -40,20 +40,14 @@ require_relative 'option_2'
 
 # try 2 fallback to 1
 
-class Option3
-  def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
+class Option3 < BaseOption
+  def exec_option
     @min_dwell = 180
     @bal_block = 27 * 60
     @wes_block = 19 * 60
     @man_cas_block = 6 * 60
     @one_day = 24 * 3600
     @full_trip = @bal_block + @min_dwell + @wes_block
-
-    @date = date
-    @from = from
-    @to = to
-    @sort = sort
-    @local_trains = []
 
     @cla_block = 14 * 60
     @claremorris_trains = []
@@ -62,7 +56,7 @@ class Option3
 
   #### Claremorris
 
-  def train_in_wrong_position(connecting_train, _dep_time, current_position)
+  def train_in_wrong_position(connecting_train, current_position)
     if connecting_train.from == 'Ballina' && current_position == 'Westport'
       false
     elsif connecting_train.from == 'Westport' && current_position == 'Claremorris'
@@ -77,14 +71,13 @@ class Option3
   # Add claremorris local trains
 
   def schedule_trains
-    @ballina_trains = Option2.new(@date).schedule_ballina_trains
-    @ic_trains = Option1.new(@date, 'Claremorris', 'Westport').train_trips
+    @trains = Option2.new(@date).train_trips
 
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
     current_position = 'Claremorris'
     # the ballina castlebar trains are extended connectors ignore them
-    @connecting_trains = @ballina_trains.select { |t| [%w[Ballina Westport]].include? [t.from, t.to].sort }
+    @connecting_trains = @trains.select { |t| [%w[Ballina Westport]].include? [t.from, t.to].sort }
 
     until arr_time > Time.parse('23:59')
       # get next 2 connects
@@ -94,7 +87,7 @@ class Option3
         # If meeting ex Westport needs to be in Claremorris
         # if connecting_train&.trip_id =~ /^(C|R)-[0-9]$/
         #   @connecting_trains.delete connecting_train
-        if train_in_wrong_position(connecting_train, dep_time, current_position)
+        if train_in_wrong_position(connecting_train, current_position)
           train = if current_position == 'Claremorris'
                     # no dwell in manulla
                     TrainPath.new(from: 'Claremorris', to: 'Westport', info: 'local', dep: dep_time,
@@ -149,45 +142,7 @@ class Option3
       dep_time = @claremorris_trains.last.arr + @min_dwell
       current_position = @claremorris_trains.last.position
     end
-  end
-
-  def claremorris_trains
-    (@claremorris_trains + @ic_trains).sort_by(&:dep)
-  end
-
-  def rows
-    rows = (@claremorris_trains + @ic_trains).sort_by(&:dep)
-    [nil, *rows, nil].each_cons(3) do |(prev, cur, _nxt)|
-      next if prev.nil?
-
-      prev.position = (cur.dep - prev.arr).fdiv(60).round
-    end
-    rows.map { |t| [t.from, t.to, t.dep_time, t.arr_time, t.position, t.dir, t&.connection&.from, t&.connection&.to] }
-
-    # TODO add to / from filter: seem like it would be easier ot use consistant trip codes? or perhaps add a connect code?
-  end
-
-  def as_ascii
-    headers = %w[from to dep arr dwell dir connect_from connect_to]
-    puts Terminal::Table.new rows: rows, headings: headers, title: 'An Maightró (glas)', style: { all_separators: true }
-
-    ## WCW services
-    # puts '=' * 99
-    # puts 'Trains serving Castlebar and Westport'
-    # puts '=' * 99
-    # puts "to Castlebar/Westport: #{(ex_b_to_wc.split(',') + ex_clare_to_wc.split(',')).sort.join(', ')}"
-    # puts '========='
-    # puts "from Castlebar/Westport #{(ex_cw_to_b.split(',') + ex_wc_to_clare.split(',')).sort.join(', ')}"
-    # puts '========='
-
-    ## Freight paths
-    # TODO
-  end
-
-  def as_json
-    File.open('dispatch.json', 'w') do |file|
-      file.write(@local_trains + @claremorris_trains + @ic_trains).sort_by(&:dep).map { |t| t.to_h.to_json }
-    end
+    @train_trips = (@claremorris_trains + @trains).sort_by(&:dep)
   end
 end
 
