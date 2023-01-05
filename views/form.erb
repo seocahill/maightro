@@ -1,12 +1,70 @@
 <div class="p-5">
   <form method="GET" hx-post="/timetable" hx-target="#table-and-form">
     <div class="mt-2">
+      <div class="flex flex-col md:flex-row pb-4 mb-4">
+        <div class="w-64 font-bold h-6 mx-2 mt-3 text-gray-800">Information
+          <div class="text-xs font-normal leading-none text-gray-500">Choose an option below</div>
+        </div>
+        <div class="sm:text-center" id="info">
+          <p class="x-auto mt-6 text-lg leading-8 text-gray-600">Using this form you can look up a real or imaginary Maytró (Mayo metro) train timetable. Click on each option below to find out more.</p>
+        </div>
+      </div>
       <div class="flex flex-col md:flex-row border-b border-gray-200 pb-4 mb-4">
-        <div class="w-64 font-bold h-6 mx-2 mt-3 text-gray-800">Date of Travel</div>
+        <div class="w-64 font-bold h-6 mx-2 mt-3 text-gray-800">Travel details</div>
         <div class="flex-1 flex flex-col md:flex-row">
           <div class="w-full flex-1 mx-2">
             <div class="my-2 p-1 bg-white flex border border-gray-200 rounded">
               <input type="date" name="date" id="first-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= @default_date %>">
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 flex flex-col md:flex-row">
+          <div class="w-full flex-1 mx-2">
+            <div class="my-2 p-1 bg-white  rounded">
+              <select name="from" class="form-select appearance-none
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding bg-no-repeat
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Starting station">
+                  <% @options.each do |opt| %>
+                  <option <% if @from == opt %>selected<% end %> value="<%= opt %>" ><%= opt %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 flex flex-col md:flex-row">
+          <div class="w-full flex-1 mx-2">
+            <div class="my-2 p-1 bg-white flex rounded">
+              <select name="to" class="form-select appearance-none
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding bg-no-repeat
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="End station">
+                <% @options.each do |opt| %>
+                  <option <% if @to == opt %>selected<% end %> value="<%= opt %>" ><%= opt %></option>
+                <% end %>
+              </select>
             </div>
           </div>
         </div>
@@ -17,23 +75,23 @@
         </div>
         <div class="flex justify-center">
           <div class="form-check form-check-inline">
-            <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1' %>checked<% end %> id="Option1" value="Option1">
-            <label class="form-check-label inline-block text-gray-800 pr-2" for="Option1">Status quo</label>
+            <input hx-get="/info" hx-target="#info" class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1' %>checked<% end %> id="Option1" value="Option1" required>
+            <label class="form-check-label inline-block text-gray-800 pr-2" for="Option1">Current</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1a' %>checked<% end %> id="Option1a" value="Option1a">
+            <input hx-get="/info" hx-target="#info" class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1a' %>checked<% end %> id="Option1a" value="Option1a">
             <label class="form-check-label inline-block text-gray-800 pr-2" for="Option1a">Improved</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="radio" name="scenario" <% if @default_scenario == 'Option2' %>checked<% end %> id="Option2" value="Option2">
+            <input hx-get="/info" hx-target="#info" class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="radio" name="scenario" <% if @default_scenario == 'Option2' %>checked<% end %> id="Option2" value="Option2">
             <label class="form-check-label inline-block text-gray-800 pr-2" for="Option2">Direct</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="radio" name="scenario" <% if @default_scenario == 'Option3' %>checked<% end %> id="Option3" value="Option3">
+            <input hx-get="/info" hx-target="#info" class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="radio" name="scenario" <% if @default_scenario == 'Option3' %>checked<% end %> id="Option3" value="Option3">
             <label class="form-check-label inline-block text-gray-800 pr-2" for="Option3">Claremorris</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="radio" name="scenario" <% if @default_scenario == 'Option3b' %>checked<% end %> id="Option3b" value="Option3b">
+            <input hx-get="/info" hx-target="#info" class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="radio" name="scenario" <% if @default_scenario == 'Option3b' %>checked<% end %> id="Option3b" value="Option3b">
             <label class="form-check-label inline-block text-gray-800 pr-2" for="Option3b">Ballyhaunis</label>
           </div>
         </div>

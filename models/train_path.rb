@@ -8,7 +8,7 @@ class TrainPath
   include Helper
 
   def attributes
-    %i[from to dep arr dwell info trip_id dir position]
+    %i[from to dep arr dwell info trip_id dir position stops connection nephin_id covey_id costello_id nephin_return_id covey_return_id costello_return_id]
   end
 
   def self.create(train, trip, stations)
@@ -19,8 +19,17 @@ class TrainPath
       dep: parse_time(train['dep']['dTimeS']),
       info: "to #{train['jny']['dirTxt']}",
       dir: train['jny']['dirTxt'],
-      trip_id: trip['cid']
-    )
+      trip_id: trip['cid'],
+      stops: populate_stop_information(train, stations)
+    ).tap do |train_path|
+      train_path.find_route(train_path.stops.first[0], train_path.stops.last[0]).dig(0).each do |route|
+        train_path.send("#{route}_id=", train_path.trip_id)
+      end
+    end
+  end
+
+  def time_at_junction
+    stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
   end
 
   def values
@@ -43,5 +52,8 @@ class TrainPath
     dep.strftime('%H:%M')
   end
 
-  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir, :position
+  attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir,
+                :position, :stops, :connection, :nephin_id, :covey_id,
+                :costello_id, :nephin_return_id, :covey_return_id,
+                :costello_return_id
 end

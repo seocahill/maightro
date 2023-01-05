@@ -1,0 +1,21 @@
+---
+Ballina:
+  Foxford: 660.0
+Foxford:
+  Manulla Junction: 960.0
+  Ballina: 780.0
+Manulla Junction:
+  Castlebar: 360.0
+  Claremorris: 720.0
+  Foxford: 840.0
+Castlebar:
+  Westport: 1020.0
+  Manulla Junction: 360.0
+Claremorris:
+  Castlebar: 1020.0
+  Manulla Junction: 780.0
+  Ballyhaunis: 780.0
+Westport:
+  Castlebar: 780.0
+Ballyhaunis:
+  Claremorris: 840.0

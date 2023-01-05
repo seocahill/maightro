@@ -8,24 +8,37 @@ require 'date'
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
 get '/' do
+  @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
   @default_date = Date.today.strftime "%Y-%m-%d"
-  @default_session = "Option1"
+  # @default_scenario = "Option1"
+  @to = "Westport"
+  @from = "Ballina"
   erb :index
 end
 
+get '/info' do
+  @scenario = params["scenario"].downcase
+  erb :info, layout: false
+end
+
+get '/about' do
+  erb :about
+end
+
 post '/timetable' do
+  @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
+  @to = params["to"]
+  @from = params["from"]
   @default_date = params['date']
   @default_scenario = params["scenario"]
 
   @timetables = if params["scenario"]
                   date = params["date"].split('-').join
-                  [Module.const_get(params["scenario"]).new(date).rows]
+                  [Module.const_get(params["scenario"]).new(date, params["from"], params["to"]).rows]
                 else
                   []
                 end
-  erb :results
+  erb :results, layout: false
 end
-
-
