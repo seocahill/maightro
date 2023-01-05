@@ -57,25 +57,19 @@ class BaseOption
   end
 
   def rows
-    results = []
-    # find route group from search terms: nephin, covey, costello
-    routes, _stops = find_route(@from, @to)
-    # seach can return multiple routes
-    routes.each do |route|
-      # group by group trip ids
-      rows = @train_trips.reject { |t| t.send("#{route}_id").nil? }.group_by(&:"#{route}_id").map do |trip_id, trains|
-        # make this a hash instead, hashes are sorted in ruby so this will work
-        stops = trains.flat_map { |train| train.stops }.sort_by { |stop| stop[1] }.each_with_object({}) { |i, obj| obj[i[0]] = i[1] } # join all stops and sort by time
-        # filter by @from @to and add other tt info
-        next unless stops[@from] && stops[@to]
-        next unless stops[@from] < stops[@to]
-        # return train result for tt
-        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
-      end.compact
-      # search will return dups for certain sections, uniuque
-      rows.each { |row| results << row unless results.any? { |res| res[5] == row[5] } }
-    end
-    results
+    # route must be one of: nephin, covey, costello and return routes of each
+    route, _stops = find_route(@from, @to)
+    # group by group trip ids
+    @train_trips.reject { |t| t.send("#{route}_id").nil? }.group_by(&:"#{route}_id").map do |trip_id, trains|
+      # make this a hash instead, hashes are sorted in ruby so this will work
+      stops = trains.flat_map { |train| train.stops }.sort_by { |stop| stop[1] }.each_with_object({}) { |i, obj| obj[i[0]] = i[1] } # join all stops and sort by time
+      # binding.pry
+      # filter by @from @to and add other tt info
+      next unless stops[@from] && stops[@to]
+      next unless stops[@from] < stops[@to]
+      # return train result for tt
+      [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
+    end.compact
   end
 
   def as_ascii
@@ -92,9 +86,6 @@ class BaseOption
         next unless  finish['aTimeS'] && start["dTimeS"]
 
         dur = parse_time(finish['aTimeS']) - parse_time(start["dTimeS"])
-        if start['aTimeS'] && start["dTimeS"]
-          puts parse_time(start["dTimeS"]) - parse_time(start['aTimeS']) # dwell
-        end
         x = @stop_info[find_station(start, stations)] ||= {}
         y = x[find_station(finish, stations)] ||= nil
         x[find_station(finish, stations)] = dur if (y.nil? || dur < y)

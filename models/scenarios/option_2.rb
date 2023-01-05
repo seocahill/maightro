@@ -107,8 +107,12 @@ class Option2 < BaseOption
     trip_id = "LT-#{@l_index}"
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
     stops = stops(current_position, end_station, dep_time)
-    @local_trains << TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: dep_time + @full_trip,
+    local_train = TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: dep_time + @full_trip,
                                    position: end_station, trip_id: trip_id, nephin_id: trip_id, stops: stops)
+    @local_trains << local_train
+    if route = find_route(current_position, end_station).dig(0)
+      local_train.send("#{route}_id=", trip_id)
+    end
   end
 
   def connection_info(dir, pos)
@@ -132,8 +136,9 @@ class Option2 < BaseOption
                              position: 'Manulla Junction', stops: stops)
 
     # assign train to up route/s
-    find_route(current_position, connecting_train.stops.last[0]).dig(0).each do |route|
+    if route = find_route(current_position, connecting_train.stops.last[0]).dig(0)
       up_train.send("#{route}_id=", connecting_train.trip_id)
+      connecting_train.send("#{route}_id=", connecting_train.trip_id)
     end
 
     # add train to collection
@@ -152,8 +157,9 @@ class Option2 < BaseOption
     down_train = TrainPath.new(from: 'Manulla Junction', to: end_station, dir: down_connection, dep: dep, arr: arr,
                                position: end_station, stops: stops)
     # assign train to down route/s
-    find_route(connecting_train.stops.first[0], end_station).dig(0).each do |route|
+    if route = find_route(connecting_train.stops.first[0], end_station).dig(0)
       down_train.send("#{route}_id=", connecting_train.trip_id)
+      connecting_train.send("#{route}_id=", connecting_train.trip_id)
     end
 
     @local_trains << down_train
@@ -173,6 +179,14 @@ class Option2 < BaseOption
         up_train.nephin_id = up_train.trip_id
       end
     end
+
+    # assign up and down train trip to routes if applicable
+    if route = find_route(up_train.from, down_train.to).dig(0)
+      trip_id = "LC-#{@l_index}"
+      up_train.send("#{route}_id=", trip_id) if up_train.send("#{route}_id").nil?
+      down_train.send("#{route}_id=", trip_id) if down_train.send("#{route}_id").nil?
+    end
+
     @local_trains
   end
 end

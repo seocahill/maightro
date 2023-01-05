@@ -8,7 +8,7 @@ class TrainPath
   include Helper
 
   def attributes
-    %i[from to dep arr dwell info trip_id dir position stops connection nephin_id covey_id costello_id]
+    %i[from to dep arr dwell info trip_id dir position stops connection nephin_id covey_id costello_id nephin_return_id covey_return_id costello_return_id]
   end
 
   def self.create(train, trip, stations)
@@ -20,11 +20,11 @@ class TrainPath
       info: "to #{train['jny']['dirTxt']}",
       dir: train['jny']['dirTxt'],
       trip_id: trip['cid'],
-      covey_id: trip['cid'],
-      nephin_id: trip['cid'],
-      costello_id: trip['cid'],
       stops: populate_stop_information(train, stations)
-    )
+    ).tap do |train_path|
+      route, _stops = train_path.find_route(train_path.stops.first[0], train_path.stops.last[0]).dig(0)
+      train_path.send("#{route}_id=", train_path.trip_id)
+    end
   end
 
   def time_at_junction
@@ -53,5 +53,6 @@ class TrainPath
 
   attr_accessor :from, :to, :dep, :arr, :dwell, :info, :trip_id, :dir,
                 :position, :stops, :connection, :nephin_id, :covey_id,
-                :costello_id
+                :costello_id, :nephin_return_id, :covey_return_id,
+                :costello_return_id
 end

@@ -18,34 +18,27 @@ module Helper
   end
 
   def find_route(from, to)
-    routes = {
+    base_routes = {
       nephin: ["Ballina", "Foxford", "Manulla Junction", "Castlebar", "Westport"],
       covey: ["Westport", "Castlebar", "Manulla Junction", "Claremorris", "Ballyhaunis"],
       costello: ["Ballyhaunis", "Claremorris", "Manulla Junction", "Foxford", "Ballina"]
     }
 
-    matched_routes = []
-    matched_stops = []
+    # reverse, this way you get directional certainty which decomplicates things considerably
+    routes = {}
+    base_routes.each do |k,v|
+      routes[k] = v
+      routes["#{k}_return".to_sym] = v.reverse
+    end
 
     routes.each do |(route, stops)|
-      # out
-      if sdx = stops.index(from)
-        if edx = stops[sdx..].index(to)
-          matched_routes << route
-          matched_stops += stops[sdx..(sdx + edx)]
-        end
-      end
+      next unless sdx = stops.index(from)
+      # can't be from,to same station
+      next unless edx = stops[(sdx + 1)..].index(to)
 
-      # back
-      back = stops.reverse
-      if sdx = back.index(from)
-        if edx = back[sdx..].index(to)
-          matched_routes << route
-          matched_stops += back[sdx..(sdx + edx)]
-        end
-      end
+      # include to stop also
+      return [route, stops[sdx..(sdx + (edx + 1))]]
     end
-    [matched_routes.uniq, matched_stops.uniq]
   end
 
   def stops(from, to, dep)
