@@ -15,7 +15,7 @@ class Option1 < BaseOption
 
   def exec_option
     @results = JourneyPlanner.new.search(@date, @from, @to)
-    @route, _stops = find_route(@from, @to)
+    @routes, _stops = find_route(@from, @to)
     @train_trips = list_train_trips
   end
 
@@ -34,7 +34,7 @@ class Option1 < BaseOption
   def add_trains(trains, trip)
     trip['secL'].each do |train|
       train = TrainPath.create(train, trip, @results.stations)
-      train.send("#{@route}_id=", train.trip_id)
+      @routes.each { |route| train.send("#{route}_id=", train.trip_id) }
       trains << train
     end
   end

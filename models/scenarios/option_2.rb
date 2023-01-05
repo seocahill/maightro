@@ -109,7 +109,7 @@ class Option2 < BaseOption
     local_train = TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: arr_time,
                                    position: end_station, trip_id: trip_id, nephin_id: trip_id, stops: stops)
     @local_trains << local_train
-    if route = find_route(current_position, end_station).dig(0)
+    find_route(current_position, end_station).dig(0).each do |route|
       local_train.send("#{route}_id=", trip_id)
     end
   end
@@ -135,7 +135,7 @@ class Option2 < BaseOption
                              position: 'Manulla Junction', stops: stops)
 
     # assign train to up route/s
-    if route = find_route(current_position, connecting_train.stops.last[0]).dig(0)
+    find_route(current_position, connecting_train.stops.last[0]).dig(0).each do |route|
       up_train.send("#{route}_id=", connecting_train.trip_id)
       connecting_train.send("#{route}_id=", connecting_train.trip_id)
     end
@@ -157,7 +157,7 @@ class Option2 < BaseOption
     down_train = TrainPath.new(from: 'Manulla Junction', to: end_station, dir: down_connection, dep: dep, arr: arr,
                                position: end_station, stops: stops)
     # assign train to down route/s
-    if route = find_route(connecting_train.stops.first[0], end_station).dig(0)
+    find_route(connecting_train.stops.first[0], end_station).dig(0).each do |route|
       down_train.send("#{route}_id=", connecting_train.trip_id)
       connecting_train.send("#{route}_id=", connecting_train.trip_id)
     end
@@ -187,7 +187,7 @@ class Option2 < BaseOption
     end
 
     # assign up and down train trip to routes if applicable
-    if route = find_route(up_train.from, down_train.to).dig(0)
+    find_route(up_train.from, down_train.to).dig(0).each do |route|
       trip_id = "LC-#{@l_index}"
       up_train.send("#{route}_id=", trip_id) if up_train.send("#{route}_id").nil?
       down_train.send("#{route}_id=", trip_id) if down_train.send("#{route}_id").nil?

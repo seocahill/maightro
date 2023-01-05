@@ -120,12 +120,12 @@ class Option3 < BaseOption
                   end
 
           # from: uptrain origin, to: connecting train destination
-          if route = find_route(train.from, connecting_train.stops.last[0]).dig(0)
+          find_route(train.from, connecting_train.stops.last[0]).dig(0).each do |route|
             train.send("#{route}_id=", trip_id)
             connecting_train.send("#{route}_id=", trip_id)
           end
           # from: connecting train origin, to: downtrain destination
-          if route = find_route(connecting_train.stops.first[0], train.to).dig(0)
+          find_route(connecting_train.stops.first[0], train.to).dig(0).each do |route|
             train.send("#{route}_id=", trip_id)
             connecting_train.send("#{route}_id=", trip_id)
           end

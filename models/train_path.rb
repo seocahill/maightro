@@ -22,8 +22,9 @@ class TrainPath
       trip_id: trip['cid'],
       stops: populate_stop_information(train, stations)
     ).tap do |train_path|
-      route, _stops = train_path.find_route(train_path.stops.first[0], train_path.stops.last[0]).dig(0)
-      train_path.send("#{route}_id=", train_path.trip_id)
+      train_path.find_route(train_path.stops.first[0], train_path.stops.last[0]).dig(0).each do |route|
+        train_path.send("#{route}_id=", train_path.trip_id)
+      end
     end
   end
 

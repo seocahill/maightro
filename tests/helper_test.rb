@@ -9,13 +9,15 @@ class HelperTest < Test::Unit::TestCase
   end
 
   def test_route_lookup
-    assert_equal @tp.find_route("Ballyhaunis", "Westport")[0], :covey_return
-    assert_equal @tp.find_route("Westport", "Ballyhaunis")[0], :covey
-    assert_equal @tp.find_route("Ballina", "Westport")[0], :nephin
-    assert_equal @tp.find_route("Westport", "Ballina")[0], :nephin_return
-    assert_equal @tp.find_route("Ballyhaunis", "Ballina")[0], :costello
-    assert_equal @tp.find_route("Ballina", "Ballyhaunis")[0], :costello_return
-    refute_equal @tp.find_route("Westport", "Westport")[0], :nephin
+    assert_equal @tp.find_route("Ballyhaunis", "Westport")[0], [:covey_return]
+    assert_equal @tp.find_route("Westport", "Ballyhaunis")[0], [:covey]
+    assert_equal @tp.find_route("Ballina", "Westport")[0], [:nephin]
+    assert_equal @tp.find_route("Westport", "Ballina")[0], [:nephin_return]
+    assert_equal @tp.find_route("Ballyhaunis", "Ballina")[0], [:costello]
+    assert_equal @tp.find_route("Ballina", "Ballyhaunis")[0], [:costello_return]
+    assert_equal @tp.find_route("Ballina", "Foxford")[0], [:nephin, :costello_return]
+    assert_equal @tp.find_route("Castlebar", "Westport")[0], [:nephin, :covey_return]
+    refute_equal @tp.find_route("Westport", "Westport")[0], [:nephin]
   end
 
   def test_stops_lookup

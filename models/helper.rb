@@ -31,14 +31,18 @@ module Helper
       routes["#{k}_return".to_sym] = v.reverse
     end
 
-    routes.each do |(route, stops)|
-      next unless sdx = stops.index(from)
-      # can't be from,to same station
-      next unless edx = stops[(sdx + 1)..].index(to)
+    matched_routes = []
+    matched_stops = []
 
-      # include to stop also
-      return [route, stops[sdx..(sdx + (edx + 1))]]
+    routes.each do |(route, stops)|
+      if sdx = stops.index(from)
+        if edx = stops[(sdx + 1)..].index(to)
+          matched_routes << route
+          matched_stops += stops[sdx..(sdx + (edx + 1))]
+        end
+      end
     end
+    [matched_routes.uniq, matched_stops.uniq]
   end
 
   def stops(from, to, dep)
