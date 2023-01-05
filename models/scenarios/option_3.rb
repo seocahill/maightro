@@ -118,13 +118,16 @@ class Option3 < BaseOption
                     stops = stops("Westport", "Claremorris", dep_time)
                     TrainPath.new(from: 'Westport', to: 'Claremorris', dep: dep_time, arr: arr_time, trip_id: connecting_train.trip_id, stops: stops, covey_id: trip_id)
                   end
+
           # from: uptrain origin, to: connecting train destination
           if route = find_route(train.from, connecting_train.stops.last[0]).dig(0)
             train.send("#{route}_id=", trip_id)
+            connecting_train.send("#{route}_id=", trip_id)
           end
           # from: connecting train origin, to: downtrain destination
           if route = find_route(connecting_train.stops.first[0], train.to).dig(0)
             train.send("#{route}_id=", trip_id)
+            connecting_train.send("#{route}_id=", trip_id)
           end
           @claremorris_trains << train
           # and pop off connecting trains queue
