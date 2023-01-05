@@ -4,7 +4,6 @@
 # Status quo
 
 require 'json'
-# require 'pry'
 require 'time'
 require 'terminal-table'
 require_relative '../helper'
@@ -63,7 +62,6 @@ class BaseOption
     @train_trips.reject { |t| t.send("#{route}_id").nil? }.group_by(&:"#{route}_id").map do |trip_id, trains|
       # make this a hash instead, hashes are sorted in ruby so this will work
       stops = trains.flat_map { |train| train.stops }.sort_by { |stop| stop[1] }.each_with_object({}) { |i, obj| obj[i[0]] = i[1] } # join all stops and sort by time
-      # binding.pry
       # filter by @from @to and add other tt info
       next unless stops[@from] && stops[@to]
       next unless stops[@from] < stops[@to]
