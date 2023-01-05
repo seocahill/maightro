@@ -7,17 +7,14 @@ require 'json'
 # require 'pry'
 require 'time'
 require 'terminal-table'
-require_relative '../helper'
-require_relative '../journey_planner'
-require_relative '../train_path'
+require_relative 'base_option'
 
-class Option1
-  include Helper
+class Option1 < BaseOption
 
   attr_reader :results, :train_trips
 
-  def initialize(date = '20221222', from = 'Ballina', to = 'Westport')
-    @results = JourneyPlanner.new.search(date, from, to)
+  def exec_option
+    @results = JourneyPlanner.new.search(@date, @from, @to)
     @train_trips = list_train_trips
   end
 
