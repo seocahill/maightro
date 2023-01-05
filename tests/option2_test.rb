@@ -16,7 +16,7 @@ class Option2Test < Test::Unit::TestCase
   def test_min_dwell
     # can't be less than 3 minutes
     rows = (@bw + @wb).sort_by { |r| r[2] }
-    # assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+    assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
   end
 
   def test_trip_counts

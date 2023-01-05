@@ -37,13 +37,9 @@ class Option2 < BaseOption
   end
 
   def schedule_ballina_trains
-    @bal_block = duration("Ballina", "Manulla Junction")
-    @wes_block = duration("Westport", "Manulla Junction")
-    @man_cas_block = duration("Castlebar", "Manulla Junction")
     @local_trains = []
     @ic_trains = []
 
-    @full_trip = @bal_block + @turnaround + @wes_block
     connecting_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
 
     dep_time = Time.parse('05:00')
@@ -84,30 +80,31 @@ class Option2 < BaseOption
     return true unless connecting_train
 
     # dwell, time from current position to get to opposite position and back to junction (if applicable)
-    trip_duration = duration_of_trip_and_connection(connecting_train, current_position)
+    return unless trip_duration = duration_of_trip_and_connection(connecting_train, current_position)
 
     dep_time + trip_duration < connecting_train.time_at_junction
   end
 
   def duration_of_trip_and_connection(connecting_train, current_position)
     if connecting_train.to == 'Westport' && current_position == 'Westport'
-      @full_trip + @turnaround + @bal_block
+      duration("Westport", "Ballina") + @turnaround + duration("Ballina", "Manulla Junction")
     elsif connecting_train.to == 'Westport' && current_position == 'Ballina'
-      @full_trip + @turnaround + @wes_block
+      duration("Ballina", "Westport") + @turnaround + duration("Westport", "Manulla Junction")
     elsif current_position == 'Ballina' # to dublin
-      @full_trip + @turnaround + @full_trip + @turnaround + @bal_block
+      duration("Ballina", "Westport") + @turnaround + duration("Westport", "Ballina") + @turnaround + duration("Ballina", "Manulla Junction")
     elsif current_position == 'Westport'
-      @full_trip + @turnaround + @bal_block
+      duration("Westport", "Ballina") + @turnaround +  duration("Ballina", "Manulla Junction")
     elsif current_position == 'Castlebar'
-      (@full_trip * 2) # this will evaluate to false
+      false
     end
   end
 
   def add_local_train(current_position, dep_time)
-    trip_id = "LT-#{@l_index}"
+    trip_id = "LDT-#{@l_index}"
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
     stops = stops(current_position, end_station, dep_time)
-    local_train = TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: dep_time + @full_trip,
+    arr_time = dep_time + duration(current_position, end_station)
+    local_train = TrainPath.new(from: current_position, to: end_station, dir: 'local', dep: dep_time, arr: arr_time,
                                    position: end_station, trip_id: trip_id, nephin_id: trip_id, stops: stops)
     @local_trains << local_train
     if route = find_route(current_position, end_station).dig(0)
@@ -146,12 +143,13 @@ class Option2 < BaseOption
 
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @turnaround
-    if next_connection && (next_connection.time_at_junction - @dwell - arr < ((@wes_block * 2) + @turnaround))
+    round_trip_time = duration("Westport", "Manulla Junction") + duration("Manulla Junction", "Westport") + @turnaround
+    if next_connection && (next_connection.time_at_junction - @dwell - arr < round_trip_time)
       end_station = 'Castlebar'
-      arr = dep + @man_cas_block
+      arr = dep + duration('Manulla Junction', end_station)
     else
       end_station = connecting_train.dir == 'Westport' ? 'Ballina' : 'Westport'
-      arr = dep + (end_station == 'Westport' ? @wes_block : @bal_block)
+      arr = dep + duration('Manulla Junction', end_station)
     end
     stops = stops('Manulla Junction', end_station, dep)
     down_train = TrainPath.new(from: 'Manulla Junction', to: end_station, dir: down_connection, dep: dep, arr: arr,
@@ -166,19 +164,19 @@ class Option2 < BaseOption
 
     # Castlebar adjustment: In the case where train from Ballina must meet down Dublin and return, run to Castlebar if possible
     if up_train.from == 'Ballina' && down_train.to == 'Ballina'
-      cbar_offset = (@man_cas_block * 2) + @turnaround
+      cbar_offset = duration("Castlebar", "Manulla Junction") + duration("Manulla Junction", "Castlebar") + @turnaround
       if up_train.dep - cbar_offset > prev_train.arr + @turnaround
         up_train.tap do |train|
           train.to = 'Castlebar'
           train.dep = train.dep - cbar_offset
           train.stops = stops(train.from, train.to, train.dep)
-          train.arr = train.arr - cbar_offset + @man_cas_block
+          train.arr = train.arr - cbar_offset + duration("Manulla Junction", "Castlebar")
           train.trip_id = "LCA-#{@l_index}"
           train.nephin_id = train.trip_id
         end
         down_train.tap do |train|
           train.from = 'Castlebar'
-          train.dep = train.dep - @man_cas_block - @turnaround
+          train.dep = train.dep - duration("Castlebar", "Manulla Junction") - @turnaround
           train.stops = stops(train.from, train.to, train.dep)
           train.trip_id = "LCA-#{@l_index}"
           train.nephin_return_id = train.trip_id
