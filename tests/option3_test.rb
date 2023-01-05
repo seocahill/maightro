@@ -23,6 +23,10 @@ class Option3Test < Test::Unit::TestCase
 
     rows = (@covey + @covey_return).select { |t| t.dig(5) =~ /LC/ }.sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+
+    # busiest block is Castlebar - Westport
+    rows = (Option3.new("20221222", "Westport", "Castlebar").rows + Option3.new("20221222", "Castlebar", "Westport").rows).sort_by { |r| r[2] }
+    assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
   end
 
   def test_train_passing
