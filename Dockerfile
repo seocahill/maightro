@@ -4,7 +4,7 @@ workdir /app
 
 run \
   apk --update add build-base  && \
-  gem install sinatra terminal-table activemodel thin
+  gem install sinatra terminal-table activemodel thin sentry-ruby
 
 copy . ./
 
