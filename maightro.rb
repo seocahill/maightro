@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-# require 'pry'
+require 'sentry-ruby'
 require 'date'
 
 # pull in the helpers and controllers
