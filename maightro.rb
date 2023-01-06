@@ -4,6 +4,20 @@ require 'sinatra'
 require 'sentry-ruby'
 require 'date'
 
+# Bugs
+Sentry.init do |config|
+  config.dsn =  ENV['SENTRY_DSN']
+  config.breadcrumbs_logger = [:sentry_logger, :http_logger]
+
+  # To activate performance monitoring, set one of these options.
+  # We recommend adjusting the value in production:
+  # config.traces_sample_rate = 1.0
+  # # or
+  # config.traces_sampler = lambda do |context|
+  #   0.5
+  # end
+end
+
 # pull in the helpers and controllers
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
