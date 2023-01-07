@@ -40,7 +40,7 @@ get '/about' do
   erb :about
 end
 
-get '/test-sentry'
+get '/test-sentry' do
   Sentry.capture_message("test message")
 end
 
