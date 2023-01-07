@@ -42,7 +42,7 @@ class Option2 < BaseOption
     @local_trains = []
     @ic_trains = []
 
-    connecting_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips
+    connecting_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips.select { |t| t.stops.any? { |s| s[0] == 'Manulla Junction' } }
 
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
