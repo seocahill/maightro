@@ -3,6 +3,7 @@
 require 'sinatra'
 require 'sentry-ruby'
 require 'date'
+require 'kramdown'
 
 # catch bugs
 Sentry.init do |config|
@@ -36,8 +37,8 @@ get '/info' do
   erb :info, layout: false
 end
 
-get '/about' do
-  erb :about
+get '/history' do
+  erb :history
 end
 
 get '/test-sentry' do
