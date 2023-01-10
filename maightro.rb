@@ -3,7 +3,6 @@
 require 'sinatra'
 require 'sentry-ruby'
 require 'date'
-require 'kramdown'
 
 # catch bugs
 Sentry.init do |config|
