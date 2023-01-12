@@ -3,7 +3,7 @@
     <!--Title-->
     <div class="font-sans">
       <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">About Maightró</h1>
-      <p class="text-sm md:text-base font-normal text-gray-600">Published 10 January 2023</p>
+      <%# <p class="text-sm md:text-base font-normal text-gray-600">Published 10 January 2023</p> %>
     </div>
     <p class="py-6">“Matyro” (this website) is conceived to be both practical and
       aspirational. At heart it’s simply an online journey planner exclusively
@@ -30,7 +30,7 @@ href="#history">elsewhere</a> has been going since 2007. “Phase 1”
       returns are not really doable. It’s just about better than nothing but
       people do use it nevertheless. Even for something as simple as a Mayo
       match in Castlebar, it’s not really usable.</p>
-    <h3 id="why-i-built-this-site.">Why I built this site.</h3>
+    <h3 class="text-2xl font-bold" id="why-i-built-this-site.">Why I built this site.</h3>
     <p class="py-6">Well for one thing it was Christmas and I had time on my hands but it
       was probably the following (excellent) tweet I spotted some time ago
       that first got me thinking about it again:</p>
@@ -55,35 +55,56 @@ href="#history">elsewhere</a> has been going since 2007. “Phase 1”
       Castlebar and Westport. What can you say about that in 2023. I’ll say no
       more except that it motivated me to attempt to revive the Maightó
       idea.</p>
-    <h3 id="how-it-works">How it works</h3>
+    <h3 class="text-2xl font-bold" id="how-it-works">How it works</h3>
     <p class="py-6">For a deeper dive into the code you can <a href="/code">check this
-        page out</a> but here’s a quick non-technical overview: - All train data
-      is pulled from the same source as the irishrail website/app. On top of
-      that I offer 5 different “flavours” of maytró to choose from: - Option 1
-      is simply the status quo, just presented to you in a more Mayo-centric
-      fashion. You can use this as you would irishrail.ie. - Option 2 improves
-      on the status quo by shifting trains around to make better connections
-      so all trains are usable. - Options 3 optimizes the use of the Ballina
-      railcar while keeping current connections to the Dublin trains.
-      Generally trains between Ballina and Westport are direct. Some trains
-      only go to Castlebar, due to timing constraints. I schedule trains
-      starting with the first real morning train and going until midnight. -
-      Option 4 adds a fictional extra railcar starting from Claremorris
-      (inspired by Westport cycle group tweet) to complete the Maytró network!
-      The idea here is to run it up and down to Westport while connecting to
-      Ballina trains as much as possible given the constraints of existing
-      real trains. - Option 5 is as above but extended to Ballyhaunis.</p>
+        page out</a> but here’s a quick non-technical overview.  All train data is pulled from the same source as the irishrail website/app. On top of
+      that I offer 5 different “flavours” of maytró to choose from
+      <ul class="list-disc">
+        <li>Option 1
+          is simply the status quo, just presented to you in a more Mayo-centric
+          fashion. You can use this as you would irishrail.ie.
+        </li>
+        <li>Option 2 improves
+          on the status quo by shifting trains around to make better connections
+          so all trains are usable.
+        </li>
+        <li>Options 3 optimizes the use of the Ballina
+          railcar while keeping current connections to the Dublin trains.
+          Generally trains between Ballina and Westport are direct. Some trains
+          only go to Castlebar, due to timing constraints. I schedule trains
+          starting with the first real morning train and going until midnight.
+        </li>
+        <li>Option 4 adds a fictional extra railcar starting from Claremorris
+          (inspired by Westport cycle group tweet) to complete the Maytró network!
+          The idea here is to run it up and down to Westport while connecting to
+          Ballina trains as much as possible given the constraints of existing
+          real trains.
+        </li>
+        <li>Option 5 is as above but extended to Ballyhaunis.
+        </li>
+      </ul>
+    </p>
     <p class="py-6">There are also some limitations to this current iteration worth
-      mentioning: - I assume extra resources when needed for a particular
-      option (staff, fuel, extra rolling stock etc) are simply available. - I
-      haven’t specifically preserved paths for freight trains as I don’t have
-      an information on scheduling. - The junction layout at Manulla is not
-      optimal when two trains have to cross (it’s possible but awkward). -
-      Some options have specific limitations, see page on <a
-href="#code">code</a> for more.</p>
+      mentioning:
+      <ul class="list-disc">
+        <li>I assume extra resources when needed for a particular
+          option (staff, fuel, extra rolling stock etc) are simply available.
+        </li>
+        <li> I
+          haven’t specifically preserved paths for freight trains as I don’t have
+          an information on scheduling (though there are paths available).
+        </li>
+        <li>The junction layout at Manulla is not
+          optimal when two trains have to cross (it’s possible but awkward).
+        </li>
+        <li>Some options have specific limitations, see page on <a
+href="#code">code</a> for more.
+        </li>
+      </ul>
+    </p>
     <p class="py-6">Having admitted the above, these limitations are trivial, taking into
       account the scope of the project itself. This is not metrolink.</p>
-    <h3 id="why-the-maightró-should-happen">Why the Maightró should
+    <h3 class="text-2xl font-bold" id="why-the-maightró-should-happen">Why the Maightró should
       happen</h3>
     <p class="py-6">No public service will happen unless it is Government policy, and
       there is a lots of relevant policy, past and present, squarely behind
@@ -127,9 +148,9 @@ href="https://www.gov.ie/en/publication/7bd8c-climate-action-plan-2023/">updated
       in fantasy markets. The Maightró map thus includes bus transfer points
       at Ballina and Castlebar, necessary given the natural hinterland of the
       former and the spread out topography of the latter.</p>
-      <h4>Ballina</h4>
+    <h4 class="text-1xl font-bold">Ballina</h4>
     <img src="ballina-bus.svg" alt="">
-    <h4>Castlebar</h4>
+    <h4 class="text-1xl font-bold">Castlebar</h4>
     <img src="castlebar-bus.svg" alt="">
     <p class="py-6">Another aspect of Maytró is the ambition to run early and late.
       Citizens should be able to use the service not just for daytime
@@ -145,8 +166,7 @@ href="https://www.gov.ie/en/publication/7bd8c-climate-action-plan-2023/">updated
       Is there any reason why one couldn’t do the same in Mayo (assuming
       Maightró existed, was similarly affordable and ran at night)?</p>
     <p class="py-6">Which brings me onto the last policy document I want to refer to
-      here: John Bradley’s excellent <a
-href="https://275314da-a8aa-42f3-b679-4f2bff339c95.filesusr.com/ugd/33065c_ab5dd92d603d4dac9b205634d153745e.pdf">“Economy
+      here: John Bradley’s excellent <a href="https://275314da-a8aa-42f3-b679-4f2bff339c95.filesusr.com/ugd/33065c_ab5dd92d603d4dac9b205634d153745e.pdf">“Economy
         of Mayo”</a>. EOM is full of sage reflection on the intersection between
       the real economy in Mayo and the policy that frames it, challenging
       popular misconceptions and offering insights into where improvements can
@@ -187,7 +207,7 @@ href="https://275314da-a8aa-42f3-b679-4f2bff339c95.filesusr.com/ugd/33065c_ab5dd
       how better “framing” can produce extraordinary results without
       extraordinary expenditure.’ I propose that the Maightró could have a
       similar transformative effect on the perception of our towns.</p>
-    <h3 id="summing-up">Summing up</h3>
+    <h3 class="text-2xl font-bold" id="summing-up">Summing up</h3>
     <p class="py-6">Maightró is a simple idea that could be massively progressive for
       Mayo. Whether a matter of historical luck or perspicacious design, Mayo
       has been left with five of its six largest towns linked directly by
