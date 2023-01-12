@@ -40,6 +40,14 @@ get '/history' do
   erb :history
 end
 
+get '/about' do
+  erb :about
+end
+
+get '/why' do
+  erb :why
+end
+
 get '/test-sentry' do
   Sentry.capture_message("test message")
 end
