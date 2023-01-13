@@ -18,6 +18,16 @@ Sentry.init do |config|
   end
 end
 
+helpers do
+  def current_page_css(path)
+    if request.path == path
+      "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+    else
+      "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+    end
+  end
+end
+
 # pull in the helpers and controllers
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
@@ -44,8 +54,8 @@ get '/about' do
   erb :about
 end
 
-get '/why' do
-  erb :why
+get '/code' do
+  erb :code
 end
 
 get '/test-sentry' do

@@ -47,10 +47,10 @@
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Timetable</a>
-                <a href="/history" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">History</a>
-                <a href="/about" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Maytró</a>
-                <a href="/code" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Code</a>
+                <a href="/" class="<%= current_page_css("/") %>" aria-current="page">Timetable</a>
+                <a href="/about" class="<%= current_page_css("/about") %>">About Maytró</a>
+                <a href="/history" class="<%= current_page_css("/history") %>">History</a>
+                <a href="/code" class="<%= current_page_css("/code") %>">Code</a>
               </div>
             </div>
           </div>
@@ -61,8 +61,8 @@
         <div class="space-y-1 px-2 pt-2 pb-3">
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
           <a href="/" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Timetable</a>
-          <a href="/history" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">History</a>
           <a href="/about" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About Maytró</a>
+          <a href="/history" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">History</a>
           <a href="/code" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Code</a>
         </div>
       </div>
