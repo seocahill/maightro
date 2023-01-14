@@ -25,7 +25,7 @@ class Option1a < BaseOption
   end
 
   def schedule_train_trips
-    ic_trips = Option1.new(@date, "Ballyhaunis", "Westport").train_trips.flatten
+    ic_trips = import_train_data("Ballyhaunis", "Westport").flatten
     ballina_trains = []
 
     # covey trains already grouped

@@ -28,6 +28,30 @@ class BaseOption
     raise "Implement me"
   end
 
+  def import_train_data(from, to)
+    results = JourneyPlanner.new.search(@date, from, to)
+
+    [].tap do |trains|
+      results.trains_out.each do |trip|
+        routes, _stops = find_route(from, to)
+        add_trains(trains, trip, routes, results.stations)
+      end
+
+      results.trains_ret.each do |trip|
+        routes, _stops = find_route(to, from)
+        add_trains(trains, trip, routes, results.stations)
+      end
+    end
+  end
+
+  def add_trains(trains, trip, routes, stations)
+    trip['secL'].each do |train|
+      train = TrainPath.create(train, trip, stations)
+      routes.each { |route| train.send("#{route}_id=", train.trip_id) }
+      trains << train
+    end
+  end
+
   def generate_configuration
     date = Time.now.strftime "%Y%m%d"
 
@@ -72,7 +96,7 @@ class BaseOption
         [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
       # search will return dups for certain sections, uniuque
-      rows.each { |row| results << row unless results.any? { |res| res[5] == row[5] } }
+      rows.each { |row| results << row unless results.any? { |res| res[2..3] == row[2..3] } }
     end
     results
   end
@@ -102,8 +126,8 @@ class BaseOption
         @from = from
         @to = to
         durations = rows.map { |r| (Time.parse(r[3]) - Time.parse(r[2])).fdiv(60) }
-        wtt = durations.max.round rescue 0
-        mtt = durations.sum(0.0).fdiv(durations.size).round rescue 0
+        wtt = durations.max.round
+        mtt = durations.sum(0.0).fdiv(durations.size).round
         nts = rows.count
         results << [@from, @to, wtt, mtt, nts]
       end
