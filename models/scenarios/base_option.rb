@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # Status quo
-
+require 'csv'
 require 'json'
 require 'time'
 require 'terminal-table'
@@ -119,7 +119,6 @@ class BaseOption
       stations.each do |from|
         stations.each do |to|
           if from == to
-            rows << [from, to, "n/a", "n/a", "n/a"]
             next
           end
 
@@ -129,7 +128,7 @@ class BaseOption
           wtt = durations.max.round
           mtt = durations.sum(0.0).fdiv(durations.size).round
           nts = rows.count
-          results << [@from, @to, wtt, mtt, nts]
+          results << [@from, @to, nts,  mtt, wtt,]
         end
       end
     end
@@ -139,6 +138,17 @@ class BaseOption
     headers = %w[from to wtt mtt nts]
     title = "Analysis " + self.class.name
     puts Terminal::Table.new rows: run_analysis, headings: headers, title: title, style: { all_separators: true }
+  end
+
+  def csv_analysis
+    headers = %w[from to wtt mtt nts]
+    filename = "output/analysis-" + self.class.name + ".csv"
+    CSV.open(filename, 'w', headers: true) do |csv|
+      csv << headers
+      run_analysis.each do |r|
+        csv << r
+      end
+    end
   end
 
   private
