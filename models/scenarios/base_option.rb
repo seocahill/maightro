@@ -90,19 +90,27 @@ class BaseOption
   end
 
   def run_analysis
-    # stations = []
-    # for each station do |start|
-    # for each station do |end|
-    # next if start == end
-    # trains = lookup(start, end)
-    # durations = trains.map (dep - arr)
-    # wtt = dur.max
-    # mtt = dur.mean
-    # nts = trains.count
-    # rows << [start, end, wtt, mtt, nts]
-    headers = # stations
-    subheader = %w[wtt, mtt, nts]
-    puts Terminal::Table.new rows: rows.sort_by { |r| r[sort] }, headings: headers, title: 'An Maightró', style: { all_separators: true }
+    results = []
+    stations = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
+    stations.each do |from|
+      stations.each do |to|
+        if from == to
+          rows << [from, to, "n/a", "n/a", "n/a"]
+          next
+        end
+
+        @from = from
+        @to = to
+        durations = rows.map { |r| (Time.parse(r[3]) - Time.parse(r[2])).fdiv(60) }
+        wtt = durations.max.round rescue 0
+        mtt = durations.sum(0.0).fdiv(durations.size).round rescue 0
+        nts = rows.count
+        results << [@from, @to, wtt, mtt, nts]
+      end
+    end
+    headers = %w[from to wtt mtt nts]
+    title = "Analysis " + self.class.name
+    puts Terminal::Table.new rows: results, headings: headers, title: title, style: { all_separators: true }
   end
 
   private
