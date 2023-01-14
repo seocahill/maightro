@@ -89,6 +89,22 @@ class BaseOption
     end
   end
 
+  def run_analysis
+    # stations = []
+    # for each station do |start|
+    # for each station do |end|
+    # next if start == end
+    # trains = lookup(start, end)
+    # durations = trains.map (dep - arr)
+    # wtt = dur.max
+    # mtt = dur.mean
+    # nts = trains.count
+    # rows << [start, end, wtt, mtt, nts]
+    headers = # stations
+    subheader = %w[wtt, mtt, nts]
+    puts Terminal::Table.new rows: rows.sort_by { |r| r[sort] }, headings: headers, title: 'An Maightró', style: { all_separators: true }
+  end
+
   private
 
   def extract_trip_durations(trip, stations)
