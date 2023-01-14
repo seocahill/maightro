@@ -114,27 +114,31 @@ class BaseOption
   end
 
   def run_analysis
-    results = []
-    stations = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
-    stations.each do |from|
-      stations.each do |to|
-        if from == to
-          rows << [from, to, "n/a", "n/a", "n/a"]
-          next
-        end
+    [].tap do |results|
+      stations = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
+      stations.each do |from|
+        stations.each do |to|
+          if from == to
+            rows << [from, to, "n/a", "n/a", "n/a"]
+            next
+          end
 
-        @from = from
-        @to = to
-        durations = rows.map { |r| (Time.parse(r[3]) - Time.parse(r[2])).fdiv(60) }
-        wtt = durations.max.round
-        mtt = durations.sum(0.0).fdiv(durations.size).round
-        nts = rows.count
-        results << [@from, @to, wtt, mtt, nts]
+          @from = from
+          @to = to
+          durations = rows.map { |r| (Time.parse(r[3]) - Time.parse(r[2])).fdiv(60) }
+          wtt = durations.max.round
+          mtt = durations.sum(0.0).fdiv(durations.size).round
+          nts = rows.count
+          results << [@from, @to, wtt, mtt, nts]
+        end
       end
     end
+  end
+
+  def print_analysis
     headers = %w[from to wtt mtt nts]
     title = "Analysis " + self.class.name
-    puts Terminal::Table.new rows: results, headings: headers, title: title, style: { all_separators: true }
+    puts Terminal::Table.new rows: run_analysis, headings: headers, title: title, style: { all_separators: true }
   end
 
   private
