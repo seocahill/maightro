@@ -125,7 +125,7 @@ class BaseOption
 
           @from = from
           @to = to
-          durations = rows.map { |r| (Time.parse(r[3]) - Time.parse(r[2])).fdiv(60) }
+          durations = rows.map { |r| distance_in_mins(*r[2..3]) }
           wtt = durations.max.round
           mtt = durations.sum(0.0).fdiv(durations.size).round
           nts = rows.count

@@ -17,6 +17,10 @@ module Helper
     stations.dig(index, 'name')
   end
 
+  def distance_in_mins(dep, arr)
+    (Time.parse(arr) - Time.parse(dep)).fdiv(60)
+  end
+
   def find_route(from, to)
     base_routes = {
       nephin: ["Ballina", "Foxford", "Manulla Junction", "Castlebar", "Westport"],

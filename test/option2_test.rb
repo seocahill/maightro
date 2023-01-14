@@ -55,4 +55,8 @@ class Option2Test < Test::Unit::TestCase
   def test_costello
     assert_equal @costello.count, 5
   end
+
+  def test_analysis
+    assert Option2.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
+  end
 end
