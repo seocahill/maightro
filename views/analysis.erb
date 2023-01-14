@@ -1,0 +1,30 @@
+<script type="module">
+  const dataTable = new simpleDatatables.DataTable("#analysis-results", {
+    searchable: true,
+    fixedHeight: true,
+    columns: [{ select: 0, sort: "asc" }],
+  })
+</script>
+<div class="overflow-x-auto">
+  <table id="analysis-results" class="table w-full">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>N</th>
+        <th>W</th>
+        <th>M</th>
+      </tr>
+    </thead>
+    <tbody id="results">
+    <% @results.each do |row| %>
+      <tr>
+      <% row.each do |cell| %>
+        <td><%= cell %></td>
+      <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

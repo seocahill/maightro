@@ -46,6 +46,13 @@ get '/info' do
   erb :info, layout: false
 end
 
+get '/analysis' do
+  # scenario = params["scenario"] || "Option1"
+  # @results = Module.const_get(scenario).new.run_analysis
+  @results = Option1.new.run_analysis
+  erb :analysis, layout: false
+end
+
 get '/history' do
   erb :history
 end
@@ -55,6 +62,7 @@ get '/about' do
 end
 
 get '/code' do
+  @results = Option1.new.run_analysis
   erb :code
 end
 
