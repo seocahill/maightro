@@ -44,23 +44,23 @@
     <p class="py-6">The most obvious brute force approach is simply to cycle through
       every scheduling option, something like (pseudo)…</p>
     <pre>
-         <code>
-            schedule = []
-            blocks = single trains sections
-            queue = array of ordered trains waiting to enter first block
-            while queue do
-            train = trains.pop
-            block = next_block(current_station, blocks)
-            if block.empty?
-               block.train = train
-               schedule &lt;&lt; train
-            else
-               trains &lt;&lt; train
-            end
-            end
-            return schedule
-         </code>
-      </pre>
+      <code>
+        schedule = []
+        blocks = single trains sections
+        queue = array of ordered trains waiting to enter first block
+        while queue do
+        train = trains.pop
+        block = next_block(current_station, blocks)
+        if block.empty?
+            block.train = train
+            schedule &lt;&lt; train
+        else
+            trains &lt;&lt; train
+        end
+        end
+        return schedule
+      </code>
+    </pre>
     <p class="py-6">This is kind of the approach I take but with some shortcuts to avoid
       unnecessary cycles, i.e something approximating a greedy algorithmic
       approach:</p>
@@ -84,7 +84,38 @@
       break in the future but given the time I was willing to give this, the
       easiest thing was to query directly. I coded this initially as a basic
       cli, you can look up any route.</p>
-    <p class="py-6"><img src="console.png" alt=""></p>
+    <pre class="overflow-x-auto">
+      <code>
+        $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
+        +-------------------------------------------------------------------+
+        |                            An Maightró                            |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | from        | to        | dep   | arr   | info          | trip_id |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 06:09 | 06:28 |               | LCX-0   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 08:18 | 08:38 | to Westport   | C-0     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 10:19 | 10:39 | to Westport;  | C-1     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 12:04 | 12:23 |               | LCX-2   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 14:04 | 14:23 |               | LCX-4   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 15:20 | 15:40 | to Westport   | C-2     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 17:19 | 17:39 | to Westport   | C-3     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 19:13 | 19:32 |               | LCX-6   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 20:49 | 21:09 | to Westport   | C-4     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 22:34 | 22:53 |               | LCX-8   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 23:59 | 00:18 |               | LCL-10  |
+        +-------------+-----------+-------+-------+---------------+---------+
+      </code>
+    </pre>
     <p class="py-6">The realtime data is the source of all the constants - block
       durations, turnaround times, station dwell - used to generate schedules
       in the following scenarios.</p>
