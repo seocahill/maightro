@@ -184,13 +184,6 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
       (Ballyhaunis - Claremorris) and schedule from scratch factoring in the
       passing possibilities therein. The approach here is likely not optimal
       but still a significant improvement on the status quo.</p>
-    <h3 class="font-bold font-sans break-normal" id="results">Results</h3>
-    <p class="py-6">Listed below you’ll find some statistics for each option, for each
-      possible trip namely: - number of trains scheduled (n) - worst cast trip
-      time (w) - mean trip time (m) - frequency of service (f)</p>
-    <div id="analysis">
-      <%= erb :analysis  %>
-    </div>
     <hr>
     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
       <ol>
@@ -201,5 +194,19 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
         </li>
       </ol>
     </section>
+    <h3 class="font-bold font-sans break-normal" id="results">Results</h3>
+    <p class="py-6">Listed below you’ll find some statistics for each option, for each
+      possible trip namely: - number of trains scheduled (n) - worst cast trip
+      time (w) - mean trip time (m) - frequency of service (f)</p>
+    <div id="tabs" hx-target="#analysis-contents" _="on htmx:afterOnLoad take .selected for event.target">
+      <a hx-get="/analysis?scenario=Option1" class="selected">Baseline</a>
+      <a hx-get="/analysis?scenario=Option1a">Improved</a>
+      <a hx-get="/analysis?scenario=Option2">Ballina - Westport direct</a>
+      <a hx-get="/analysis?scenario=Option3">Claremorris</a>
+      <a hx-get="/analysis?scenario=Option3b">Ballyhaunis</a>
+    </div>
+  </div>
+  <div class="py-6" id="analysis-contents">
+    <%= erb :analysis  %>
   </div>
 </div>
