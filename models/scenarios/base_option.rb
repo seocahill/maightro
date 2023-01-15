@@ -128,20 +128,22 @@ class BaseOption
           wtt = durations.max.round
           mtt = durations.sum(0.0).fdiv(durations.size).round
           nts = rows.count
-          results << [@from, @to, nts,  mtt, wtt,]
+          first_dep, last_dep = rows.map { |r| Time.parse(r.dig(2)) }.minmax
+          fs = (last_dep - first_dep).fdiv(rows.size).fdiv(3600).round(1)
+          results << [@from, @to, nts,  mtt, wtt, fs]
         end
       end
     end
   end
 
   def print_analysis
-    headers = %w[from to wtt mtt nts]
+    headers = %w[from to wtt mtt nts fs]
     title = "Analysis " + self.class.name
     puts Terminal::Table.new rows: run_analysis, headings: headers, title: title, style: { all_separators: true }
   end
 
   def csv_analysis
-    headers = %w[from to wtt mtt nts]
+    headers = %w[from to wtt mtt nts fs]
     filename = "output/analysis-" + self.class.name + ".csv"
     CSV.open(filename, 'w', headers: true) do |csv|
       csv << headers

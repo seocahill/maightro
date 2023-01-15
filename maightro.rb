@@ -47,9 +47,9 @@ get '/info' do
 end
 
 get '/analysis' do
-  # scenario = params["scenario"] || "Option1"
-  # @results = Module.const_get(scenario).new.run_analysis
-  @results = Option1.new.run_analysis
+  @scenario = params["scenario"] || "Option1"
+  @results = Module.const_get(@scenario).new.run_analysis
+  # @results = Option1.new.run_analysis
   erb :analysis, layout: false
 end
 

@@ -36,9 +36,13 @@
     </figure>
     <p class="py-6">The particular problem this code seeks to solve is the scheduling of
       as many trains as feasible given normal domain constraints (blocks,
-      rolling stock) on three intersecting routes… - the Nephin: Ballina -
-      Westport - the Covey: Westport - Ballyhaunis - the Costello: Ballyhaunis
-      - Ballina. ….and scenario specific constraints (there are four different
+      rolling stock) on three intersecting routes…
+      <ul class="list-disc">
+        <li>the Nephin: Ballina - Westport</li>
+        <li>the Covey: Westport - Ballyhaunis </li>
+        <li>the Costello: Ballyhaunis - Ballina</li>
+      </ul>
+      …and scenario specific constraints (there are four different
       scenarios, the baseline being the current service).</p>
     <p class="py-6">The most obvious brute force approach is simply to cycle through
       every scheduling option, something like (pseudocode)…</p>
@@ -196,15 +200,23 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
     </section>
     <h3 class="font-bold font-sans break-normal" id="results">Results</h3>
     <p class="py-6">Listed below you’ll find some statistics for each option, for each
-      possible trip namely: - number of trains scheduled (n) - worst cast trip
-      time (w) - mean trip time (m) - frequency of service (f)</p>
-    <div id="tabs" hx-target="#analysis-contents" _="on htmx:afterOnLoad take .selected for event.target">
-      <a hx-get="/analysis?scenario=Option1" class="selected">Baseline</a>
-      <a hx-get="/analysis?scenario=Option1a">Improved</a>
-      <a hx-get="/analysis?scenario=Option2">Ballina - Westport direct</a>
-      <a hx-get="/analysis?scenario=Option3">Claremorris</a>
-      <a hx-get="/analysis?scenario=Option3b">Ballyhaunis</a>
-    </div>
+      possible trip namely:
+      <ul class="list-disc">
+        <li>number of trains scheduled (N)</li>
+        <li>worst case trip time minutes  (W)</li>
+        <li>mean trip time minutes (M)</li>
+        <li>frequency of service hours (F)</li>
+      </ul>
+    </p>
+    <p class="py-6">
+      <ul class="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs" hx-target="#analysis-contents" _="on htmx:afterOnLoad take .selected for event.target">
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option1" class="selected">Current</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option1a">Improved</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option2">Ballina - Westport direct</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option3">Claremorris</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option3b">Ballyhaunis</a></li>
+      </ul>
+    </p>
   </div>
   <div class="py-6" id="analysis-contents">
     <%= erb :analysis  %>
