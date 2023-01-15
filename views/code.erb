@@ -3,9 +3,8 @@
     <!--Title-->
     <div class="font-sans">
       <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">About Maightró</h1>
-      <p class="text-sm md:text-base font-normal text-gray-600">Repo here https://github.com/seocahill/maightro, accepting PRs
-      especially aesthetically minded, I last did frontend dev in 2014!
-      Released under <a href="https://github.com/seocahill/maightro/blob/main/LICENSE">unlicense</a></p>
+      <p class="text-sm md:text-base font-normal text-gray-600">Repo here: https://github.com/seocahill/maightro. Accepting PRs
+      especially aesthetically minded, I last did frontend dev in 2014! <a href="https://github.com/seocahill/maightro/blob/main/LICENSE">Unlicense.</a></p>
     </div>
     <h3 class="font-bold font-sans break-normal pt-6 pb-2" id="overview">Overview</h3>
     <p class="py-6">If you are reading this and are technically minded you’ll know from
@@ -32,8 +31,6 @@
     <figure>
       <img src="https://d3i71xaburhd42.cloudfront.net/868a9cb615872c8cfbfcdb9c9145eb22095afb9d/5-Figure1-1.png"
             alt="space time diagram for train scheduling on single track" />
-      <figcaption aria-hidden="true">space time diagram for train scheduling
-        on single track</figcaption>
     </figure>
     <p class="py-6">The particular problem this code seeks to solve is the scheduling of
       as many trains as feasible given normal domain constraints (blocks,
@@ -77,7 +74,7 @@
       scenario 2) have give myself the constraint that I can’t reschedule
       already scheduled trains in order to make realising some version of
       Maytró as feasible as possible.</p>
-    <h3 id="scenarios">Scenarios</h3>
+    <h3 class="font-bold font-sans break-normal" id="scenarios">Scenarios</h3>
     <p class="py-6">The baseline is just the current service and I look that up directly
       from Iarnród Éireann’s public (but not published) api, that serves their
       website. This means of course my implementation could and probably will
@@ -117,7 +114,7 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
     <p class="py-6">The realtime data is the source of all the constants - block
       durations, turnaround times, station dwell - used to generate schedules
       in the following scenarios.</p>
-    <h4 id="options-1a">Options 1a</h4>
+    <h4 class="font-bold font-sans break-normal" id="options-1a">Options 1a</h4>
     <p class="py-6">One of the problems with the current Maytró is that about half of the
       trains between Westport and Ballina are unusable due to lousy
       connections between them. The “improved” scenario (option 1a) first
@@ -145,7 +142,7 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
         possibilities for implementation at a later stage Driver resources not
         available for implementation</p>
     </blockquote>
-    <h4 id="option-2">Option 2</h4>
+    <h4 class="font-bold font-sans break-normal" id="option-2">Option 2</h4>
     <p class="py-6">This is essentially the original “Mayolink” proposal reheated. The
       approach is to start with the earliest Covey connection and schedule as
       many Nephin trains as possible until midnight, making sure to keep
@@ -164,7 +161,7 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
       trains can pass each other but depending on the direction travelled an
       awkward maneuver is required. Could be easily fixed by the installation
       of a points. Not a deal-breaker either way but worth mentioning.</p>
-    <h4 id="option-3">Option 3</h4>
+    <h4 class="font-bold font-sans break-normal" id="option-3">Option 3</h4>
     <p class="py-6">This introduces 15 minute Westport’s Eastern line, referred to here
       as the Costello.</p>
     <p class="py-6">The approach is to schedule as many trips as are feasible using a
@@ -175,7 +172,7 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
       in the wrong place (for next connection) run it back - if connection
       possible, make the connection - otherwise just schedule an extra
       Costello service with no connection.</p>
-    <h4 id="option3b">Option3b</h4>
+    <h4 class="font-bold font-sans break-normal" id="option3b">Option3b</h4>
     <p class="py-6">For option3b the Costello is extended all the way to the border,
       Ballyhaunis town.</p>
     <p class="py-6">The only optimization here (if you can call it that) is to check if
@@ -185,20 +182,20 @@ $ rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
       (Ballyhaunis - Claremorris) and schedule from scratch factoring in the
       passing possibilities therein. The approach here is likely not optimal
       but still a significant improvement on the status quo.</p>
-    <h3 id="results">Results</h3>
+    <h3 class="font-bold font-sans break-normal" id="results">Results</h3>
     <p class="py-6">Listed below you’ll find some statistics for each option, for each
       possible trip namely: - number of trains scheduled (n) - worst cast trip
       time (w) - mean trip time (m) - frequency of service (f)</p>
     <div id="analysis">
       <%= erb :analysis  %>
     </div>
+    <hr>
     <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-      <hr />
       <ol>
         <li id="fn1">
           <p class="py-6">
-            https://www.semanticscholar.org/paper/MISTA-2015-Single-Track-Train-Scheduling-Harbering-Ranade/868a9cb615872c8cfbfcdb9c9145eb22095afb9d<a
-                     href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p>
+            <i>1. Single Track Train Scheduling, Jonas Harbering · Abhiram Ranade · Marie Schmidt (January 2015)</i>
+          </p>
         </li>
       </ol>
     </section>
