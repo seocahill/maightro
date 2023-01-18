@@ -66,10 +66,6 @@ get '/code' do
   erb :code
 end
 
-get '/why' do
-  erb :why
-end
-
 get '/test-sentry' do
   Sentry.capture_message("test message")
 end
