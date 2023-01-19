@@ -20,7 +20,7 @@ class Option3Test < Test::Unit::TestCase
     rows = (@bw + @wb).sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
-    rows = (@covey + @covey_return).select { |t| t.dig(5) =~ /LC/ }.sort_by { |r| r[2] }
+    rows = (@covey + @covey_return).select { |t| t.dig(-1) =~ /LC/ }.sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
     # busiest block is Castlebar - Westport
