@@ -9,5 +9,6 @@ gem 'rake'
 gem 'activesupport'
 gem 'activemodel'
 gem 'test-unit'
+gem 'thin'
 
 
