@@ -24,7 +24,7 @@ class BaseOption
   end
 
   def exec_option
-    raise "Implement me"
+    raise "Implement me" unless __FILE__ == $PROGRAM_NAME
   end
 
   def import_train_data(from, to)
@@ -49,6 +49,11 @@ class BaseOption
       routes.each { |route| train.send("#{route}_id=", train.trip_id) }
       trains << train
     end
+  end
+
+  def setup
+    generate_configuration
+    generate_table_of_fares
   end
 
   def generate_configuration
@@ -152,12 +157,35 @@ class BaseOption
     end
   end
 
+  def generate_table_of_fares
+    {}.tap do |fares|
+      stations = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
+      stations.each do |from|
+        stations.each do |to|
+          next if from == to
+          date = Time.now + 86400
+          results = JourneyPlanner.new.search(date.strftime("%Y%m%d"), from, to)
+          results.trains_out.each do |trip|
+            min, max = trip.dig("trfRes","fareSetL")&.flat_map do |fare|
+              fare.dig('fareL').map { |f| f.dig("prc") }
+            end&.minmax
+            fares[from] ||= {}
+            fares[from][to] = [min, max]
+          end
+        end
+      end
+      File.open('fares.yaml', 'w') do |file|
+        file.write(fares.to_h.to_yaml)
+      end
+    end
+  end
+
   private
 
   def extract_trip_durations(trip, stations)
     trip.dig('secL').each do |t|
       t.dig('jny', 'stopL').each_cons(2) do |start, finish|
-        next unless  finish['aTimeS'] && start["dTimeS"]
+        next unless finish['aTimeS'] && start["dTimeS"]
 
         dur = parse_time(finish['aTimeS']) - parse_time(start["dTimeS"])
         x = @stop_info[find_station(start, stations)] ||= {}
@@ -168,4 +196,4 @@ class BaseOption
   end
 end
 
-BaseOption.new.generate_configuration if __FILE__ == $PROGRAM_NAME
+BaseOption.new.setup if __FILE__ == $PROGRAM_NAME

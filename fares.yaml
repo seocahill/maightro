@@ -1,0 +1,97 @@
+---
+Ballina:
+  Foxford:
+  - 365
+  - 365
+  Castlebar:
+  - 515
+  - 515
+  Westport:
+  - 765
+  - 765
+  Claremorris:
+  - 599
+  - 599
+  Ballyhaunis:
+  - 766
+  - 766
+Foxford:
+  Ballina:
+  - 365
+  - 365
+  Castlebar:
+  - 489
+  - 489
+  Westport:
+  - 570
+  - 570
+  Claremorris:
+  - 516
+  - 516
+  Ballyhaunis:
+  - 599
+  - 599
+Castlebar:
+  Ballina:
+  - 515
+  - 515
+  Foxford:
+  - 489
+  - 489
+  Westport:
+  - 489
+  - 489
+  Claremorris:
+  - 489
+  - 489
+  Ballyhaunis:
+  - 569
+  - 569
+Westport:
+  Ballina:
+  - 765
+  - 765
+  Foxford:
+  - 570
+  - 570
+  Castlebar:
+  - 489
+  - 489
+  Claremorris:
+  - 569
+  - 569
+  Ballyhaunis:
+  - 765
+  - 765
+Claremorris:
+  Ballina:
+  - 599
+  - 599
+  Foxford:
+  - 516
+  - 516
+  Castlebar:
+  - 489
+  - 489
+  Westport:
+  - 569
+  - 569
+  Ballyhaunis:
+  - 489
+  - 489
+Ballyhaunis:
+  Ballina:
+  - 766
+  - 766
+  Foxford:
+  - 599
+  - 599
+  Castlebar:
+  - 569
+  - 569
+  Westport:
+  - 765
+  - 765
+  Claremorris:
+  - 489
+  - 489
