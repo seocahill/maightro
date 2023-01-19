@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sinatra'
-require 'sentry-ruby'
 require 'date'
 
 # catch bugs

@@ -1,6 +1,5 @@
 require_relative '../models/scenarios/option_2.rb'
 require 'test/unit'
-require 'pry'
 
 class Option2Test < Test::Unit::TestCase
 

@@ -3,9 +3,6 @@
 
 # Status quo
 
-require 'json'
-require 'time'
-require 'terminal-table'
 require_relative 'base_option'
 
 class Option1 < BaseOption

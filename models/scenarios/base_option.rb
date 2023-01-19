@@ -5,7 +5,6 @@
 require 'csv'
 require 'json'
 require 'time'
-require 'terminal-table'
 require_relative '../helper'
 require_relative '../journey_planner'
 require_relative '../train_path'
