@@ -14,6 +14,7 @@ class BaseOption
 
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
     @stop_info = YAML.load(File.read("config.yaml"))
+    @fare_info = YAML.load(File.read("fares.yaml"))
     @dwell = 60.0
     @turnaround = @dwell * 3
     @date = date
@@ -97,7 +98,9 @@ class BaseOption
         next unless stops[@from] && stops[@to]
         next unless stops[@from] < stops[@to]
         # return train result for tt
-        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
+        low, high = @fare_info[@from][@to]
+        fares = low == high ? "€#{low.fdiv(100)}" : "€#{low.fdiv(100)} - #{high.fdiv(100)}"
+        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), fares, trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
       # search will return dups for certain sections, uniuque
       rows.each { |row| results << row unless results.any? { |res| res[2..3] == row[2..3] } }
