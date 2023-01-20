@@ -2,15 +2,17 @@ from ruby:alpine
 
 workdir /app
 
+COPY Gemfile* ./
+
 run \
-  apk --update add build-base  && \
-  gem install sinatra terminal-table activemodel thin sentry-ruby
+  apk --update add build-base && \
+  bundle install
 
 copy . ./
 
 env RACK_ENV=production
-env PORT="8080"
+env PORT=8080
 
 expose 8080
 
-cmd ["ruby", "maightro.rb"]
+CMD ["bundle", "exec", "rackup", "-p", "8080", "--host", "0.0.0.0"]
