@@ -15,4 +15,4 @@ env PORT=8080
 
 expose 8080
 
-CMD ["bundle", "exec", "rackup", "-p", "$PORT"]
+CMD bundle exec rackup -p ${PORT}
