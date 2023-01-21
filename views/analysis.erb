@@ -26,9 +26,6 @@
           <th>&#916;M</th>
         <% end %>
         <th>F</th>
-        <% if @baseline %>
-          <th>&#916;F</th>
-        <% end %>
       </tr>
     </thead>
     <tbody id="results">
@@ -36,7 +33,7 @@
       <tr>
       <% row.each_with_index do |cell, rowidx| %>
         <td><%= cell %></td>
-        <% if @baseline && rowidx > 1 %>
+        <% if @baseline && (2..4).include?(rowidx) %>
           <td><%= svc_change(@baseline[residx][rowidx], cell) %></td>
         <% end %>
       <% end %>
