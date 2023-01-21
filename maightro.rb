@@ -59,15 +59,13 @@ end
 
 get '/book' do
   url = URI("https://journeyplanner.irishrail.ie/webapp/")
-  @from = "Ballina"
-  @to = "Westport"
-
+  date = Date.parse(params["date"]).strftime("%d/%m/%Y")
   query = URI.encode_www_form({
     "start": "1&REQ0JourneyStopsS0G",
-    "REQ0JourneyStopsS0G": @from,
-    "REQ0JourneyStopsZ0G": @to,
+    "REQ0JourneyStopsS0G": params["from"],
+    "REQ0JourneyStopsZ0G": params["to"],
     "journey_mode": "single",
-    "REQ0JourneyDate": "29/01/2023",
+    "REQ0JourneyDate": "#{date}",
     "REQ0JourneyTime": "allday",
     "Number_adults": "1",
     "language": "en_IE"

@@ -27,7 +27,7 @@
           <td><%= cell %></td>
         <% end %>
         <% if (row[-1] =~ /(^(C|R)-\d)/) %>
-          <td><a href='/book' target="_blank" class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"> Book 🎟 </a></td>
+          <td><a href='/book?to=<%= @from %>&from=<%= @to %>&date=<%= @booking_date %>' target="_blank" class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"> Book 🎟 </a></td>
         <% else %>
           <td><a href="/ask" target="_blank" class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"> Ask 🙏 </a></td>
         <% end %>
