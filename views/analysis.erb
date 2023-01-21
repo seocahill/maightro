@@ -14,16 +14,31 @@
         <th>From</th>
         <th>To</th>
         <th>N</th>
+        <% if @baseline %>
+          <th>&#916;N</th>
+        <% end %>
         <th>W</th>
+        <% if @baseline %>
+          <th>&#916;W</th>
+        <% end %>
         <th>M</th>
+        <% if @baseline %>
+          <th>&#916;M</th>
+        <% end %>
         <th>F</th>
+        <% if @baseline %>
+          <th>&#916;F</th>
+        <% end %>
       </tr>
     </thead>
     <tbody id="results">
-    <% @results.each do |row| %>
+    <% @results.each_with_index do |row, residx| %>
       <tr>
-      <% row.each do |cell| %>
+      <% row.each_with_index do |cell, rowidx| %>
         <td><%= cell %></td>
+        <% if @baseline && rowidx > 1 %>
+          <td><%= svc_change(@baseline[residx][rowidx], cell) %></td>
+        <% end %>
       <% end %>
       </tr>
     <% end %>

@@ -27,10 +27,12 @@ helpers do
     end
   end
 
-  # def booking_link
-  #   "https://journeyplanner.irishrail.ie/webapp/?start=1&REQ0JourneyStopsS0G=#{@from}&HWAI%3DJS%21js=yes&HWAI%3DJS%21ajax=yes&REQ0JourneyStopsZ0G=#{@to}&journey_mode=single&REQ0JourneyDate=#{@booking_date}&REQ0JourneyTime=allday"
-  # end
+  def svc_change(baseline, cell)
+    percent = (cell - baseline).fdiv(baseline).*(100).round
+    return "-" if percent.zero?
 
+    "(#{percent}%)"
+  end
 end
 # pull in the helpers and controllers
 Dir.glob('./models/**/*.rb').each { |file| require file }
@@ -52,6 +54,9 @@ end
 
 get '/analysis' do
   @scenario = params["scenario"] || "Option1"
+  if @scenario !=  "Option1"
+    @baseline = Option1.new.run_analysis
+  end
   @results = Module.const_get(@scenario).new.run_analysis
   # @results = Option1.new.run_analysis
   erb :analysis, layout: false
