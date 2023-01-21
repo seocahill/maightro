@@ -92,10 +92,6 @@ get '/code' do
   erb :code
 end
 
-get '/test-sentry' do
-  Sentry.capture_message("test message")
-end
-
 post '/timetable' do
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
