@@ -96,6 +96,9 @@
           </div>
         </div>
       </div>
+      <div id="table-and-form">
+        <%= erb :timetable if @timetables.any? %>
+      </div>
       <div class="flex flex-col md:flex-row">
         <div class="w-64 mx-2 font-bold h-6 mt-3 text-gray-800"></div>
         <div class="flex-1 flex flex-col md:flex-row">

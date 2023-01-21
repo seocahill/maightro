@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'date'
+require 'uri'
+require 'cgi'
 
 # catch bugs
 Sentry.init do |config|
@@ -24,8 +26,12 @@ helpers do
       "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
     end
   end
-end
 
+  # def booking_link
+  #   "https://journeyplanner.irishrail.ie/webapp/?start=1&REQ0JourneyStopsS0G=#{@from}&HWAI%3DJS%21js=yes&HWAI%3DJS%21ajax=yes&REQ0JourneyStopsZ0G=#{@to}&journey_mode=single&REQ0JourneyDate=#{@booking_date}&REQ0JourneyTime=allday"
+  # end
+
+end
 # pull in the helpers and controllers
 Dir.glob('./models/**/*.rb').each { |file| require file }
 
@@ -51,8 +57,32 @@ get '/analysis' do
   erb :analysis, layout: false
 end
 
+get '/book' do
+  url = URI("https://journeyplanner.irishrail.ie/webapp/")
+  @from = "Ballina"
+  @to = "Westport"
+
+  query = URI.encode_www_form({
+    "start": "1&REQ0JourneyStopsS0G",
+    "REQ0JourneyStopsS0G": @from,
+    "REQ0JourneyStopsZ0G": @to,
+    "journey_mode": "single",
+    "REQ0JourneyDate": "29/01/2023",
+    "REQ0JourneyTime": "allday",
+    "Number_adults": "1",
+    "language": "en_IE"
+  })
+  url.query = query
+
+  redirect url
+end
+
 get '/history' do
   erb :history
+end
+
+get '/ask' do
+  redirect "https://www.oireachtas.ie/en/members/tds/?tab=constituency&constituency=%2Fie%2Foireachtas%2Fhouse%2Fdail%2F33%2Fconstituency%2FMayo"
 end
 
 get '/about' do
@@ -74,6 +104,7 @@ post '/timetable' do
   @to = params["to"]
   @from = params["from"]
   @default_date = params['date']
+  @booking_date = CGI.escape(params['date'].gsub("-", "/"))
   @default_scenario = params["scenario"]
 
   @timetables = if params["scenario"]
