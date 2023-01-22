@@ -5,10 +5,7 @@
 require 'uri'
 require 'json'
 require 'net/http'
-# require 'pry'
-
 require 'time'
-require 'terminal-table'
 
 class JourneyPlanner
   def search(date = '20221222', from = 'Ballina', to = 'Westport')

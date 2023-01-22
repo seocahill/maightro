@@ -17,6 +17,15 @@ module Helper
     stations.dig(index, 'name')
   end
 
+  def distance_in_mins(dep, arr)
+    arr_time = Time.parse(arr)
+    dep_time = Time.parse(dep)
+    # if less than earliest possible train, must be next day arrival
+    arr_time += 86400 if arr_time < Time.parse("05:00")
+    dep_time += 86400 if dep_time < Time.parse("05:00")
+    (arr_time - dep_time).fdiv(60)
+  end
+
   def find_route(from, to)
     base_routes = {
       nephin: ["Ballina", "Foxford", "Manulla Junction", "Castlebar", "Westport"],

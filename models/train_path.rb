@@ -29,7 +29,7 @@ class TrainPath
   end
 
   def time_at_junction
-    stops.detect { |s| s[0] == 'Manulla Junction' }.dig(1)
+    stops.detect { |s| s[0] == 'Manulla Junction' }&.dig(1)
   end
 
   def values

@@ -1,6 +1,5 @@
 require_relative '../models/scenarios/option_2.rb'
 require 'test/unit'
-require 'pry'
 
 class Option2Test < Test::Unit::TestCase
 
@@ -54,5 +53,9 @@ class Option2Test < Test::Unit::TestCase
 
   def test_costello
     assert_equal @costello.count, 5
+  end
+
+  def test_analysis
+    assert Option2.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
   end
 end

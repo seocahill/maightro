@@ -1,6 +1,5 @@
 require_relative '../models/scenarios/option_2.rb'
 require 'test/unit'
-require 'pry'
 
 class HelperTest < Test::Unit::TestCase
 
@@ -26,5 +25,10 @@ class HelperTest < Test::Unit::TestCase
     assert_equal @tp.find_route("Claremorris", "Foxford")[1], ["Claremorris", "Manulla Junction", "Foxford"]
     assert_equal @tp.find_route("Ballina", "Westport")[1], ["Ballina", "Foxford", "Manulla Junction", "Castlebar", "Westport"]
     assert_equal @tp.find_route("Westport", "Ballyhaunis")[1], ["Westport", "Castlebar",  "Manulla Junction", "Claremorris", "Ballyhaunis"]
+  end
+
+  def test_time_in_mins
+    row = ["Ballina", "Westport", "23:17", "00:07", "", "LDT-18"]
+    assert_equal 50, @tp.distance_in_mins(*row[2..3]), "calculate times after midnight correctly"
   end
 end

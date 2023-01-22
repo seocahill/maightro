@@ -1,52 +1,5164 @@
-[
-  {"from":"Ballina-Manulla","dir":"To Dublin","dep":"2022-12-11 05:07:00 +0100","arr":"2022-12-11 05:34:00 +0100","position":0},
-  {"from":"Westport-Claremorris","dir":"from Ballina","dep":"2022-12-11 05:15:00 +0100","arr":"2022-12-11 05:47:00 +0100","position":0},
-  {"from":"Manulla-Westport","dir":"local","dep":"2022-12-11 05:37:00 +0100","arr":"2022-12-11 05:56:00 +0100","position":3},
-  {"from":"Westport-Ballina","dir":"local","dep":"2022-12-11 05:59:00 +0100","arr":"2022-12-11 06:48:00 +0100","position":3},
-  {"from":"Claremorris-Westport","dir":"local","dep":"2022-12-11 06:04:00 +0100","arr":"2022-12-11 06:26:00 +0100","position":17},
-  {"from":"Ballina-Manulla","dir":"To Dublin","dep":"2022-12-11 07:08:00 +0100","arr":"2022-12-11 07:35:00 +0100","position":20},
-  {"from":"Westport-Claremorris","dir":"from Ballina","dep":"2022-12-11 07:15:00 +0100","arr":"2022-12-11 07:48:00 +0100","position":49},
-  {"from":"Manulla-Westport","dir":"local","dep":"2022-12-11 07:38:00 +0100","arr":"2022-12-11 07:57:00 +0100","position":3},
-  {"from":"Westport-Manulla","dir":"local","dep":"2022-12-11 08:13:00 +0100","arr":"2022-12-11 08:32:00 +0100","position":16},
-  {"from":"Claremorris-Westport","dir":"to Ballina","dep":"2022-12-11 08:18:00 +0100","arr":"2022-12-11 08:55:00 +0100","position":30},
-  {"from":"Manulla-Ballina","dir":"From Dublin","dep":"2022-12-11 08:35:00 +0100","arr":"2022-12-11 09:02:00 +0100","position":3},
-  {"from":"Ballina-Manulla","dir":"To Dublin","dep":"2022-12-11 09:37:00 +0100","arr":"2022-12-11 10:04:00 +0100","position":35},
-  {"from":"Westport-Claremorris","dir":"from Ballina","dep":"2022-12-11 09:45:00 +0100","arr":"2022-12-11 10:19:00 +0100","position":50},
-  {"from":"Manulla-Castlebar","dir":"local","dep":"2022-12-11 10:07:00 +0100","arr":"2022-12-11 10:13:00 +0100","position":3},
-  {"from":"Claremorris-Westport","dir":"to Ballina","dep":"2022-12-11 10:19:00 +0100","arr":"2022-12-11 10:56:00 +0100","position":0},
-  {"from":"Castlebar-Manulla","dir":"local","dep":"2022-12-11 10:27:00 +0100","arr":"2022-12-11 10:33:00 +0100","position":14},
-  {"from":"Manulla-Ballina","dir":"From Dublin","dep":"2022-12-11 10:36:00 +0100","arr":"2022-12-11 11:03:00 +0100","position":3},
-  {"from":"Ballina-Westport","dir":"local","dep":"2022-12-11 11:06:00 +0100","arr":"2022-12-11 11:55:00 +0100","position":3},
-  {"from":"Westport-Claremorris","dir":"local","dep":"2022-12-11 11:14:00 +0100","arr":"2022-12-11 11:31:00 +0100","position":18},
-  {"from":"Westport-Ballina","dir":"local","dep":"2022-12-11 11:58:00 +0100","arr":"2022-12-11 12:47:00 +0100","position":3},
-  {"from":"Claremorris-Westport","dir":"local","dep":"2022-12-11 12:03:00 +0100","arr":"2022-12-11 12:25:00 +0100","position":32},
-  {"from":"Westport-Claremorris","dir":"local","dep":"2022-12-11 12:28:00 +0100","arr":"2022-12-11 13:01:00 +0100","position":3},
-  {"from":"Ballina-Manulla","dir":"To Dublin","dep":"2022-12-11 13:02:00 +0100","arr":"2022-12-11 13:29:00 +0100","position":15},
-  {"from":"Westport-Claremorris","dir":"from Ballina","dep":"2022-12-11 13:10:00 +0100","arr":"2022-12-11 13:43:00 +0100","position":9},
-  {"from":"Manulla-Westport","dir":"local","dep":"2022-12-11 13:32:00 +0100","arr":"2022-12-11 13:51:00 +0100","position":3},
-  {"from":"Westport-Ballina","dir":"local","dep":"2022-12-11 13:54:00 +0100","arr":"2022-12-11 14:43:00 +0100","position":3},
-  {"from":"Claremorris-Westport","dir":"local","dep":"2022-12-11 13:59:00 +0100","arr":"2022-12-11 14:21:00 +0100","position":16},
-  {"from":"Ballina-Manulla","dir":"local","dep":"2022-12-11 15:06:00 +0100","arr":"2022-12-11 15:33:00 +0100","position":23},
-  {"from":"Claremorris-Westport","dir":"to Ballina","dep":"2022-12-11 15:20:00 +0100","arr":"2022-12-11 15:57:00 +0100","position":59},
-  {"from":"Manulla-Ballina","dir":"From Dublin","dep":"2022-12-11 15:36:00 +0100","arr":"2022-12-11 16:03:00 +0100","position":3},
-  {"from":"Ballina-Westport","dir":"local","dep":"2022-12-11 16:06:00 +0100","arr":"2022-12-11 16:55:00 +0100","position":3},
-  {"from":"Westport-Claremorris","dir":"local","dep":"2022-12-11 16:14:00 +0100","arr":"2022-12-11 16:31:00 +0100","position":17},
-  {"from":"Westport-Manulla","dir":"local","dep":"2022-12-11 17:14:00 +0100","arr":"2022-12-11 17:33:00 +0100","position":19},
-  {"from":"Claremorris-Westport","dir":"to Ballina","dep":"2022-12-11 17:19:00 +0100","arr":"2022-12-11 17:56:00 +0100","position":48},
-  {"from":"Manulla-Ballina","dir":"From Dublin","dep":"2022-12-11 17:36:00 +0100","arr":"2022-12-11 18:03:00 +0100","position":3},
-  {"from":"Ballina-Manulla","dir":"To Dublin","dep":"2022-12-11 18:12:00 +0100","arr":"2022-12-11 18:39:00 +0100","position":9},
-  {"from":"Westport-Claremorris","dir":"from Ballina","dep":"2022-12-11 18:20:00 +0100","arr":"2022-12-11 18:52:00 +0100","position":24},
-  {"from":"Manulla-Westport","dir":"local","dep":"2022-12-11 18:42:00 +0100","arr":"2022-12-11 19:01:00 +0100","position":3},
-  {"from":"Westport-Ballina","dir":"local","dep":"2022-12-11 19:04:00 +0100","arr":"2022-12-11 19:53:00 +0100","position":3},
-  {"from":"Claremorris-Westport","dir":"local","dep":"2022-12-11 19:09:00 +0100","arr":"2022-12-11 19:31:00 +0100","position":17},
-  {"from":"Ballina-Manulla","dir":"local","dep":"2022-12-11 20:36:00 +0100","arr":"2022-12-11 21:03:00 +0100","position":43},
-  {"from":"Claremorris-Westport","dir":"to Ballina","dep":"2022-12-11 20:49:00 +0100","arr":"2022-12-11 21:26:00 +0100","position":78},
-  {"from":"Manulla-Ballina","dir":"From Dublin","dep":"2022-12-11 21:06:00 +0100","arr":"2022-12-11 21:33:00 +0100","position":3},
-  {"from":"Ballina-Westport","dir":"local","dep":"2022-12-11 21:36:00 +0100","arr":"2022-12-11 22:25:00 +0100","position":3},
-  {"from":"Westport-Claremorris","dir":"local","dep":"2022-12-11 21:44:00 +0100","arr":"2022-12-11 22:01:00 +0100","position":18},
-  {"from":"Westport-Ballina","dir":"local","dep":"2022-12-11 22:28:00 +0100","arr":"2022-12-11 23:17:00 +0100","position":3},
-  {"from":"Claremorris-Westport","dir":"local","dep":"2022-12-11 22:33:00 +0100","arr":"2022-12-11 22:55:00 +0100","position":32},
-  {"from":"Ballina-Westport","dir":"local","dep":"2022-12-11 23:20:00 +0100","arr":"2022-12-12 00:09:00 +0100","position":3},
-  {"from":"Westport-Claremorris","dir":"local","dep":"2022-12-11 23:28:00 +0100","arr":"2022-12-11 23:45:00 +0100","position":33},
-  {"from":"Claremorris-Westport","dir":"local","dep":"2022-12-11 23:48:00 +0100","arr":"2022-12-12 00:21:00 +0100","position":3}
-]
+{
+  "ver": "1.22",
+  "ext": "IR.1",
+  "lang": "eng",
+  "id": "pv28umgwk8wbgk8g",
+  "err": "OK",
+  "svcResL": [
+    {
+      "id": "1|2|",
+      "meth": "TripSearch",
+      "err": "OK",
+      "res": {
+        "common": {
+          "locL": [
+            {
+              "lid": "A=1@O=Ballina@X=-9160592@Y=54109066@U=80@L=6000007@",
+              "type": "S",
+              "name": "Ballina",
+              "icoX": 0,
+              "extId": "6000007",
+              "state": "F",
+              "crd": {
+                "x": -9160592,
+                "y": 54109066,
+                "layerX": 0,
+                "crdSysX": 0
+              },
+              "pCls": 2,
+              "rRefL": [
+                1
+              ],
+              "msgL": [
+                {
+                  "type": "REM",
+                  "remX": 0,
+                  "sty": "I",
+                  "dspl": "U",
+                  "sort": 536870912
+                }
+              ]
+            },
+            {
+              "lid": "A=1@O=Manulla Junction@X=-9192953@Y=53827973@U=80@L=6000058@",
+              "type": "S",
+              "name": "Manulla Junction",
+              "icoX": 0,
+              "extId": "6000058",
+              "state": "F",
+              "crd": {
+                "x": -9192953,
+                "y": 53827973,
+                "layerX": 0,
+                "crdSysX": 0
+              },
+              "pCls": 2,
+              "rRefL": [
+                2
+              ],
+              "entry": true,
+              "msgL": [
+                {
+                  "type": "REM",
+                  "remX": 0,
+                  "sty": "I",
+                  "dspl": "U",
+                  "sort": 536870912
+                }
+              ]
+            },
+            {
+              "lid": "A=1@O=Foxford@X=-9136429@Y=53982938@U=80@L=6000046@",
+              "type": "S",
+              "name": "Foxford",
+              "icoX": 0,
+              "extId": "6000046",
+              "state": "F",
+              "crd": {
+                "x": -9136429,
+                "y": 53982938,
+                "layerX": 0,
+                "crdSysX": 0
+              },
+              "pCls": 2,
+              "rRefL": [
+                3
+              ],
+              "msgL": [
+                {
+                  "type": "REM",
+                  "remX": 0,
+                  "sty": "I",
+                  "dspl": "U",
+                  "sort": 536870912
+                }
+              ]
+            },
+            {
+              "lid": "A=1@O=Westport@X=-9510048@Y=53796206@U=80@L=6000085@",
+              "type": "S",
+              "name": "Westport",
+              "icoX": 0,
+              "extId": "6000085",
+              "state": "F",
+              "crd": {
+                "x": -9510048,
+                "y": 53796206,
+                "layerX": 0,
+                "crdSysX": 0
+              },
+              "pCls": 2,
+              "rRefL": [
+                6
+              ],
+              "msgL": [
+                {
+                  "type": "REM",
+                  "remX": 0,
+                  "sty": "I",
+                  "dspl": "U",
+                  "sort": 536870912
+                }
+              ]
+            },
+            {
+              "lid": "A=1@O=Castlebar@X=-9288284@Y=53847516@U=80@L=6000023@",
+              "type": "S",
+              "name": "Castlebar",
+              "icoX": 0,
+              "extId": "6000023",
+              "state": "F",
+              "crd": {
+                "x": -9288284,
+                "y": 53847516,
+                "layerX": 0,
+                "crdSysX": 0
+              },
+              "pCls": 2,
+              "rRefL": [
+                7
+              ],
+              "msgL": [
+                {
+                  "type": "REM",
+                  "remX": 0,
+                  "sty": "I",
+                  "dspl": "U",
+                  "sort": 536870912
+                }
+              ]
+            }
+          ],
+          "prodL": [
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "863",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "863",
+                "matchId": "863",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "800",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "800",
+                "matchId": "800",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "865",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "865",
+                "matchId": "865",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "802",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "802",
+                "matchId": "802",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "869",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "869",
+                "matchId": "869",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "804",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "804",
+                "matchId": "804",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "871",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "871",
+                "matchId": "871",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "806",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "806",
+                "matchId": "806",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "875",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "875",
+                "matchId": "875",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "808",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "808",
+                "matchId": "808",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "801",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "801",
+                "matchId": "801",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "860",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "860",
+                "matchId": "860",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "803",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "803",
+                "matchId": "803",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "862",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "862",
+                "matchId": "862",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "805",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "805",
+                "matchId": "805",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "864",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "864",
+                "matchId": "864",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "807",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "807",
+                "matchId": "807",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "866",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "866",
+                "matchId": "866",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "811",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "811",
+                "matchId": "811",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            },
+            {
+              "pid": "L::1::Train::B2393103584::Train_2393103584::*",
+              "name": "InterCity",
+              "number": "872",
+              "icoX": 0,
+              "cls": 2,
+              "oprX": 0,
+              "prodCtx": {
+                "name": "Train   ",
+                "num": "872",
+                "matchId": "872",
+                "catOut": "Train   ",
+                "catOutS": "A",
+                "catOutL": "InterCity",
+                "catIn": "A",
+                "catCode": "1",
+                "admin": "IR____"
+              },
+              "himIdL": [
+                "HIM_FREETEXT_1724",
+                "HIM_FREETEXT_2131",
+                "HIM_FREETEXT_2134",
+                "HIM_FREETEXT_2135",
+                "HIM_FREETEXT_2865",
+                "HIM_FREETEXT_2922",
+                "HIM_FREETEXT_2974",
+                "HIM_FREETEXT_2990",
+                "HIM_FREETEXT_2992"
+              ]
+            }
+          ],
+          "polyL": [
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "udgiItd|v@Oj@|O~PbNtJ`S|HfR~ClqG|SzJGnJs@hQwD`QkHrOcK`EiDjHkI|D_FlKiPvwAqmCpD_G`GqH`EyDvNgI~GsBlIqAvMPvuCx\\tVpB??jbA~HvpAda@~nA|UjvAfFpSm@bMrA`M_Adl@iLzGGjIjAbJvDhItGpZpa@dHtHhG|Ehx@xe@vZxR`VtTxQlTvF|EzFlDvHrC~IzAxx@bFpi@`Cr_@hEzHlClv@~`@hpAlfApEx@bFgAhGqFlCsDn@uBl@yE",
+              "crdEncS": "NNNNNNNKNNNNKNKNKNKNNLNNLNNNNNNNNMNMNNNMNLKNNNKNMNKNNMNNNNNLNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 0
+                },
+                {
+                  "ppIdx": 25,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEiJvh@sAbLg@fHc@xQh@l_A_@vMeAxMmDtSwTzz@kDjTiClYiCbSaYbqAcJ|c@wCjU_A`MoCzw@a@zF_A|HyGba@??mBxMYzLXdI\\tCdAxFrAdEvtDp`IbJbT~CdKpCxLxB`NrBxTdI~yAf@fNHxOc@rSgKleBUdNh@pO`Ixy@nBlKtBtGpAdCtd@zp@~EzFtRtQzHxKpDvHdO`_@~O~WtE`JjFlPfDpQdEv]`@dGxArd@hElb@t@hNBlIQpFwCn^MtVSlGsAfNoHxk@iA~HwAvGyAtEkDtHcOpUcExK_FjQYY",
+              "crdEncS": "NNNKNNNLNNNMLNKNLNKNKNNNNKNKNNNKNMNKNMNMNNNNKNNKNNKNKNNNNKNMNKNNKNKMKNKNNLNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 21,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 3
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "udgiItd|v@Oj@|O~PbNtJ`S|HfR~ClqG|SzJGnJs@hQwD`QkHrOcK`EiDjHkI|D_FlKiPvwAqmCpD_G`GqH`EyDvNgI~GsBlIqAvMPvuCx\\tVpB??jbA~HvpAda@~nA|UjvAfFpSm@bMrA`M_Adl@iLzGGjIjAbJvDhItGpZpa@dHtHhG|Ehx@xe@vZxR`VtTxQlTvF|EzFlDvHrC~IzAxx@bFpi@`Cr_@hEzHlClv@~`@hpAlfApEx@bFgAhGqFlCsDn@uBl@yE",
+              "crdEncS": "NNNNNNNKNNNNKNKNKNKNNLNNLNNNNNNNNMNMNNNMNLKNNNKNMNKNNMNNNNNLNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 0
+                },
+                {
+                  "ppIdx": 25,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEiJvh@sAbLg@fHc@xQh@l_A_@vMeAxMmDtSwTzz@kDjTiClYiCbSaYbqAcJ|c@wCjU_A`MoCzw@a@zF_A|HyGba@??mBxMYzLXdI\\tCdAxFrAdEvtDp`IbJbT~CdKpCxLxB`NrBxTdI~yAf@fNHxOc@rSgKleBUdNh@pO`Ixy@nBlKtBtGpAdCtd@zp@~EzFtRtQzHxKpDvHdO`_@~O~WtE`JjFlPfDpQdEv]`@dGxArd@hElb@t@hNBlIQpFwCn^MtVSlGsAfNoHxk@iA~HwAvGyAtEkDtHcOpUcExK_FjQYY",
+              "crdEncS": "NNNKNNNLNNNMLNKNLNKNKNNNNKNKNNNKNMNKNMNMNNNNKNNKNNKNKNNNNKNMNKNNKNKMKNKNNLNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 21,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 3
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "udgiItd|v@Oj@|O~PbNtJ`S|HfR~ClqG|SzJGnJs@hQwD`QkHrOcK`EiDjHkI|D_FlKiPvwAqmCpD_G`GqH`EyDvNgI~GsBlIqAvMPvuCx\\tVpB??jbA~HvpAda@~nA|UjvAfFpSm@bMrA`M_Adl@iLzGGjIjAbJvDhItGpZpa@dHtHhG|Ehx@xe@vZxR`VtTxQlTvF|EzFlDvHrC~IzAxx@bFpi@`Cr_@hEzHlClv@~`@hpAlfApEx@bFgAhGqFlCsDn@uBl@yE",
+              "crdEncS": "NNNNNNNKNNNNKNKNKNKNNLNNLNNNNNNNNMNMNNNMNLKNNNKNMNKNNMNNNNNLNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 0
+                },
+                {
+                  "ppIdx": 25,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEiJvh@sAbLg@fHc@xQh@l_A_@vMeAxMmDtSwTzz@kDjTiClYiCbSaYbqAcJ|c@wCjU_A`MoCzw@a@zF_A|HyGba@??mBxMYzLXdI\\tCdAxFrAdEvtDp`IbJbT~CdKpCxLxB`NrBxTdI~yAf@fNHxOc@rSgKleBUdNh@pO`Ixy@nBlKtBtGpAdCtd@zp@~EzFtRtQzHxKpDvHdO`_@~O~WtE`JjFlPfDpQdEv]`@dGxArd@hElb@t@hNBlIQpFwCn^MtVSlGsAfNoHxk@iA~HwAvGyAtEkDtHcOpUcExK_FjQYY",
+              "crdEncS": "NNNKNNNLNNNMLNKNLNKNKNNNNKNKNNNKNMNKNMNMNNNNKNNKNNKNKNNNNKNMNKNNKNKMKNKNNLNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 21,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 3
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "udgiItd|v@Oj@|O~PbNtJ`S|HfR~ClqG|SzJGnJs@hQwD`QkHrOcK`EiDjHkI|D_FlKiPvwAqmCpD_G`GqH`EyDvNgI~GsBlIqAvMPvuCx\\tVpB??jbA~HvpAda@~nA|UjvAfFpSm@bMrA`M_Adl@iLzGGjIjAbJvDhItGpZpa@dHtHhG|Ehx@xe@vZxR`VtTxQlTvF|EzFlDvHrC~IzAxx@bFpi@`Cr_@hEzHlClv@~`@hpAlfApEx@bFgAhGqFlCsDn@uBl@yE",
+              "crdEncS": "NNNNNNNKNNNNKNKNKNKNNLNNLNNNNNNNNMNMNNNMNLKNNNKNMNKNNMNNNNNLNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 0
+                },
+                {
+                  "ppIdx": 25,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEiJvh@sAbLg@fHc@xQh@l_A_@vMeAxMmDtSwTzz@kDjTiClYiCbSaYbqAcJ|c@wCjU_A`MoCzw@a@zF_A|HyGba@??mBxMYzLXdI\\tCdAxFrAdEvtDp`IbJbT~CdKpCxLxB`NrBxTdI~yAf@fNHxOc@rSgKleBUdNh@pO`Ixy@nBlKtBtGpAdCtd@zp@~EzFtRtQzHxKpDvHdO`_@~O~WtE`JjFlPfDpQdEv]`@dGxArd@hElb@t@hNBlIQpFwCn^MtVSlGsAfNoHxk@iA~HwAvGyAtEkDtHcOpUcExK_FjQYY",
+              "crdEncS": "NNNKNNNLNNNMLNKNLNKNKNNNNKNKNNNKNMNKNMNMNNNNKNNKNNKNKNNNNKNMNKNNKNKMKNKNNLNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 21,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 3
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "udgiItd|v@Oj@|O~PbNtJ`S|HfR~ClqG|SzJGnJs@hQwD`QkHrOcK`EiDjHkI|D_FlKiPvwAqmCpD_G`GqH`EyDvNgI~GsBlIqAvMPvuCx\\tVpB??jbA~HvpAda@~nA|UjvAfFpSm@bMrA`M_Adl@iLzGGjIjAbJvDhItGpZpa@dHtHhG|Ehx@xe@vZxR`VtTxQlTvF|EzFlDvHrC~IzAxx@bFpi@`Cr_@hEzHlClv@~`@hpAlfApEx@bFgAhGqFlCsDn@uBl@yE",
+              "crdEncS": "NNNNNNNKNNNNKNKNKNKNNLNNLNNNNNNNNMNMNNNMNLKNNNKNMNKNNMNNNNNLNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 0
+                },
+                {
+                  "ppIdx": 25,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEiJvh@sAbLg@fHc@xQh@l_A_@vMeAxMmDtSwTzz@kDjTiClYiCbSaYbqAcJ|c@wCjU_A`MoCzw@a@zF_A|HyGba@??mBxMYzLXdI\\tCdAxFrAdEvtDp`IbJbT~CdKpCxLxB`NrBxTdI~yAf@fNHxOc@rSgKleBUdNh@pO`Ixy@nBlKtBtGpAdCtd@zp@~EzFtRtQzHxKpDvHdO`_@~O~WtE`JjFlPfDpQdEv]`@dGxArd@hElb@t@hNBlIQpFwCn^MtVSlGsAfNoHxk@iA~HwAvGyAtEkDtHcOpUcExK_FjQYY",
+              "crdEncS": "NNNKNNNLNNNMLNKNLNKNKNNNNKNKNNNKNMNKNMNMNNNNKNNKNNKNKNNNNKNMNKNNKNKMKNKNNLNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 21,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 3
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "iajgIxl`y@XX~EkQbEyKbOqUjDuHxAuEvAwGhA_InHyk@rAgNRmGLuVvCo^PqFCmIu@iNiEmb@yAsd@a@eGeEw]gDqQkFmPuEaJ_P_XeOa_@qDwH{HyKuRuQ_F{Fud@{p@qAeCuBuGoBmKaIyy@i@qOTeNfKmeBb@sSIyOg@gNeI_zAsByTyBaNqCyL_DeKcJcTwtDq`IsAeEeAyF]uCYeIX{LlByM??xGca@~@}H`@{FnC{w@~@aMvCkUbJ}c@`YcqAhCcShCmYjDkTvT{z@lDuSdAyM^wMi@m_Ab@yQf@gHrAcLhJwh@l@yE",
+              "crdEncS": "NNLNNKNKMKNKNNKNMNKNNNNKNKNNKNNKNNNNMNMNKNMNKNNNKNKNNNNKNKNLNKNLMNNNLNNNKNNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 3
+                },
+                {
+                  "ppIdx": 53,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEo@tBmCrDiGpFcFfAqEy@ipAmfAmv@_a@{HmCs_@iEqi@aCyx@cF_J{AwHsC{FmDwF}EyQmTaVuTwZyRix@ye@iG}EeHuHqZqa@iIuGcJwDkIkA{GFel@hLaM~@cMsAqSl@kvAgF_oA}UwpAea@kbA_I??uVqBwuCy\\wMQmIpA_HrBwNfIaExDaGpHqD~FwwApmCmKhP}D~EkHjIaEhDsObKaQjHiQvDoJr@{JFmqG}SgR_DaS}HcNuJ}O_QNk@",
+              "crdEncS": "NNLNNNNNMNNKNMNKNNNKLNMNNNMNMNNNNNNNNLNNLNNKNKNKNKNNNNKNNNNNNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 35,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 0
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "iajgIxl`y@XX~EkQbEyKbOqUjDuHxAuEvAwGhA_InHyk@rAgNRmGLuVvCo^PqFCmIu@iNiEmb@yAsd@a@eGeEw]gDqQkFmPuEaJ_P_XeOa_@qDwH{HyKuRuQ_F{Fud@{p@qAeCuBuGoBmKaIyy@i@qOTeNfKmeBb@sSIyOg@gNeI_zAsByTyBaNqCyL_DeKcJcTwtDq`IsAeEeAyF]uCYeIX{LlByM??xGca@~@}H`@{FnC{w@~@aMvCkUbJ}c@`YcqAhCcShCmYjDkTvT{z@lDuSdAyM^wMi@m_Ab@yQf@gHrAcLhJwh@l@yE",
+              "crdEncS": "NNLNNKNKMKNKNNKNMNKNNNNKNKNNKNNKNNNNMNMNKNMNKNNNKNKNNNNKNKNLNKNLMNNNLNNNKNNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 3
+                },
+                {
+                  "ppIdx": 53,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEo@tBmCrDiGpFcFfAqEy@ipAmfAmv@_a@{HmCs_@iEqi@aCyx@cF_J{AwHsC{FmDwF}EyQmTaVuTwZyRix@ye@iG}EeHuHqZqa@iIuGcJwDkIkA{GFel@hLaM~@cMsAqSl@kvAgF_oA}UwpAea@kbA_I??uVqBwuCy\\wMQmIpA_HrBwNfIaExDaGpHqD~FwwApmCmKhP}D~EkHjIaEhDsObKaQjHiQvDoJr@{JFmqG}SgR_DaS}HcNuJ}O_QNk@",
+              "crdEncS": "NNLNNNNNMNNKNMNKNNNKLNMNNNMNMNNNNNNNNLNNLNNKNKNKNKNNNNKNNNNNNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 35,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 0
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "iajgIxl`y@XX~EkQbEyKbOqUjDuHxAuEvAwGhA_InHyk@rAgNRmGLuVvCo^PqFCmIu@iNiEmb@yAsd@a@eGeEw]gDqQkFmPuEaJ_P_XeOa_@qDwH{HyKuRuQ_F{Fud@{p@qAeCuBuGoBmKaIyy@i@qOTeNfKmeBb@sSIyOg@gNeI_zAsByTyBaNqCyL_DeKcJcTwtDq`IsAeEeAyF]uCYeIX{LlByM??xGca@~@}H`@{FnC{w@~@aMvCkUbJ}c@`YcqAhCcShCmYjDkTvT{z@lDuSdAyM^wMi@m_Ab@yQf@gHrAcLhJwh@l@yE",
+              "crdEncS": "NNLNNKNKMKNKNNKNMNKNNNNKNKNNKNNKNNNNMNMNKNMNKNNNKNKNNNNKNKNLNKNLMNNNLNNNKNNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 3
+                },
+                {
+                  "ppIdx": 53,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEo@tBmCrDiGpFcFfAqEy@ipAmfAmv@_a@{HmCs_@iEqi@aCyx@cF_J{AwHsC{FmDwF}EyQmTaVuTwZyRix@ye@iG}EeHuHqZqa@iIuGcJwDkIkA{GFel@hLaM~@cMsAqSl@kvAgF_oA}UwpAea@kbA_I??uVqBwuCy\\wMQmIpA_HrBwNfIaExDaGpHqD~FwwApmCmKhP}D~EkHjIaEhDsObKaQjHiQvDoJr@{JFmqG}SgR_DaS}HcNuJ}O_QNk@",
+              "crdEncS": "NNLNNNNNMNNKNMNKNNNKLNMNNNMNMNNNNNNNNLNNLNNKNKNKNKNNNNKNNNNNNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 35,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 0
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "iajgIxl`y@XX~EkQbEyKbOqUjDuHxAuEvAwGhA_InHyk@rAgNRmGLuVvCo^PqFCmIu@iNiEmb@yAsd@a@eGeEw]gDqQkFmPuEaJ_P_XeOa_@qDwH{HyKuRuQ_F{Fud@{p@qAeCuBuGoBmKaIyy@i@qOTeNfKmeBb@sSIyOg@gNeI_zAsByTyBaNqCyL_DeKcJcTwtDq`IsAeEeAyF]uCYeIX{LlByM??xGca@~@}H`@{FnC{w@~@aMvCkUbJ}c@`YcqAhCcShCmYjDkTvT{z@lDuSdAyM^wMi@m_Ab@yQf@gHrAcLhJwh@l@yE",
+              "crdEncS": "NNLNNKNKMKNKNNKNMNKNNNNKNKNNKNNKNNNNMNMNKNMNKNNNKNKNNNNKNKNLNKNLMNNNLNNNKNNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 3
+                },
+                {
+                  "ppIdx": 53,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEo@tBmCrDiGpFcFfAqEy@ipAmfAmv@_a@{HmCs_@iEqi@aCyx@cF_J{AwHsC{FmDwF}EyQmTaVuTwZyRix@ye@iG}EeHuHqZqa@iIuGcJwDkIkA{GFel@hLaM~@cMsAqSl@kvAgF_oA}UwpAea@kbA_I??uVqBwuCy\\wMQmIpA_HrBwNfIaExDaGpHqD~FwwApmCmKhP}D~EkHjIaEhDsObKaQjHiQvDoJr@{JFmqG}SgR_DaS}HcNuJ}O_QNk@",
+              "crdEncS": "NNLNNNNNMNNKNMNKNNNKLNMNNNMNMNNNNNNNNLNNLNNKNKNKNKNNNNKNNNNNNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 35,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 0
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "iajgIxl`y@XX~EkQbEyKbOqUjDuHxAuEvAwGhA_InHyk@rAgNRmGLuVvCo^PqFCmIu@iNiEmb@yAsd@a@eGeEw]gDqQkFmPuEaJ_P_XeOa_@qDwH{HyKuRuQ_F{Fud@{p@qAeCuBuGoBmKaIyy@i@qOTeNfKmeBb@sSIyOg@gNeI_zAsByTyBaNqCyL_DeKcJcTwtDq`IsAeEeAyF]uCYeIX{LlByM??xGca@~@}H`@{FnC{w@~@aMvCkUbJ}c@`YcqAhCcShCmYjDkTvT{z@lDuSdAyM^wMi@m_Ab@yQf@gHrAcLhJwh@l@yE",
+              "crdEncS": "NNLNNKNKMKNKNNKNMNKNNNNKNKNNKNNKNNNNMNMNKNMNKNNNKNKNNNNKNKNLNKNLMNNNLNNNKNNN",
+              "crdEncF": "????????????????????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 3
+                },
+                {
+                  "ppIdx": 53,
+                  "locX": 4
+                },
+                {
+                  "ppIdx": 75,
+                  "locX": 1
+                }
+              ],
+              "lDrawStyleX": 0
+            },
+            {
+              "delta": true,
+              "dim": 2,
+              "crdEncYX": "{gpgI|nbw@m@xEo@tBmCrDiGpFcFfAqEy@ipAmfAmv@_a@{HmCs_@iEqi@aCyx@cF_J{AwHsC{FmDwF}EyQmTaVuTwZyRix@ye@iG}EeHuHqZqa@iIuGcJwDkIkA{GFel@hLaM~@cMsAqSl@kvAgF_oA}UwpAea@kbA_I??uVqBwuCy\\wMQmIpA_HrBwNfIaExDaGpHqD~FwwApmCmKhP}D~EkHjIaEhDsObKaQjHiQvDoJr@{JFmqG}SgR_DaS}HcNuJ}O_QNk@",
+              "crdEncS": "NNLNNNNNMNNKNMNKNNNKLNMNNNMNMNNNNNNNNLNNLNNKNKNKNKNNNNKNNNNNNN",
+              "crdEncF": "??????????????????????????????????????????????????????????????",
+              "ppLocRefL": [
+                {
+                  "ppIdx": 0,
+                  "locX": 1
+                },
+                {
+                  "ppIdx": 35,
+                  "locX": 2
+                },
+                {
+                  "ppIdx": 61,
+                  "locX": 0
+                }
+              ],
+              "lDrawStyleX": 0
+            }
+          ],
+          "layerL": [
+            {
+              "id": "standard",
+              "name": "standard",
+              "index": 0,
+              "annoCnt": 0
+            }
+          ],
+          "crdSysL": [
+            {
+              "id": "standard",
+              "index": 0,
+              "type": "WGS84"
+            }
+          ],
+          "opL": [
+            {
+              "name": "Iarnród Éireann / Irish Rail",
+              "icoX": 1,
+              "id": "1"
+            }
+          ],
+          "remL": [
+            {
+              "type": "A",
+              "code": "WA",
+              "prio": 0,
+              "icoX": 2,
+              "txtN": "This station is wheelchair accessible"
+            },
+            {
+              "type": "I",
+              "code": "sn",
+              "icoX": 2,
+              "txtN": "BALNA"
+            },
+            {
+              "type": "I",
+              "code": "sn",
+              "icoX": 2,
+              "txtN": "MNLAJ"
+            },
+            {
+              "type": "I",
+              "code": "sn",
+              "icoX": 2,
+              "txtN": "FXFRD"
+            },
+            {
+              "type": "A",
+              "code": "1S",
+              "prio": 100,
+              "icoX": 2,
+              "txtN": "Standard class only"
+            },
+            {
+              "type": "A",
+              "code": "N ",
+              "prio": 100,
+              "icoX": 2,
+              "txtN": "No Catering Service"
+            },
+            {
+              "type": "I",
+              "code": "sn",
+              "icoX": 2,
+              "txtN": "WPORT"
+            },
+            {
+              "type": "I",
+              "code": "sn",
+              "icoX": 2,
+              "txtN": "CLBAR"
+            },
+            {
+              "type": "A",
+              "code": "RS",
+              "prio": 100,
+              "icoX": 2,
+              "txtN": "Reservations available"
+            },
+            {
+              "type": "H",
+              "code": "455",
+              "icoX": 2,
+              "txtN": "Longer stay at a station"
+            }
+          ],
+          "icoL": [
+            {
+              "res": "prod_gen",
+              "fg": {
+                "r": 255,
+                "g": 255,
+                "b": 255
+              },
+              "bg": {
+                "r": 46,
+                "g": 144,
+                "b": 67
+              }
+            },
+            {
+              "res": "IR",
+              "txt": "Iarnród Éireann / Irish Rail"
+            },
+            {
+              "res": "INFO"
+            },
+            {
+              "res": "cl_all"
+            }
+          ],
+          "dirL": [
+            {
+              "txt": "Manulla Junction"
+            },
+            {
+              "txt": "Westport"
+            },
+            {
+              "txt": "Dublin Heuston"
+            },
+            {
+              "txt": "Ballina"
+            }
+          ],
+          "lDrawStyleL": [
+            {
+              "sIcoX": 0,
+              "type": "SOLID",
+              "bg": {
+                "r": 46,
+                "g": 144,
+                "b": 67
+              }
+            },
+            {
+              "type": "SOLID",
+              "bg": {
+                "r": 46,
+                "g": 144,
+                "b": 67
+              }
+            }
+          ]
+        },
+        "outConL": [
+          {
+            "cid": "C-0",
+            "date": "20230322",
+            "dur": "015000",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Fr",
+              "sDaysI": "not 6. Feb, 17. Mar, 10. Apr, 1. May, 5. Jun, 7. Aug, 30. Oct",
+              "sDaysB": "7CF871E7CF9F3E3CF9F3E7CF1F3E7C79F3E3CF9F3E7C79F3E7CF9F3E7CF8F3E7CF9F3E7CF9F3E7CF8F3E7CF9F3E0"
+            },
+            "dep": {
+              "locX": 0,
+              "idx": 0,
+              "dProdX": 0,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "070500",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 3,
+              "idx": 9,
+              "aProdX": 1,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "085500",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 0,
+                  "idx": 0,
+                  "dProdX": 0,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "070500",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 0,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "073200",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|327|0|80|22032023",
+                  "prodX": 0,
+                  "dirTxt": "Manulla Junction",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 0,
+                      "idx": 0,
+                      "dProdX": 0,
+                      "dInR": true,
+                      "dTimeS": "070500",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Manulla Junction",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 0,
+                      "aOutR": true,
+                      "aTimeS": "071600",
+                      "dProdX": 0,
+                      "dInR": true,
+                      "dTimeS": "071600",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 0,
+                      "aOutR": true,
+                      "aTimeS": "073200",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      0
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220705$202303220732$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 0,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 0,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 7,
+                  "dProdX": 1,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "083200",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 3,
+                  "idx": 9,
+                  "aProdX": 1,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "085500",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|304|0|80|22032023",
+                  "prodX": 1,
+                  "dirTxt": "Westport",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 7,
+                      "dProdX": 1,
+                      "dInR": true,
+                      "dTimeS": "083200",
+                      "dDirTxt": "Westport",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 8,
+                      "aProdX": 1,
+                      "aOutR": true,
+                      "aTimeS": "083800",
+                      "dProdX": 1,
+                      "dInR": true,
+                      "dTimeS": "083800",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 3,
+                      "idx": 9,
+                      "aProdX": 1,
+                      "aOutR": true,
+                      "aTimeS": "085500",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      1
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303220832$202303220855$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 1,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 7,
+                      "tIdx": 9
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 1,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 7,
+                      "tIdx": 9
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220705$202303220732$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303220832$202303220855$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2MyZvdXRib3VuZFJvdXRlWzFdPUE4MDAmb3V0Ym91bmRQcm9kdWN0c1swXT1GRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09RkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiMTAgc2VhdHMgYXZhaWxhYmxlIiwicGFzc2VuZ2VyTGlzdCI6W3sidHlwZSI6ImFkdWx0IiwicHJpY2UiOjc2NSwic2VhdE9ubHkiOmZhbHNlLCJoYXNXaGVlbGNoYWlyIjpmYWxzZSwiYW1vdW50IjoxfV19",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2MyZvdXRib3VuZFJvdXRlWzFdPUE4MDAmb3V0Ym91bmRQcm9kdWN0c1swXT1NRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TUZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNCBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2MyZvdXRib3VuZFJvdXRlWzFdPUE4MDAmb3V0Ym91bmRQcm9kdWN0c1swXT1ORlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "name": "CalendarTicket",
+                  "fareL": [
+                    {
+                      "name": "2023-03-20",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-21",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-22",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-23",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-24",
+                      "prc": 765,
+                      "cur": "EUR"
+                    }
+                  ]
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1CQUxOQSZkZXN0aW5hdGlvbj1XUE9SVCZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "ec7977da_3",
+            "cksumDti": "97a444d1_3"
+          },
+          {
+            "cid": "C-1",
+            "date": "20230322",
+            "dur": "012100",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysB": "7EFCFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 0,
+              "idx": 0,
+              "dProdX": 2,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "093500",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 3,
+              "idx": 9,
+              "aProdX": 3,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "105600",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 0,
+                  "idx": 0,
+                  "dProdX": 2,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "093500",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 2,
+                  "aPlatfS": "2",
+                  "aOutR": true,
+                  "aTimeS": "100200",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|327|1|80|22032023",
+                  "prodX": 2,
+                  "dirTxt": "Manulla Junction",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 0,
+                      "idx": 0,
+                      "dProdX": 2,
+                      "dInR": true,
+                      "dTimeS": "093500",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Manulla Junction",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 2,
+                      "aOutR": true,
+                      "aTimeS": "094600",
+                      "dProdX": 2,
+                      "dInR": true,
+                      "dTimeS": "094600",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 2,
+                      "aOutR": true,
+                      "aTimeS": "100200",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      2
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220935$202303221002$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 2,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 0,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 7,
+                  "dProdX": 3,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "103300",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 3,
+                  "idx": 9,
+                  "aProdX": 3,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "105600",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|307|0|80|22032023",
+                  "prodX": 3,
+                  "dirTxt": "Westport",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 7,
+                      "dProdX": 3,
+                      "dInR": true,
+                      "dTimeS": "103300",
+                      "dDirTxt": "Westport",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 8,
+                      "aProdX": 3,
+                      "aOutR": true,
+                      "aTimeS": "103900",
+                      "dProdX": 3,
+                      "dInR": true,
+                      "dTimeS": "103900",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 3,
+                      "idx": 9,
+                      "aProdX": 3,
+                      "aOutR": true,
+                      "aTimeS": "105600",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      3
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303221033$202303221056$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 3,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 7,
+                      "tIdx": 9
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 1,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 7,
+                      "tIdx": 9
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220935$202303221002$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303221033$202303221056$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2NSZvdXRib3VuZFJvdXRlWzFdPUE4MDImb3V0Ym91bmRQcm9kdWN0c1swXT1GRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09RkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2NSZvdXRib3VuZFJvdXRlWzFdPUE4MDImb3V0Ym91bmRQcm9kdWN0c1swXT1NRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TUZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNiBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2NSZvdXRib3VuZFJvdXRlWzFdPUE4MDImb3V0Ym91bmRQcm9kdWN0c1swXT1ORlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1CQUxOQSZkZXN0aW5hdGlvbj1XUE9SVCZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "816bfe3c_3",
+            "cksumDti": "df5953aa_3"
+          },
+          {
+            "cid": "C-2",
+            "date": "20230322",
+            "dur": "005200",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysI": "not 6. Feb, 17. Mar, 10. Apr, 1. May, 5. Jun, 7. Aug, 30. Oct",
+              "sDaysB": "7EFCF9F7EFDFBF3EFDFBF7EF5FBF7E7DFBF3EFDFBF7E7DFBF7EFDFBF7EFCFBF7EFDFBF7EFDFBF7EFCFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 0,
+              "idx": 0,
+              "dProdX": 4,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "150500",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 3,
+              "idx": 32,
+              "aProdX": 5,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "155700",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 0,
+                  "idx": 0,
+                  "dProdX": 4,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "150500",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 4,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "153200",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|332|0|80|22032023",
+                  "prodX": 4,
+                  "dirTxt": "Manulla Junction",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 0,
+                      "idx": 0,
+                      "dProdX": 4,
+                      "dInR": true,
+                      "dTimeS": "150500",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Manulla Junction",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 4,
+                      "aOutR": true,
+                      "aTimeS": "151600",
+                      "dProdX": 4,
+                      "dInR": true,
+                      "dTimeS": "151600",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 4,
+                      "aOutR": true,
+                      "aTimeS": "153200",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      4
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221505$202303221532$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 4,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 0,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 30,
+                  "dProdX": 5,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "153300",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 3,
+                  "idx": 32,
+                  "aProdX": 5,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "155700",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|309|0|80|22032023",
+                  "prodX": 5,
+                  "dirTxt": "Westport",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 30,
+                      "dProdX": 5,
+                      "dInR": true,
+                      "dTimeS": "153300",
+                      "dDirTxt": "Westport",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 31,
+                      "aProdX": 5,
+                      "aOutR": true,
+                      "aTimeS": "153900",
+                      "dProdX": 5,
+                      "dInR": true,
+                      "dTimeS": "154000",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 3,
+                      "idx": 32,
+                      "aProdX": 5,
+                      "aOutR": true,
+                      "aTimeS": "155700",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      5
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303221533$202303221557$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 5,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 30,
+                      "tIdx": 32
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 1,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 30,
+                      "tIdx": 32
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221505$202303221532$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303221533$202303221557$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2OSZvdXRib3VuZFJvdXRlWzFdPUE4MDQmb3V0Ym91bmRQcm9kdWN0c1swXT1NRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TUZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2OSZvdXRib3VuZFJvdXRlWzFdPUE4MDQmb3V0Ym91bmRQcm9kdWN0c1swXT1GRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09RkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNiBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg2OSZvdXRib3VuZFJvdXRlWzFdPUE4MDQmb3V0Ym91bmRQcm9kdWN0c1swXT1ORlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1CQUxOQSZkZXN0aW5hdGlvbj1XUE9SVCZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "215896f7_3",
+            "cksumDti": "ac702dc4_3"
+          },
+          {
+            "cid": "C-3",
+            "date": "20230322",
+            "dur": "005600",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysB": "7EFCFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 0,
+              "idx": 0,
+              "dProdX": 6,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "170000",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 3,
+              "idx": 32,
+              "aProdX": 7,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "175600",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 0,
+                  "idx": 0,
+                  "dProdX": 6,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "170000",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 6,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "172700",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|330|1|80|22032023",
+                  "prodX": 6,
+                  "dirTxt": "Manulla Junction",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 0,
+                      "idx": 0,
+                      "dProdX": 6,
+                      "dInR": true,
+                      "dTimeS": "170000",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Manulla Junction",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 6,
+                      "aOutR": true,
+                      "aTimeS": "171100",
+                      "dProdX": 6,
+                      "dInR": true,
+                      "dTimeS": "171100",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 6,
+                      "aOutR": true,
+                      "aTimeS": "172700",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      6
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221700$202303221727$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 6,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 0,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 30,
+                  "dProdX": 7,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "173300",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 3,
+                  "idx": 32,
+                  "aProdX": 7,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "175600",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|311|0|80|22032023",
+                  "prodX": 7,
+                  "dirTxt": "Westport",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 30,
+                      "dProdX": 7,
+                      "dInR": true,
+                      "dTimeS": "173300",
+                      "dDirTxt": "Westport",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 31,
+                      "aProdX": 7,
+                      "aOutR": true,
+                      "aTimeS": "173900",
+                      "dProdX": 7,
+                      "dInR": true,
+                      "dTimeS": "173900",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 3,
+                      "idx": 32,
+                      "aProdX": 7,
+                      "aOutR": true,
+                      "aTimeS": "175600",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      7
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303221733$202303221756$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 7,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 30,
+                      "tIdx": 32
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 1,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 30,
+                      "tIdx": 32
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221700$202303221727$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303221733$202303221756$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNCBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg3MSZvdXRib3VuZFJvdXRlWzFdPUE4MDYmb3V0Ym91bmRQcm9kdWN0c1swXT1ORlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiMTAgc2VhdHMgYXZhaWxhYmxlIiwicGFzc2VuZ2VyTGlzdCI6W3sidHlwZSI6ImFkdWx0IiwicHJpY2UiOjc2NSwic2VhdE9ubHkiOmZhbHNlLCJoYXNXaGVlbGNoYWlyIjpmYWxzZSwiYW1vdW50IjoxfV19",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg3MSZvdXRib3VuZFJvdXRlWzFdPUE4MDYmb3V0Ym91bmRQcm9kdWN0c1swXT1NRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TUZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg3MSZvdXRib3VuZFJvdXRlWzFdPUE4MDYmb3V0Ym91bmRQcm9kdWN0c1swXT1GRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09RkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1CQUxOQSZkZXN0aW5hdGlvbj1XUE9SVCZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "6f4125f2_3",
+            "cksumDti": "0c179a99_3"
+          },
+          {
+            "cid": "C-4",
+            "date": "20230322",
+            "dur": "005400",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysI": "not 28. Jan",
+              "sDaysB": "7EFCFBF7EFDF3F7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 0,
+              "idx": 0,
+              "dProdX": 8,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "203200",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 3,
+              "idx": 32,
+              "aProdX": 9,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "212600",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 0,
+                  "idx": 0,
+                  "dProdX": 8,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "203200",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 8,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "205900",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|336|0|80|22032023",
+                  "prodX": 8,
+                  "dirTxt": "Manulla Junction",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 0,
+                      "idx": 0,
+                      "dProdX": 8,
+                      "dInR": true,
+                      "dTimeS": "203200",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Manulla Junction",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 8,
+                      "aOutR": true,
+                      "aTimeS": "204300",
+                      "dProdX": 8,
+                      "dInR": true,
+                      "dTimeS": "204300",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 8,
+                      "aOutR": true,
+                      "aTimeS": "205900",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      8
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303222032$202303222059$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 8,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 0,
+                      "fLocX": 0,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 30,
+                  "dProdX": 9,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "210300",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 3,
+                  "idx": 32,
+                  "aProdX": 9,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "212600",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|313|0|80|22032023",
+                  "prodX": 9,
+                  "dirTxt": "Westport",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 30,
+                      "dProdX": 9,
+                      "dInR": true,
+                      "dTimeS": "210300",
+                      "dDirTxt": "Westport",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 31,
+                      "aProdX": 9,
+                      "aOutR": true,
+                      "aTimeS": "210900",
+                      "dProdX": 9,
+                      "dInR": true,
+                      "dTimeS": "210900",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 3,
+                      "idx": 32,
+                      "aProdX": 9,
+                      "aOutR": true,
+                      "aTimeS": "212600",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      9
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303222103$202303222126$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 9,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 30,
+                      "tIdx": 32
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 1,
+                      "fLocX": 1,
+                      "tLocX": 3,
+                      "fIdx": 30,
+                      "tIdx": 32
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Ballina@L=6000007@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303222032$202303222059$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Westport@L=6000085@a=128@$202303222103$202303222126$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg3NSZvdXRib3VuZFJvdXRlWzFdPUE4MDgmb3V0Ym91bmRQcm9kdWN0c1swXT1NRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TUZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg3NSZvdXRib3VuZFJvdXRlWzFdPUE4MDgmb3V0Ym91bmRQcm9kdWN0c1swXT1GRlNJJm91dGJvdW5kUHJvZHVjdHNbMV09RkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiOCBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "Jm91dGJvdW5kRGF0ZT0yMDIzLTAzLTIyJm91dGJvdW5kUm91dGVbMF09QTg3NSZvdXRib3VuZFJvdXRlWzFdPUE4MDgmb3V0Ym91bmRQcm9kdWN0c1swXT1ORlNJJm91dGJvdW5kUHJvZHVjdHNbMV09TkZTSVVO"
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1CQUxOQSZkZXN0aW5hdGlvbj1XUE9SVCZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "f6de9152_3",
+            "cksumDti": "99970433_3"
+          }
+        ],
+        "retConL": [
+          {
+            "cid": "R-5",
+            "date": "20230322",
+            "dur": "005000",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Fr",
+              "sDaysI": "not 6. Feb, 17. Mar, 10. Apr, 1. May, 5. Jun, 7. Aug, 30. Oct",
+              "sDaysB": "7CF871E7CF9F3E3CF9F3E7CF1F3E7C79F3E3CF9F3E7C79F3E7CF9F3E7CF8F3E7CF9F3E7CF9F3E7CF8F3E7CF9F3E0"
+            },
+            "dep": {
+              "locX": 3,
+              "idx": 0,
+              "dProdX": 10,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "051500",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 0,
+              "idx": 2,
+              "aProdX": 11,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "060500",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 3,
+                  "idx": 0,
+                  "dProdX": 10,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "051500",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 10,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "053400",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|305|0|80|22032023",
+                  "prodX": 10,
+                  "dirTxt": "Dublin Heuston",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 3,
+                      "idx": 0,
+                      "dProdX": 10,
+                      "dInR": true,
+                      "dTimeS": "051500",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Dublin Heuston",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 1,
+                      "aProdX": 10,
+                      "aOutR": true,
+                      "aTimeS": "052800",
+                      "dProdX": 10,
+                      "dInR": true,
+                      "dTimeS": "052800",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 10,
+                      "aOutR": true,
+                      "aTimeS": "053400",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      10
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220515$202303220534$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 10,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 2,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 0,
+                  "dProdX": 11,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "053800",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 0,
+                  "idx": 2,
+                  "aProdX": 11,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "060500",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|326|0|80|22032023",
+                  "prodX": 11,
+                  "dirTxt": "Ballina",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 0,
+                      "dProdX": 11,
+                      "dInR": true,
+                      "dTimeS": "053800",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Ballina",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 11,
+                      "aOutR": true,
+                      "aTimeS": "055200",
+                      "dProdX": 11,
+                      "dInR": true,
+                      "dTimeS": "055200",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 0,
+                      "idx": 2,
+                      "aProdX": 11,
+                      "aOutR": true,
+                      "aTimeS": "060500",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      11
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303220538$202303220605$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 11,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 3,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220515$202303220534$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303220538$202303220605$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDEmaW5ib3VuZFJvdXRlWzFdPUE4NjAmaW5ib3VuZFByb2R1Y3RzWzBdPUZGU0kmaW5ib3VuZFByb2R1Y3RzWzFdPUZGU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDEmaW5ib3VuZFJvdXRlWzFdPUE4NjAmaW5ib3VuZFByb2R1Y3RzWzBdPU1GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU1GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNiBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDEmaW5ib3VuZFJvdXRlWzFdPUE4NjAmaW5ib3VuZFByb2R1Y3RzWzBdPU5GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU5GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "name": "CalendarTicket",
+                  "fareL": [
+                    {
+                      "name": "2023-03-20",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-21",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-22",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-23",
+                      "prc": 765,
+                      "cur": "EUR"
+                    },
+                    {
+                      "name": "2023-03-24",
+                      "prc": 765,
+                      "cur": "EUR"
+                    }
+                  ]
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1XUE9SVCZkZXN0aW5hdGlvbj1CQUxOQSZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "32b3cd9d_3",
+            "cksumDti": "b3cd7402_3"
+          },
+          {
+            "cid": "R-6",
+            "date": "20230322",
+            "dur": "015200",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Fr",
+              "sDaysI": "not 6. Feb, 17. Mar, 10. Apr, 1. May, 5. Jun, 7. Aug, 30. Oct",
+              "sDaysB": "7CF871E7CF9F3E3CF9F3E7CF1F3E7C79F3E3CF9F3E7C79F3E7CF9F3E7CF8F3E7CF9F3E7CF9F3E7CF8F3E7CF9F3E0"
+            },
+            "dep": {
+              "locX": 3,
+              "idx": 0,
+              "dProdX": 12,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "071500",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 0,
+              "idx": 2,
+              "aProdX": 13,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "090700",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 3,
+                  "idx": 0,
+                  "dProdX": 12,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "071500",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 12,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "073500",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|308|0|80|22032023",
+                  "prodX": 12,
+                  "dirTxt": "Dublin Heuston",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 3,
+                      "idx": 0,
+                      "dProdX": 12,
+                      "dInR": true,
+                      "dTimeS": "071500",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Dublin Heuston",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 1,
+                      "aProdX": 12,
+                      "aOutR": true,
+                      "aTimeS": "072800",
+                      "dProdX": 12,
+                      "dInR": true,
+                      "dTimeS": "072900",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 12,
+                      "aOutR": true,
+                      "aTimeS": "073500",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      12
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220715$202303220735$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 12,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 2,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 0,
+                  "dProdX": 13,
+                  "dPlatfS": "2",
+                  "dInR": true,
+                  "dTimeS": "084000",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 0,
+                  "idx": 2,
+                  "aProdX": 13,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "090700",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|328|0|80|22032023",
+                  "prodX": 13,
+                  "dirTxt": "Ballina",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 0,
+                      "dProdX": 13,
+                      "dInR": true,
+                      "dTimeS": "084000",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Ballina",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 13,
+                      "aOutR": true,
+                      "aTimeS": "085400",
+                      "dProdX": 13,
+                      "dInR": true,
+                      "dTimeS": "085400",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 0,
+                      "idx": 2,
+                      "aProdX": 13,
+                      "aOutR": true,
+                      "aTimeS": "090700",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      13
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303220840$202303220907$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 13,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 3,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220715$202303220735$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303220840$202303220907$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDMmaW5ib3VuZFJvdXRlWzFdPUE4NjImaW5ib3VuZFByb2R1Y3RzWzBdPUZGU0kmaW5ib3VuZFByb2R1Y3RzWzFdPUZGU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiOCBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDMmaW5ib3VuZFJvdXRlWzFdPUE4NjImaW5ib3VuZFByb2R1Y3RzWzBdPU5GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU5GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDMmaW5ib3VuZFJvdXRlWzFdPUE4NjImaW5ib3VuZFByb2R1Y3RzWzBdPU1GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU1GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1XUE9SVCZkZXN0aW5hdGlvbj1CQUxOQSZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "msgL": [
+              {
+                "type": "REM",
+                "remX": 9,
+                "sty": "I",
+                "tagL": [
+                  "SUM_CON_HDR_H3",
+                  "RES_CON_FTR_H3"
+                ],
+                "sort": 147324928
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "56a06ef7_3",
+            "cksumDti": "c09984a5_3"
+          },
+          {
+            "cid": "R-7",
+            "date": "20230322",
+            "dur": "012100",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysB": "7EFCFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 3,
+              "idx": 0,
+              "dProdX": 14,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "094500",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 0,
+              "idx": 2,
+              "aProdX": 15,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "110600",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 3,
+                  "idx": 0,
+                  "dProdX": 14,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "094500",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 14,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "100400",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|310|0|80|22032023",
+                  "prodX": 14,
+                  "dirTxt": "Dublin Heuston",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 3,
+                      "idx": 0,
+                      "dProdX": 14,
+                      "dInR": true,
+                      "dTimeS": "094500",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Dublin Heuston",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 1,
+                      "aProdX": 14,
+                      "aOutR": true,
+                      "aTimeS": "095800",
+                      "dProdX": 14,
+                      "dInR": true,
+                      "dTimeS": "095800",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 14,
+                      "aOutR": true,
+                      "aTimeS": "100400",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      14
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220945$202303221004$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 14,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 2,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 0,
+                  "dProdX": 15,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "103900",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 0,
+                  "idx": 2,
+                  "aProdX": 15,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "110600",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|329|0|80|22032023",
+                  "prodX": 15,
+                  "dirTxt": "Ballina",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 0,
+                      "dProdX": 15,
+                      "dInR": true,
+                      "dTimeS": "103900",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Ballina",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 15,
+                      "aOutR": true,
+                      "aTimeS": "105300",
+                      "dProdX": 15,
+                      "dInR": true,
+                      "dTimeS": "105300",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 0,
+                      "idx": 2,
+                      "aProdX": 15,
+                      "aOutR": true,
+                      "aTimeS": "110600",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      15
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303221039$202303221106$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 15,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 3,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303220945$202303221004$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303221039$202303221106$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNCBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDUmaW5ib3VuZFJvdXRlWzFdPUE4NjQmaW5ib3VuZFByb2R1Y3RzWzBdPU5GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU5GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiMTAgc2VhdHMgYXZhaWxhYmxlIiwicGFzc2VuZ2VyTGlzdCI6W3sidHlwZSI6ImFkdWx0IiwicHJpY2UiOjc2NSwic2VhdE9ubHkiOmZhbHNlLCJoYXNXaGVlbGNoYWlyIjpmYWxzZSwiYW1vdW50IjoxfV19",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDUmaW5ib3VuZFJvdXRlWzFdPUE4NjQmaW5ib3VuZFByb2R1Y3RzWzBdPU1GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU1GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDUmaW5ib3VuZFJvdXRlWzFdPUE4NjQmaW5ib3VuZFByb2R1Y3RzWzBdPUZGU0kmaW5ib3VuZFByb2R1Y3RzWzFdPUZGU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1XUE9SVCZkZXN0aW5hdGlvbj1CQUxOQSZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "9b3cab89_3",
+            "cksumDti": "045efd55_3"
+          },
+          {
+            "cid": "R-8",
+            "date": "20230322",
+            "dur": "005000",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysB": "7EFCFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 3,
+              "idx": 0,
+              "dProdX": 16,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "131000",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 0,
+              "idx": 2,
+              "aProdX": 17,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "140000",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 3,
+                  "idx": 0,
+                  "dProdX": 16,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "131000",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 16,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "132900",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|312|0|80|22032023",
+                  "prodX": 16,
+                  "dirTxt": "Dublin Heuston",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 3,
+                      "idx": 0,
+                      "dProdX": 16,
+                      "dInR": true,
+                      "dTimeS": "131000",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Dublin Heuston",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 1,
+                      "aProdX": 16,
+                      "aOutR": true,
+                      "aTimeS": "132300",
+                      "dProdX": 16,
+                      "dInR": true,
+                      "dTimeS": "132300",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 16,
+                      "aOutR": true,
+                      "aTimeS": "132900",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      16
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221310$202303221329$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 16,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 2,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 0,
+                  "dProdX": 17,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "133300",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 0,
+                  "idx": 2,
+                  "aProdX": 17,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "140000",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|329|1|80|22032023",
+                  "prodX": 17,
+                  "dirTxt": "Ballina",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 0,
+                      "dProdX": 17,
+                      "dInR": true,
+                      "dTimeS": "133300",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Ballina",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 17,
+                      "aOutR": true,
+                      "aTimeS": "134700",
+                      "dProdX": 17,
+                      "dInR": true,
+                      "dTimeS": "134700",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 0,
+                      "idx": 2,
+                      "aProdX": 17,
+                      "aOutR": true,
+                      "aTimeS": "140000",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      17
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303221333$202303221400$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 17,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 3,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221310$202303221329$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303221333$202303221400$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNiBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDcmaW5ib3VuZFJvdXRlWzFdPUE4NjYmaW5ib3VuZFByb2R1Y3RzWzBdPU5GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU5GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDcmaW5ib3VuZFJvdXRlWzFdPUE4NjYmaW5ib3VuZFByb2R1Y3RzWzBdPUZGU0kmaW5ib3VuZFByb2R1Y3RzWzFdPUZGU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MDcmaW5ib3VuZFJvdXRlWzFdPUE4NjYmaW5ib3VuZFByb2R1Y3RzWzBdPU1GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU1GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1XUE9SVCZkZXN0aW5hdGlvbj1CQUxOQSZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "e5542a75_3",
+            "cksumDti": "0c367cbb_3"
+          },
+          {
+            "cid": "R-9",
+            "date": "20230322",
+            "dur": "004900",
+            "chg": 1,
+            "sDays": {
+              "sDaysR": "Mo - Sa",
+              "sDaysB": "7EFCFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF7EFDFBF0"
+            },
+            "dep": {
+              "locX": 3,
+              "idx": 0,
+              "dProdX": 18,
+              "dPlatfS": "1",
+              "dInR": true,
+              "dTimeS": "182000",
+              "dProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "arr": {
+              "locX": 0,
+              "idx": 2,
+              "aProdX": 19,
+              "aPlatfS": "1",
+              "aOutR": true,
+              "aTimeS": "190900",
+              "aProgType": "PROGNOSED",
+              "type": "N"
+            },
+            "secL": [
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 3,
+                  "idx": 0,
+                  "dProdX": 18,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "182000",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 1,
+                  "idx": 2,
+                  "aProdX": 18,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "183900",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|314|0|80|22032023",
+                  "prodX": 18,
+                  "dirTxt": "Dublin Heuston",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 3,
+                      "idx": 0,
+                      "dProdX": 18,
+                      "dInR": true,
+                      "dTimeS": "182000",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Dublin Heuston",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 4,
+                      "idx": 1,
+                      "aProdX": 18,
+                      "aOutR": true,
+                      "aTimeS": "183300",
+                      "dProdX": 18,
+                      "dInR": true,
+                      "dTimeS": "183300",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 1,
+                      "idx": 2,
+                      "aProdX": 18,
+                      "aOutR": true,
+                      "aTimeS": "183900",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      18
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221820$202303221839$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 8,
+                      "sty": "I",
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 18,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 2,
+                      "fLocX": 3,
+                      "tLocX": 1,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                },
+                "minChg": "000100"
+              },
+              {
+                "type": "JNY",
+                "dep": {
+                  "locX": 1,
+                  "idx": 0,
+                  "dProdX": 19,
+                  "dPlatfS": "1",
+                  "dInR": true,
+                  "dTimeS": "184200",
+                  "dProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "arr": {
+                  "locX": 0,
+                  "idx": 2,
+                  "aProdX": 19,
+                  "aPlatfS": "1",
+                  "aOutR": true,
+                  "aTimeS": "190900",
+                  "aProgType": "PROGNOSED",
+                  "type": "N"
+                },
+                "jny": {
+                  "jid": "1|333|0|80|22032023",
+                  "prodX": 19,
+                  "dirTxt": "Ballina",
+                  "status": "P",
+                  "isRchbl": true,
+                  "stopL": [
+                    {
+                      "locX": 1,
+                      "idx": 0,
+                      "dProdX": 19,
+                      "dInR": true,
+                      "dTimeS": "184200",
+                      "dProgType": "PROGNOSED",
+                      "dDirTxt": "Ballina",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 2,
+                      "idx": 1,
+                      "aProdX": 19,
+                      "aOutR": true,
+                      "aTimeS": "185600",
+                      "dProdX": 19,
+                      "dInR": true,
+                      "dTimeS": "185600",
+                      "type": "N"
+                    },
+                    {
+                      "locX": 0,
+                      "idx": 2,
+                      "aProdX": 19,
+                      "aOutR": true,
+                      "aTimeS": "190900",
+                      "aProgType": "PROGNOSED",
+                      "type": "N"
+                    }
+                  ],
+                  "polyG": {
+                    "polyXL": [
+                      19
+                    ],
+                    "layerX": 0,
+                    "crdSysX": 0
+                  },
+                  "ctxRecon": "T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303221842$202303221909$Train   $$1$$$$$$",
+                  "msgL": [
+                    {
+                      "type": "REM",
+                      "remX": 4,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    },
+                    {
+                      "type": "REM",
+                      "remX": 5,
+                      "sty": "I",
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "tagL": [
+                        "RES_JNY_DTL"
+                      ],
+                      "sort": 818413568
+                    }
+                  ],
+                  "subscr": "F",
+                  "prodL": [
+                    {
+                      "prodX": 19,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "dirL": [
+                    {
+                      "dirX": 3,
+                      "fLocX": 1,
+                      "tLocX": 0,
+                      "fIdx": 0,
+                      "tIdx": 2
+                    }
+                  ],
+                  "sumLDrawStyleX": 0,
+                  "resLDrawStyleX": 1
+                }
+              }
+            ],
+            "ctxRecon": "¶HKI¶T$A=1@O=Westport@L=6000085@a=128@$A=1@O=Manulla Junction@L=6000058@a=128@$202303221820$202303221839$Train   $$1$$$$$$§T$A=1@O=Manulla Junction@L=6000058@a=128@$A=1@O=Ballina@L=6000007@a=128@$202303221842$202303221909$Train   $$1$$$$$$¶KRCC¶#VE#1#",
+            "trfRes": {
+              "statusCode": "OK",
+              "fareSetL": [
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "No Flexible Single",
+                      "dtl": "NF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiNCBzZWF0cyBhdmFpbGFibGUiLCJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MTEmaW5ib3VuZFJvdXRlWzFdPUE4NzImaW5ib3VuZFByb2R1Y3RzWzBdPU5GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU5GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Medium Flexible Single",
+                      "dtl": "MF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJzZWF0c0xlZnRJbmRpY2F0aW9uIjoiMTAgc2VhdHMgYXZhaWxhYmxlIiwicGFzc2VuZ2VyTGlzdCI6W3sidHlwZSI6ImFkdWx0IiwicHJpY2UiOjc2NSwic2VhdE9ubHkiOmZhbHNlLCJoYXNXaGVlbGNoYWlyIjpmYWxzZSwiYW1vdW50IjoxfV19",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MTEmaW5ib3VuZFJvdXRlWzFdPUE4NzImaW5ib3VuZFByb2R1Y3RzWzBdPU1GU0kmaW5ib3VuZFByb2R1Y3RzWzFdPU1GU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                },
+                {
+                  "desc": "Fares",
+                  "fareL": [
+                    {
+                      "name": "Fully Flexible Single",
+                      "dtl": "FF",
+                      "prc": 765,
+                      "cur": "EUR",
+                      "addData": "eyJwYXNzZW5nZXJMaXN0IjpbeyJ0eXBlIjoiYWR1bHQiLCJwcmljZSI6NzY1LCJzZWF0T25seSI6ZmFsc2UsImhhc1doZWVsY2hhaXIiOmZhbHNlLCJhbW91bnQiOjF9XX0=",
+                      "extCont": {
+                        "content": {
+                          "type": "URL_EXT",
+                          "content": "JmluYm91bmREYXRlPTIwMjMtMDMtMjImaW5ib3VuZFJvdXRlWzBdPUE4MTEmaW5ib3VuZFJvdXRlWzFdPUE4NzImaW5ib3VuZFByb2R1Y3RzWzBdPUZGU0kmaW5ib3VuZFByb2R1Y3RzWzFdPUZGU0lVTg=="
+                        }
+                      }
+                    }
+                  ],
+                  "fSecRefX": 0,
+                  "tSecRefX": 1
+                }
+              ],
+              "extCont": {
+                "content": {
+                  "type": "URL_EXT",
+                  "content": "aHR0cHM6Ly9ib29raW5nLmNmLmlyaXNocmFpbC5pZS9lbi1JRS9vcmllbnRhdGlvbi9kZWVwLWxpbms/dGFyZ2V0PWFkZG9uJm9yaWdpbj1XUE9SVCZkZXN0aW5hdGlvbj1CQUxOQSZwYXNzZW5nZXJzWzBdW3R5cGVdPUEmc2FsZXNDaGFubmVsPUlOVEVSTkVU"
+                }
+              }
+            },
+            "ovwTrfRefL": [
+              {
+                "type": "F",
+                "fareSetX": 0,
+                "fareX": 0
+              }
+            ],
+            "conSubscr": "F",
+            "recState": "U",
+            "cksum": "ef8e1e71_3",
+            "cksumDti": "bd7f307a_3"
+          }
+        ],
+        "outCtxScrB": "2|OB|MT#14#148745#148745#148855#148855#0#0#5#148320#1#0#2#0#0#-2147483648#1#2|PDH#3fd241fb73263c9202d202cd67493f64|RD#22032023|RT#0|US#0",
+        "outCtxScrF": "2|OF|MT#14#149552#149552#149606#149606#0#0#5#149341#5#0#2#0#0#-2147483648#1#2|PDH#3fd241fb73263c9202d202cd67493f64|RD#22032023|RT#0|US#0",
+        "retCtxScrB": "2|RB|MT#14#148635#148635#148685#148685#0#0#5#148320#1#0#2#0#0#-2147483648#1#2|PDH#3fd241fb73263c9202d202cd67493f64|RD#22032023|RT#0|US#0",
+        "retCtxScrF": "2|RF|MT#14#149420#149420#149469#149469#0#0#5#149111#5#0#2#0#0#-2147483648#1#2|PDH#3fd241fb73263c9202d202cd67493f64|RD#22032023|RT#0|US#0",
+        "fpB": "20221211",
+        "fpE": "20231209",
+        "planrtTS": "1674163566",
+        "outConGrpL": [
+          {
+            "name": "All connections",
+            "icoX": 3,
+            "grpid": "cl_all",
+            "conScoringL": [
+              {
+                "type": "DT",
+                "conScoreL": [
+                  {
+                    "score": 8581847683920035838,
+                    "scoreS": "08581847683920035838",
+                    "conRefL": [
+                      0
+                    ]
+                  },
+                  {
+                    "score": 8581187976958574590,
+                    "scoreS": "08581187976958574590",
+                    "conRefL": [
+                      1
+                    ]
+                  },
+                  {
+                    "score": 8579736621625114622,
+                    "scoreS": "08579736621625114622",
+                    "conRefL": [
+                      2
+                    ]
+                  },
+                  {
+                    "score": 8579230846274240510,
+                    "scoreS": "08579230846274240510",
+                    "conRefL": [
+                      3
+                    ]
+                  },
+                  {
+                    "score": 8578298460414935038,
+                    "scoreS": "08578298460414935038",
+                    "conRefL": [
+                      4
+                    ]
+                  }
+                ],
+                "name": "Departure"
+              },
+              {
+                "type": "AT",
+                "conScoreL": [
+                  {
+                    "score": 8581363898803814398,
+                    "scoreS": "08581363898803814398",
+                    "conRefL": [
+                      0
+                    ]
+                  },
+                  {
+                    "score": 8580831735191175166,
+                    "scoreS": "08580831735191175166",
+                    "conRefL": [
+                      1
+                    ]
+                  },
+                  {
+                    "score": 8579507923206537214,
+                    "scoreS": "08579507923206537214",
+                    "conRefL": [
+                      2
+                    ]
+                  },
+                  {
+                    "score": 8578984555669618686,
+                    "scoreS": "08578984555669618686",
+                    "conRefL": [
+                      3
+                    ]
+                  },
+                  {
+                    "score": 8578060965903335422,
+                    "scoreS": "08578060965903335422",
+                    "conRefL": [
+                      4
+                    ]
+                  }
+                ],
+                "name": "Arrival"
+              },
+              {
+                "type": "TI",
+                "conScoreL": [
+                  {
+                    "score": 9222884876728401918,
+                    "scoreS": "09222884876728401918",
+                    "conRefL": [
+                      0
+                    ]
+                  },
+                  {
+                    "score": 9223012419998580734,
+                    "scoreS": "09223012419998580734",
+                    "conRefL": [
+                      1
+                    ]
+                  },
+                  {
+                    "score": 9223139963174387710,
+                    "scoreS": "09223139963174387710",
+                    "conRefL": [
+                      2
+                    ]
+                  },
+                  {
+                    "score": 9223122370928050174,
+                    "scoreS": "09223122370928050174",
+                    "conRefL": [
+                      3
+                    ]
+                  },
+                  {
+                    "score": 9223131166909923326,
+                    "scoreS": "09223131166909923326",
+                    "conRefL": [
+                      4
+                    ]
+                  }
+                ],
+                "name": "Duration"
+              }
+            ],
+            "initScoringType": "DT",
+            "requests": [
+              {
+                "id": "RQ_CLIENT",
+                "autosend": true
+              }
+            ],
+            "scrollable": true
+          }
+        ],
+        "retConGrpL": [
+          {
+            "name": "All connections",
+            "icoX": 3,
+            "grpid": "cl_all",
+            "conScoringL": [
+              {
+                "type": "DT",
+                "conScoreL": [
+                  {
+                    "score": 8582331469067714558,
+                    "scoreS": "08582331469067714558",
+                    "conRefL": [
+                      0
+                    ]
+                  },
+                  {
+                    "score": 8581803703453876222,
+                    "scoreS": "08581803703453876222",
+                    "conRefL": [
+                      1
+                    ]
+                  },
+                  {
+                    "score": 8581143996493463550,
+                    "scoreS": "08581143996493463550",
+                    "conRefL": [
+                      2
+                    ]
+                  },
+                  {
+                    "score": 8580242396974940158,
+                    "scoreS": "08580242396974940158",
+                    "conRefL": [
+                      3
+                    ]
+                  },
+                  {
+                    "score": 8578879002557022206,
+                    "scoreS": "08578879002557022206",
+                    "conRefL": [
+                      4
+                    ]
+                  }
+                ],
+                "name": "Departure"
+              },
+              {
+                "type": "AT",
+                "conScoreL": [
+                  {
+                    "score": 8582111566742159358,
+                    "scoreS": "08582111566742159358",
+                    "conRefL": [
+                      0
+                    ]
+                  },
+                  {
+                    "score": 8581311122244632574,
+                    "scoreS": "08581311122244632574",
+                    "conRefL": [
+                      1
+                    ]
+                  },
+                  {
+                    "score": 8580787754726064126,
+                    "scoreS": "08580787754726064126",
+                    "conRefL": [
+                      2
+                    ]
+                  },
+                  {
+                    "score": 8580022494649384958,
+                    "scoreS": "08580022494649384958",
+                    "conRefL": [
+                      3
+                    ]
+                  },
+                  {
+                    "score": 8578663498277978110,
+                    "scoreS": "08578663498277978110",
+                    "conRefL": [
+                      4
+                    ]
+                  }
+                ],
+                "name": "Arrival"
+              },
+              {
+                "type": "TI",
+                "conScoreL": [
+                  {
+                    "score": 9223148759576739838,
+                    "scoreS": "09223148759576739838",
+                    "conRefL": [
+                      0
+                    ]
+                  },
+                  {
+                    "score": 9222876080630136830,
+                    "scoreS": "09222876080630136830",
+                    "conRefL": [
+                      1
+                    ]
+                  },
+                  {
+                    "score": 9223012419993337854,
+                    "scoreS": "09223012419993337854",
+                    "conRefL": [
+                      2
+                    ]
+                  },
+                  {
+                    "score": 9223148759327703038,
+                    "scoreS": "09223148759327703038",
+                    "conRefL": [
+                      3
+                    ]
+                  },
+                  {
+                    "score": 9223153157211684862,
+                    "scoreS": "09223153157211684862",
+                    "conRefL": [
+                      4
+                    ]
+                  }
+                ],
+                "name": "Duration"
+              }
+            ],
+            "initScoringType": "DT",
+            "requests": [
+              {
+                "id": "RQ_CLIENT",
+                "autosend": true
+              }
+            ],
+            "scrollable": true
+          }
+        ]
+      }
+    }
+  ]
+}

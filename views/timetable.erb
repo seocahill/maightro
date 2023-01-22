@@ -15,18 +15,26 @@
           <th>To</th>
           <th>Dep</th>
           <th>Arr</th>
+          <th>Fare</th>
+          <th>Buy</th>
         </tr>
       </thead>
       <tbody id="results">
       <% timetable.each do |row| %>
         <!-- row 1 -->
         <tr>
-        <% row[0..3].each do |cell| %>
+        <% row[0..4].each do |cell| %>
           <td><%= cell %></td>
+        <% end %>
+        <% if (row[-1] =~ /(^(C|R)-\d)/) %>
+          <td><a href='/book?to=<%= @from %>&from=<%= @to %>&date=<%= @booking_date %>' target="_blank" class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"> Book 🎟 </a></td>
+        <% else %>
+          <td><a href="/ask" target="_blank" class="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4"> Ask 🙏 </a></td>
         <% end %>
         </tr>
       <% end %>
       </tbody>
+      <tfoot id="results-footer"></tfoot>
     </table>
   </div>
 <% end %>

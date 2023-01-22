@@ -73,7 +73,7 @@
         <div class="w-64 font-bold h-6 mx-2 mt-3 text-gray-800">Flavour
           <div class="text-xs font-normal leading-none text-gray-500">Your preferred Maightró!</div>
         </div>
-        <div class="flex justify-center">
+        <div class="flex justify-center mt-4">
           <div class="form-check form-check-inline">
             <input hx-get="/info" hx-target="#info" class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="scenario" <% if @default_scenario == 'Option1' %>checked<% end %> id="Option1" value="Option1" required>
             <label class="form-check-label inline-block text-gray-800 pr-2" for="Option1">Current</label>
@@ -95,6 +95,9 @@
             <label class="form-check-label inline-block text-gray-800 pr-2" for="Option3b">Ballyhaunis</label>
           </div>
         </div>
+      </div>
+      <div id="table-and-form">
+        <%= erb :timetable if @timetables.any? %>
       </div>
       <div class="flex flex-col md:flex-row">
         <div class="w-64 mx-2 font-bold h-6 mt-3 text-gray-800"></div>

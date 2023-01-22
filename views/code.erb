@@ -1,0 +1,225 @@
+<article class="prose lg:prose-xl">
+  <div>
+    <div>
+      <h2>Code and Analysis of Options</h2>
+      <p>Repo here: https://github.com/seocahill/maightro. Accepting PRs
+      especially aesthetically minded, I last did frontend dev in 2014! <a href="https://github.com/seocahill/maightro/blob/main/LICENSE">Unlicense.</a></p>
+    </div>
+    <h3 id="overview">Overview</h3>
+    <p>If you are reading this and are technically minded you’ll know from
+      your algorithm book of choice that scheduling is one of the canonical
+      examples of an NP hard problem.</p>
+    <p>In the wild, if your research this, common approaches include:
+    <ul>
+      <li>Mathematical programming e.g. ILP <a href="https://python-mip.readthedocs.io/en/latest/examples.html">job
+        shop scheduling problem python</a> </li>
+      <li>Heuristics e.g. genetic algorithms <a href="https://github.com/akazuko/timetable_scheduler">python example</a></li>
+      <li>Simulation e.g  <a href="http://www.opentrack.ch/opentrack/opentrack_e/opentrack_e.html">Opentrack</a></li>
+    </ul>
+    </p>
+    <p>This particular genus of the scheduling problem, Single track
+      scheduling, is solved with algorithms that feature common inputs like
+      blocks (spaces between stations upon which only one train can be
+      scheduled) and certain assumptions that trains can cross at stations not
+      always the case in our specific example unfortunately).</p>
+    <p>Below is a space time diagram to help visualize this <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
+      The nodes are stations, the vertices are blocks (think a single track
+      stretch), the vertical axis represents time moving forward. Each sloping
+      line is a train occupying a block in time. In order to schedule validly,
+      sloping lines within a block can’t intersect.</p>
+    <figure>
+      <img src="https://d3i71xaburhd42.cloudfront.net/868a9cb615872c8cfbfcdb9c9145eb22095afb9d/5-Figure1-1.png"
+            alt="space time diagram for train scheduling on single track" />
+    </figure>
+    <p>The particular problem this code seeks to solve is the scheduling of
+      as many trains as feasible given normal domain constraints (blocks,
+      rolling stock) on three intersecting routes…
+      <ul>
+        <li>the Nephin: Ballina - Westport</li>
+        <li>the Covey: Westport - Ballyhaunis </li>
+        <li>the Costello: Ballyhaunis - Ballina</li>
+      </ul>
+      …and scenario specific constraints (there are four different
+      scenarios, the baseline being the current service).</p>
+    <p>The most obvious brute force approach is simply to cycle through
+      every scheduling option, something like (pseudocode)…</p>
+    <pre>
+      <code>
+        schedule = []
+        blocks = single trains sections
+        queue = array of ordered trains waiting to enter first block
+        while queue do
+        train = trains.pop
+        block = next_block(current_station, blocks)
+        if block.empty?
+            block.train = train
+            schedule &lt;&lt; train
+        else
+            trains &lt;&lt; train
+        end
+        end
+        return schedule
+      </code>
+    </pre>
+    <p>The former example is superficially similar to the algorithmic approach I take but instead of trying to schedule all trains per open block I optimize for connections, applying approximate calcuations (I guess would qualify as heuristics) to avoid
+      unnecessary cycles. This is a pretty typical way to tackle a problem like this and produces what are known as 'greedy' algorithms: </p>
+    <blockquote>
+      <p>A greedy algorithm is an algorithmic paradigm that follows the
+        problem-solving heuristic of making the locally optimal choice at each
+        stage with the hope of finding a global optimum.</p>
+    </blockquote>
+    <p>My goal really is to demonstrate that using available resources,
+      given a certain scenario, trains <em>could</em> be scheduled a lot
+      better. As opposed to finding the optimum scheduling possible or indeed
+      verifying that.</p>
+    <p>This approach also makes sense as I (generally, the exception being
+      scenario 2) have give myself the constraint that I can’t reschedule
+      already scheduled trains in order to make realising some version of
+      Maytró as feasible as possible.</p>
+    <h3 id="scenarios">Scenarios</h3>
+    <p>The baseline is just the current service and I look that up directly
+      from Iarnród Éireann’s public (but not published) api, that serves their
+      website. This means of course my implementation could and probably will
+      break in the future but given the time I was willing to give this, the
+      easiest thing was to query directly. I coded this initially as a basic
+      cli, you can look up any route.</p>
+        <pre class="overflow-x-auto"><code>
+        $rescue models/scenarios/option_3.rb 20221222 Claremorris Castlebar
+        +-------------------------------------------------------------------+
+        |                            An Maightró                            |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | from        | to        | dep   | arr   | info          | trip_id |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 06:09 | 06:28 |               | LCX-0   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 08:18 | 08:38 | to Westport   | C-0     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 10:19 | 10:39 | to Westport;  | C-1     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 12:04 | 12:23 |               | LCX-2   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 14:04 | 14:23 |               | LCX-4   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 15:20 | 15:40 | to Westport   | C-2     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 17:19 | 17:39 | to Westport   | C-3     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 19:13 | 19:32 |               | LCX-6   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 20:49 | 21:09 | to Westport   | C-4     |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 22:34 | 22:53 |               | LCX-8   |
+        +-------------+-----------+-------+-------+---------------+---------+
+        | Claremorris | Castlebar | 23:59 | 00:18 |               | LCL-10  |
+        +-------------+-----------+-------+-------+---------------+---------+
+      </code></pre>
+    <p>The realtime data is the source of all the constants - block
+      durations, turnaround times, station dwell - used to generate schedules
+      in the following scenarios.</p>
+    <h4 id="options-1a">Options 1a</h4>
+    <p>One of the problems with the current Maytró is that about half of the
+      trains between Westport and Ballina are unusable due to lousy
+      connections between them. The “improved” scenario (option 1a) first
+      schedules connecting Ballina Manulla trains (Nephin) relative to the
+      time they connect to Dublin - Westport Intercity trains (Covey
+      hereafter). Then next part of the algorithm checks for block conflicts
+      between the current and next schedule trains and attempts to reschedule
+      the next train.</p>
+    <p>This scenario has one major limitation. Ideally when rescheduling, a
+      check would be run to make sure a suitable path is available for all
+      affected blocks, in this case I haven’t done it for the following
+      reasons:
+      <ul>
+        <li>Covey trains feed into the busiest section of the rail
+      network (Portarlington - Dublin) and various shared tributaries of
+      single track. Checking the rescheduled train can pass existing trains
+      would be non-trivial</li>
+        <li>It turns out the algorithm only needs to reschedule a single Covey train to achieve acceptable results</li>
+        <li>This option is not my preferred solution, it’s inferior to Option 2.</li>
+      </ul>
+    </p>
+    <p>It would be a nice challenge to go through some weekend.</p>
+    <p>Incidentally I did supply an approximation of the results of this
+      exercise as a submission to the new timetable consultation without
+      success or without even receiving what seems to be the new standard
+      acknowledgement:</p>
+    <blockquote>
+      <p>IÉ in conjunction with the NTA will continue to investigate
+        possibilities for implementation at a later stage Driver resources not
+        available for implementation</p>
+    </blockquote>
+    <h4 id="option-2">Option 2</h4>
+    <p>This is essentially the original “Mayolink” proposal reheated. The
+      approach is to start with the earliest Covey connection and schedule as
+      many Nephin trains as possible until midnight, making sure to keep
+      current connections to and from Dublin. The main difference is that the
+      Nephin railcar runs through to Westport, as opposed to requiring a
+      change. It’s well documented that changing mode extracts a significant
+      penalty in terms of public transport usage, so avoiding it if possible
+      is key to providing a good service.</p>
+    <p>The scheduling optimizations applied are as follows: - Add train if
+      time to schedule a full trip from current point to end point and still
+      hit next connection - If full trip not feasible, try shortened trip
+      (i.e. stop at Castlebar) - If through trip not possible, return to
+      destination (same service as baseline)</p>
+    <p>One limitation is that the station layout at Manulla, the junction of
+      the lines, doesn’t have proper crossover facilities. In other words
+      trains can pass each other but depending on the direction travelled an
+      awkward maneuver is required. Could be easily fixed by the installation
+      of a points. Not a deal-breaker either way but worth mentioning.</p>
+    <h4 id="option-3">Option 3</h4>
+    <p>This introduces 15 minute Westport’s Eastern line, referred to here
+      as the Costello.</p>
+    <p>The approach is to schedule as many trips as are feasible using a
+      newly introduced railcar (the Costello) to run between Claremorris and
+      Westport, connecting with Nephin trains, thus creating unified Maytró
+      service with optimal connections to all towns.</p>
+    <p>The scheduling optimizations applied are as follows: - if railcar is
+      in the wrong place (for next connection) run it back - if connection
+      possible, make the connection - otherwise just schedule an extra
+      Costello service with no connection.</p>
+    <h4 id="option3b">Option3b</h4>
+    <p>For option3b the Costello is extended all the way to the border,
+      Ballyhaunis town.</p>
+    <p>The only optimization here (if you can call it that) is to check if
+      the extension causes a scheduling clash and to remove the train if it
+      does.</p>
+    <p>A proper approach would have been to introduce an extra block
+      (Ballyhaunis - Claremorris) and schedule from scratch factoring in the
+      passing possibilities therein. The approach here is likely not optimal
+      but still a significant improvement on the status quo.</p>
+    <hr>
+    <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+      <ol>
+        <li id="fn1">
+          <p>
+            <i>1. Single Track Train Scheduling, Jonas Harbering · Abhiram Ranade · Marie Schmidt (January 2015)</i>
+          </p>
+        </li>
+      </ol>
+    </section>
+    <h3 id="results">Results</h3>
+    <p>Listed below you’ll find some statistics for each option, for each
+      possible trip namely:
+      <ul>
+        <li>number of trains scheduled (N)</li>
+        <li>worst case trip time minutes  (W)</li>
+        <li>mean trip time minutes (M)</li>
+        <li>frequency of service hours (F)</li>
+      </ul>
+      For each "change" option you will see the percentage difference with the current service (&#916;). Frequency has no delta because service start and end differ from the baseline.
+    </p>
+    <p>
+      <ul class="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs" hx-target="#analysis-contents" _="on htmx:afterOnLoad take .selected for event.target">
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option1" class="selected">Current</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option1a">Improved</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option2">Ballina - Westport direct</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option3">Claremorris</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link block font-medium leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent" hx-get="/analysis?scenario=Option3b">Ballyhaunis</a></li>
+      </ul>
+    </p>
+  </div>
+  <div id="analysis-contents">
+    <%= erb :analysis  %>
+  </div>
+</article>

@@ -1,6 +1,5 @@
 require_relative '../models/scenarios/option_3.rb'
 require 'test/unit'
-require 'pry'
 
 class Option3Test < Test::Unit::TestCase
 
@@ -21,7 +20,7 @@ class Option3Test < Test::Unit::TestCase
     rows = (@bw + @wb).sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
-    rows = (@covey + @covey_return).select { |t| t.dig(5) =~ /LC/ }.sort_by { |r| r[2] }
+    rows = (@covey + @covey_return).select { |t| t.dig(-1) =~ /LC/ }.sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
     # busiest block is Castlebar - Westport
@@ -57,5 +56,9 @@ class Option3Test < Test::Unit::TestCase
   def test_costello
     assert_equal @costello.count, 9
     assert_equal @costello_return.count, 10
+  end
+
+  def test_analysis
+    assert Option3.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
   end
 end

@@ -1,14 +1,10 @@
-<div class="bg-gray-50">
+<div class="bg-fixme-50">
   <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8">
     <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-      <span class="block text-indigo-600">Maytró timetable builder</span>
+      <span class="block text-indigo-600">Maytró timetable search</span>
       <img src="map.svg" alt="">
       <p class="text-2xl pt-2 font-normal">'Sé an Maightró an t-iarnród áitúil i Mhaigh Eo. Maytró is the local rail service in Mayo. <a class=" text-indigo-600" href="/history">Find out more here</a></p>
     </h2>
   </div>
-  <div id="table-and-form">
-    <%= erb :form %>
-    <hr>
-    <%= erb :timetable if @timetables.any? %>
-  </div>
+  <%= erb :form %>
 </div>

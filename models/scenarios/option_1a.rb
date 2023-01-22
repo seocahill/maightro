@@ -25,13 +25,15 @@ class Option1a < BaseOption
   end
 
   def schedule_train_trips
-    ic_trips = Option1.new(@date, "Ballyhaunis", "Westport").train_trips.flatten
+    ic_trips = import_train_data("Ballyhaunis", "Westport").flatten
     ballina_trains = []
 
     # covey trains already grouped
     branch_trip_time = duration('Ballina', 'Manulla Junction')
 
     ic_trips.each do |ic|
+      next unless ic.time_at_junction # i.e. extra friday train to westport only
+
       dep_ballina = ic.time_at_junction - branch_trip_time - @dwell
       stops = stops('Ballina', 'Manulla Junction', dep_ballina)
       train_up = TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: dep_ballina, arr: ic.dep, stops: stops)

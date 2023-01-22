@@ -1,0 +1,44 @@
+<script type="module">
+  const dataTable = new simpleDatatables.DataTable("#analysis-results", {
+    searchable: true,
+    fixedHeight: true,
+    columns: [{ select: 0, sort: "asc" }],
+  })
+</script>
+<div class="overflow-x-auto">
+  <h4>Analysis: <%= @scenario %></h4>
+  <table id="analysis-results" class="table w-full">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>N</th>
+        <% if @baseline %>
+          <th>&#916;N</th>
+        <% end %>
+        <th>W</th>
+        <% if @baseline %>
+          <th>&#916;W</th>
+        <% end %>
+        <th>M</th>
+        <% if @baseline %>
+          <th>&#916;M</th>
+        <% end %>
+        <th>F</th>
+      </tr>
+    </thead>
+    <tbody id="results">
+    <% @results.each_with_index do |row, residx| %>
+      <tr>
+      <% row.each_with_index do |cell, rowidx| %>
+        <td><%= cell %></td>
+        <% if @baseline && (2..4).include?(rowidx) %>
+          <td><%= svc_change(@baseline[residx][rowidx], cell) %></td>
+        <% end %>
+      <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

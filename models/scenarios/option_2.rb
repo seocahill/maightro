@@ -42,7 +42,7 @@ class Option2 < BaseOption
     @local_trains = []
     @ic_trains = []
 
-    connecting_trains = Option1.new(@date, "Ballyhaunis", "Westport").train_trips.select { |t| t.stops.any? { |s| s[0] == 'Manulla Junction' } }
+    connecting_trains = import_train_data("Ballyhaunis", "Westport").select { |t| t.stops.any? { |s| s[0] == 'Manulla Junction' } }
 
     dep_time = Time.parse('05:00')
     arr_time = Time.parse('05:00')
@@ -120,6 +120,12 @@ class Option2 < BaseOption
     ['local', 'From Dublin']
   end
 
+  def false_connection(connecting_train, local_train)
+    # Ballina railcar continuing in same direction IC came from doesn't really connect even if technically true
+    # puts "false connection found for #{connecting_train.trip_id}"
+    connecting_train.dir == "Dublin Heuston" &&  %w[Westport Castlebar].include?(local_train.to)
+  end
+
   # will comprise of two trips as railcar is always in B or W and must meet connect at M
   def add_connecting_train(connecting_train, current_position, _dep_time, next_connection)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
@@ -136,6 +142,8 @@ class Option2 < BaseOption
 
     # assign train to up route/s
     find_route(current_position, connecting_train.stops.last[0]).dig(0).each do |route|
+      next if false_connection(connecting_train, up_train)
+
       up_train.send("#{route}_id=", connecting_train.trip_id)
       connecting_train.send("#{route}_id=", connecting_train.trip_id)
     end
@@ -158,6 +166,8 @@ class Option2 < BaseOption
                                position: end_station, stops: stops)
     # assign train to down route/s
     find_route(connecting_train.stops.first[0], end_station).dig(0).each do |route|
+      next if false_connection(connecting_train, down_train)
+
       down_train.send("#{route}_id=", connecting_train.trip_id)
       connecting_train.send("#{route}_id=", connecting_train.trip_id)
     end
