@@ -157,11 +157,13 @@
       change. It’s well documented that changing mode extracts a significant
       penalty in terms of public transport usage, so avoiding it if possible
       is key to providing a good service.</p>
-    <p>The scheduling optimizations applied are as follows: - Add train if
-      time to schedule a full trip from current point to end point and still
-      hit next connection - If full trip not feasible, try shortened trip
-      (i.e. stop at Castlebar) - If through trip not possible, return to
-      destination (same service as baseline)</p>
+    <p>The scheduling optimizations applied are as follows:
+    <ul>
+      <li>Add train if time to schedule a full trip from current point to end point and still hit next connection</li>
+      <li>If full trip not feasible, try shortened trip (i.e. stop at Castlebar)</li>
+      <li>If through trip not possible, return to destination (same service as baseline)</li>
+    </ul>
+    </p>
     <p>One limitation is that the station layout at Manulla, the junction of
       the lines, doesn’t have proper crossover facilities. In other words
       trains can pass each other but depending on the direction travelled an
