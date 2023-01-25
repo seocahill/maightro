@@ -100,7 +100,8 @@ class BaseOption
         # return train result for tt
         low, high = @fare_info[@from][@to]
         fares = low == high ? "€#{low.fdiv(100)}" : "€#{low.fdiv(100)} - #{high.fdiv(100)}"
-        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), fares, trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
+        duration = distance_in_mins(stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M")).round.to_s + " mins"
+        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), fares, duration, trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
       # search will return dups for certain sections, uniuque
       rows.each { |row| results << row unless results.any? { |res| res[2..3] == row[2..3] } }

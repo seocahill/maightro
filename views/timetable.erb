@@ -16,6 +16,7 @@
           <th>Dep</th>
           <th>Arr</th>
           <th>Fare</th>
+          <th>Duration</th>
           <th>Buy</th>
         </tr>
       </thead>
@@ -23,7 +24,7 @@
       <% timetable.each do |row| %>
         <!-- row 1 -->
         <tr>
-        <% row[0..4].each do |cell| %>
+        <% row[0..5].each do |cell| %>
           <td><%= cell %></td>
         <% end %>
         <% if (row[-1] =~ /(^(C|R)-\d)/) %>
