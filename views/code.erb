@@ -33,16 +33,16 @@
     </figure>
     <p>The particular problem this code seeks to solve is the scheduling of
       as many trains as feasible given normal domain constraints (blocks,
-      rolling stock) on three intersecting routes…
+      rolling stock) on three intersecting routes
       <ul>
         <li>the Nephin: Ballina - Westport</li>
         <li>the Covey: Westport - Ballyhaunis </li>
         <li>the Costello: Ballyhaunis - Ballina</li>
       </ul>
-      …and scenario specific constraints (there are four different
+      and scenario specific constraints (there are four different
       scenarios, the baseline being the current service).</p>
     <p>The most obvious brute force approach is simply to cycle through
-      every scheduling option, something like (pseudocode)…</p>
+      every scheduling option, something like (pseudocode)</p>
     <pre>
       <code>
         schedule = []
@@ -64,9 +64,10 @@
     <p>The former example is superficially similar to the algorithmic approach I take but instead of trying to schedule all trains per open block I optimize for connections, applying approximate calcuations (I guess would qualify as heuristics) to avoid
       unnecessary cycles. This is a pretty typical way to tackle a problem like this and produces what are known as 'greedy' algorithms: </p>
     <blockquote>
-      <p>A greedy algorithm is an algorithmic paradigm that follows the
+      <p><a href="https://en.wikipedia.org/wiki/Greedy_algorithm">
+        A greedy algorithm is an algorithmic paradigm that follows the
         problem-solving heuristic of making the locally optimal choice at each
-        stage with the hope of finding a global optimum.</p>
+        stage with the hope of finding a global optimum.</a></p>
     </blockquote>
     <p>My goal really is to demonstrate that using available resources,
       given a certain scenario, trains <em>could</em> be scheduled a lot
