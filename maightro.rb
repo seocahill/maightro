@@ -110,6 +110,7 @@ options '*' do
 end
 
 post '/timetable' do
+  @booking_url = booking_url(params)
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
   @to = params["to"]
@@ -126,3 +127,22 @@ post '/timetable' do
                 end
   erb :results, layout: false
 end
+
+private_methods
+
+def booking_url(params)
+    url = URI("https://journeyplanner.irishrail.ie/webapp/")
+    date = Date.parse(params["date"]).strftime("%d/%m/%Y")
+    query = URI.encode_www_form({
+      "start": "1&REQ0JourneyStopsS0G",
+      "REQ0JourneyStopsS0G": params["from"],
+      "REQ0JourneyStopsZ0G": params["to"],
+      "journey_mode": "single",
+      "REQ0JourneyDate": "#{date}",
+      "REQ0JourneyTime": "allday",
+      "Number_adults": "1",
+      "language": "en_IE"
+    })
+    url.query = query
+    url
+  end
