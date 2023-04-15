@@ -1,4 +1,4 @@
-# maightró
+# Maytró
 
 Please see https://maytro.info for details.
 
