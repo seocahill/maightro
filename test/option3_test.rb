@@ -10,8 +10,8 @@ class Option3Test < Test::Unit::TestCase
     @cb = Option3.new("20221222", "Castlebar", "Ballina").rows
     @covey = Option3.new("20221222", "Claremorris", "Westport").rows
     @covey_return = Option3.new("20221222", "Westport", "Claremorris").rows
-    @covey_sunday = Option3.new("20231604", "Claremorris", "Westport").rows
-    @covey_return_sunday = Option3.new("20231604", "Westport", "Claremorris").rows
+    @covey_sunday = Option3.new("20230416", "Claremorris", "Westport").rows
+    @covey_return_sunday = Option3.new("20230416", "Westport", "Claremorris").rows
     @costello = Option3.new("20221222", "Foxford", "Claremorris").rows
     @costello_return = Option3.new("20221222", "Claremorris", "Foxford").rows
     @castlebar_westport =  Option3.new("20221222", "Castlebar", "Westport").rows
@@ -56,8 +56,8 @@ class Option3Test < Test::Unit::TestCase
   end
 
   def test_covey_sunday
-    assert_equal @covey_sunday.count, 11
-    assert_equal @covey_return_sunday.count, 10
+    assert_equal @covey_sunday.count, 20
+    assert_equal @covey_return_sunday.count, 20
   end
 
   def test_costello

@@ -10,5 +10,5 @@ gem 'activesupport'
 gem 'activemodel'
 gem 'test-unit'
 gem 'thin'
-
+gem 'pry-byebug', require: false
 

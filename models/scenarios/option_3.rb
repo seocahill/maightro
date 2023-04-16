@@ -80,7 +80,7 @@ class Option3 < BaseOption
                 if current_position == @covey_terminus
                   # no dwell in manulla
                   arr_time = dep_time + duration(@covey_terminus, "Westport")
-                  stops = stops(@covey_terminus, "'Westport", dep_time)
+                  stops = stops(@covey_terminus, "Westport", dep_time)
                   TrainPath.new(from: @covey_terminus, to: 'Westport', info: 'local', dep: dep_time,
                                 arr: arr_time, position: 'Westport', trip_id: trip_id, covey_return_id: trip_id, stops: stops)
                 else
