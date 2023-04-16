@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'sinatra'
-gem 'sentry-ruby'
-gem 'terminal-table'
-gem 'rake'
-gem 'activesupport'
 gem 'activemodel'
+gem 'activesupport'
+gem 'pry-byebug', require: false
+gem 'rake'
+gem 'sentry-ruby'
+gem 'sinatra'
+gem 'terminal-table'
 gem 'test-unit'
 gem 'thin'
-gem 'pry-byebug', require: false
-

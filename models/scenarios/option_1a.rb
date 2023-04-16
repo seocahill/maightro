@@ -18,14 +18,13 @@ require_relative 'base_option'
 require_relative 'option_1'
 
 class Option1a < BaseOption
-
   def exec_option
     @train_trips = schedule_train_trips
     fix_overlapping_trains # DEBUG
   end
 
   def schedule_train_trips
-    ic_trips = import_train_data("Ballyhaunis", "Westport").flatten
+    ic_trips = import_train_data('Ballyhaunis', 'Westport').flatten
     ballina_trains = []
 
     # covey trains already grouped
@@ -37,7 +36,7 @@ class Option1a < BaseOption
       dep_ballina = ic.time_at_junction - branch_trip_time - @dwell
       stops = stops('Ballina', 'Manulla Junction', dep_ballina)
       train_up = TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: dep_ballina, arr: ic.dep, stops: stops)
-      find_route('Ballina', ic.stops.last[0]).dig(0).each do |route|
+      find_route('Ballina', ic.stops.last[0])[0].each do |route|
         train_up.send("#{route}_id=", ic.trip_id)
         ic.send("#{route}_id=", ic.trip_id)
       end
@@ -45,8 +44,9 @@ class Option1a < BaseOption
 
       arr_time = ic.time_at_junction + branch_trip_time
       stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction)
-      train_down = TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time, stops: stops)
-      find_route(ic.stops.first[0], 'Ballina').dig(0).each do |route|
+      train_down = TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time,
+                                 stops: stops)
+      find_route(ic.stops.first[0], 'Ballina')[0].each do |route|
         train_down.send("#{route}_id=", ic.trip_id)
         ic.send("#{route}_id=", ic.trip_id)
       end
@@ -58,21 +58,25 @@ class Option1a < BaseOption
 
   def fix_overlapping_trains
     # TODO: when changing check path exists on Dublin - Westport.
-    nephin_trains = @train_trips.reject {|t| t.nephin_id.nil? }.group_by(&:nephin_id).map { |t| t[1] }
-    return_trains = @train_trips.reject {|t| t.nephin_return_id.nil? }.group_by(&:nephin_return_id).map { |t| t[1] }
-    sorted_trains = (nephin_trains + return_trains).sort_by {|trains| trains.map(&:dep).min }
+    nephin_trains = @train_trips.reject { |t| t.nephin_id.nil? }.group_by(&:nephin_id).map { |t| t[1] }
+    return_trains = @train_trips.reject { |t| t.nephin_return_id.nil? }.group_by(&:nephin_return_id).map { |t| t[1] }
+    sorted_trains = (nephin_trains + return_trains).sort_by { |trains| trains.map(&:dep).min }
     sorted_trains.each_cons(2) do |current, nxt|
-      current_train_arr = current.flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.max { |a,b| a[1] <=> b[1] }.dig(1)
-      next_train_dep = nxt.flat_map { |t| t.stops }.select { |s| %w[Ballina Westport].include?(s[0]) }.min { |a,b| a[1] <=> b[1] }.dig(1)
+      current_train_arr = current.flat_map(&:stops).select do |s|
+                            %w[Ballina Westport].include?(s[0])
+                          end.max { |a, b| a[1] <=> b[1] }[1]
+      next_train_dep = nxt.flat_map(&:stops).select do |s|
+                         %w[Ballina Westport].include?(s[0])
+                       end.min { |a, b| a[1] <=> b[1] }[1]
       overlap = current_train_arr - next_train_dep
-      if overlap > -(@turnaround) # must be within min turnaround time
-        adjustment = overlap + @turnaround
-        nxt.each do |train|
-          train.dep += adjustment
-          train.arr += adjustment
-          train.stops.each { |stop| stop[1] += adjustment }
-          train.info = "advanced by #{adjustment.fdiv(60)} mins to avoid clash"
-        end
+      next unless overlap > -@turnaround # must be within min turnaround time
+
+      adjustment = overlap + @turnaround
+      nxt.each do |train|
+        train.dep += adjustment
+        train.arr += adjustment
+        train.stops.each { |stop| stop[1] += adjustment }
+        train.info = "advanced by #{adjustment.fdiv(60)} mins to avoid clash"
       end
     end
   end

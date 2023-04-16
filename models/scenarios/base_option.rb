@@ -13,8 +13,8 @@ class BaseOption
   include Helper
 
   def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
-    @stop_info = YAML.load(File.read("config.yaml"))
-    @fare_info = YAML.load(File.read("fares.yaml"))
+    @stop_info = YAML.safe_load(File.read('config.yaml'))
+    @fare_info = YAML.safe_load(File.read('fares.yaml'))
     @dwell = 60.0
     @turnaround = @dwell * 3
     @date = date
@@ -25,7 +25,7 @@ class BaseOption
   end
 
   def exec_option
-    raise "Implement me" unless __FILE__ == $PROGRAM_NAME
+    raise 'Implement me' unless __FILE__ == $PROGRAM_NAME
   end
 
   def import_train_data(from, to)
@@ -58,10 +58,10 @@ class BaseOption
   end
 
   def generate_configuration
-    date = Time.now.strftime "%Y%m%d"
+    date = Time.now.strftime '%Y%m%d'
 
     # nephin
-    nephin_line = JourneyPlanner.new.search(date, "Ballina", "Westport")
+    nephin_line = JourneyPlanner.new.search(date, 'Ballina', 'Westport')
     nephin_line.trains_out.each do |trip|
       extract_trip_durations(trip, nephin_line.stations)
     end
@@ -70,7 +70,7 @@ class BaseOption
     end
 
     # covey
-    covey_line = JourneyPlanner.new.search(date, "Westport", "Ballyhaunis")
+    covey_line = JourneyPlanner.new.search(date, 'Westport', 'Ballyhaunis')
     covey_line.trains_out.each do |trip|
       extract_trip_durations(trip, covey_line.stations)
     end
@@ -91,17 +91,20 @@ class BaseOption
     # seach can return multiple routes
     routes.each do |route|
       # group by group trip ids
-      rows = @train_trips.reject { |t| t.send("#{route}_id").nil? }.group_by(&:"#{route}_id").map do |trip_id, trains|
+      rows = @train_trips.reject { |t| t.send("#{route}_id").nil? }.group_by(&:"#{route}_id").map do |_trip_id, trains|
         # make this a hash instead, hashes are sorted in ruby so this will work
-        stops = trains.flat_map { |train| train.stops }.sort_by { |stop| stop[1] }.each_with_object({}) { |i, obj| obj[i[0]] = i[1] } # join all stops and sort by time
+        stops = # join all stops and sort by time
+          trains.flat_map(&:stops).sort_by { |stop| stop[1] }.each_with_object({}) { |i, obj| obj[i[0]] = i[1] }
         # filter by @from @to and add other tt info
         next unless stops[@from] && stops[@to]
         next unless stops[@from] < stops[@to]
+
         # return train result for tt
         low, high = @fare_info[@from][@to]
         fares = low == high ? "€#{low.fdiv(100)}" : "€#{low.fdiv(100)} - #{high.fdiv(100)}"
-        duration = distance_in_mins(stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M")).round.to_s + " mins"
-        [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), fares, duration, trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
+        duration = "#{distance_in_mins(stops[@from].strftime('%H:%M'), stops[@to].strftime('%H:%M')).round} mins"
+        [@from, @to, stops[@from].strftime('%H:%M'), stops[@to].strftime('%H:%M'), fares, duration,
+         trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
       # search will return dups for certain sections, uniuque
       rows.each { |row| results << row unless results.any? { |res| res[2..3] == row[2..3] } }
@@ -112,7 +115,9 @@ class BaseOption
   def as_ascii
     headers = %w[from to dep arr info trip_id]
     sort = headers.index(@sort)
-    puts Terminal::Table.new rows: rows.sort_by { |r| r[sort] }, headings: headers, title: 'An Maightró', style: { all_separators: true }
+    puts Terminal::Table.new rows: rows.sort_by { |r|
+                                     r[sort]
+                                   }, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
 
   def as_json
@@ -126,9 +131,7 @@ class BaseOption
       stations = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
       stations.each do |from|
         stations.each do |to|
-          if from == to
-            next
-          end
+          next if from == to
 
           @from = from
           @to = to
@@ -136,9 +139,9 @@ class BaseOption
           wtt = durations.max.round
           mtt = durations.sum(0.0).fdiv(durations.size).round
           nts = rows.count
-          first_dep, last_dep = rows.map { |r| Time.parse(r.dig(2)) }.minmax
+          first_dep, last_dep = rows.map { |r| Time.parse(r[2]) }.minmax
           fs = (last_dep - first_dep).fdiv(rows.size).fdiv(3600).round(1)
-          results << [@from, @to, nts,  mtt, wtt, fs]
+          results << [@from, @to, nts, mtt, wtt, fs]
         end
       end
     end
@@ -146,13 +149,13 @@ class BaseOption
 
   def print_analysis
     headers = %w[from to wtt mtt nts fs]
-    title = "Analysis " + self.class.name
+    title = "Analysis #{self.class.name}"
     puts Terminal::Table.new rows: run_analysis, headings: headers, title: title, style: { all_separators: true }
   end
 
   def csv_analysis
     headers = %w[from to wtt mtt nts fs]
-    filename = "output/analysis-" + self.class.name + ".csv"
+    filename = "output/analysis-#{self.class.name}.csv"
     CSV.open(filename, 'w', headers: true) do |csv|
       csv << headers
       run_analysis.each do |r|
@@ -167,11 +170,12 @@ class BaseOption
       stations.each do |from|
         stations.each do |to|
           next if from == to
-          date = Time.now + 86400
-          results = JourneyPlanner.new.search(date.strftime("%Y%m%d"), from, to)
+
+          date = Time.now + 86_400
+          results = JourneyPlanner.new.search(date.strftime('%Y%m%d'), from, to)
           results.trains_out.each do |trip|
-            min, max = trip.dig("trfRes","fareSetL")&.flat_map do |fare|
-              fare.dig('fareL').map { |f| f.dig("prc") }
+            min, max = trip.dig('trfRes', 'fareSetL')&.flat_map do |fare|
+              fare['fareL'].map { |f| f['prc'] }
             end&.minmax
             fares[from] ||= {}
             fares[from][to] = [min, max]
@@ -187,14 +191,14 @@ class BaseOption
   private
 
   def extract_trip_durations(trip, stations)
-    trip.dig('secL').each do |t|
+    trip['secL'].each do |t|
       t.dig('jny', 'stopL').each_cons(2) do |start, finish|
-        next unless finish['aTimeS'] && start["dTimeS"]
+        next unless finish['aTimeS'] && start['dTimeS']
 
-        dur = parse_time(finish['aTimeS']) - parse_time(start["dTimeS"])
+        dur = parse_time(finish['aTimeS']) - parse_time(start['dTimeS'])
         x = @stop_info[find_station(start, stations)] ||= {}
         y = x[find_station(finish, stations)] ||= nil
-        x[find_station(finish, stations)] = dur if (y.nil? || dur < y)
+        x[find_station(finish, stations)] = dur if y.nil? || dur < y
       end
     end
   end
