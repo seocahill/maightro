@@ -5,16 +5,18 @@ class Option3Test < Test::Unit::TestCase
 
   def setup
     @bw = Option3.new.rows
-    @wb = Option3.new("20221222", "Westport", "Ballina").rows
-    @bc = Option3.new("20221222", "Ballina", "Castlebar").rows
-    @cb = Option3.new("20221222", "Castlebar", "Ballina").rows
-    @covey = Option3.new("20221222", "Claremorris", "Westport").rows
-    @covey_return = Option3.new("20221222", "Westport", "Claremorris").rows
-    @covey_sunday = Option3.new("20230416", "Claremorris", "Westport").rows
-    @covey_return_sunday = Option3.new("20230416", "Westport", "Claremorris").rows
-    @costello = Option3.new("20221222", "Foxford", "Claremorris").rows
-    @costello_return = Option3.new("20221222", "Claremorris", "Foxford").rows
-    @castlebar_westport =  Option3.new("20221222", "Castlebar", "Westport").rows
+    # @wb = Option3.new("20221222", "Westport", "Ballina").rows
+    # @bc = Option3.new("20221222", "Ballina", "Castlebar").rows
+    # @cb = Option3.new("20221222", "Castlebar", "Ballina").rows
+    # @covey = Option3.new("20221222", "Claremorris", "Westport").rows
+    # @covey_return = Option3.new("20221222", "Westport", "Claremorris").rows
+    # @covey_sunday = Option3.new("20230416", "Claremorris", "Westport").rows
+    # @covey_return_sunday = Option3.new("20230416", "Westport", "Claremorris").rows
+    # @costello = Option3.new("20221222", "Foxford", "Claremorris").rows
+    # @costello_return = Option3.new("20221222", "Claremorris", "Foxford").rows
+    @costello_sunday = Option3.new("20230416", "Foxford", "Claremorris").rows
+    @costello_return_sunday = Option3.new("20230416", "Claremorris", "Foxford").rows
+    # @castlebar_westport =  Option3.new("20221222", "Castlebar", "Westport").rows
   end
 
   def test_min_dwell_local_trains
@@ -63,6 +65,11 @@ class Option3Test < Test::Unit::TestCase
   def test_costello
     assert_equal @costello.count, 9
     assert_equal @costello_return.count, 10
+  end
+
+  def test_costello_sunday
+    assert_equal @costello_sunday.count, 9
+    assert_equal @costello_return_sunday.count, 10
   end
 
   def test_analysis
