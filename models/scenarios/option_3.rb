@@ -50,7 +50,6 @@ class Option3 < BaseOption
 
   def connecting_train_possible(connecting_train, current_position, dep_time)
     return unless connecting_train
-
     if current_position == @covey_terminus
       dep_time <= connecting_train.time_at_junction - duration(@covey_terminus, "Manulla Junction")
     else
@@ -121,18 +120,22 @@ class Option3 < BaseOption
               else
                 # just make local train
                 trip_id = "LCL-#{@trip_id_idx}"
-                if current_position == @covey_terminus
-                  # no dwell in manulla
-                  stops = stops(@covey_terminus, "Westport", dep_time)
-                  arr_time = dep_time + duration(@covey_terminus, "Westport")
-                  TrainPath.new(from: @covey_terminus, to: 'Westport', dir: 'local', dep: dep_time,
-                                arr: arr_time, position: 'Westport', trip_id: trip_id, covey_return_id: trip_id, stops: stops)
-                else
-                  stops = stops("Westport", @covey_terminus, dep_time)
-                  arr_time = dep_time + duration("Westport", @covey_terminus)
-                  TrainPath.new(from: 'Westport', to: @covey_terminus, dir: 'local', dep: dep_time,
-                                arr: arr_time, position: @covey_terminus, trip_id: trip_id, covey_id: trip_id, stops: stops)
-                end
+                train = if current_position == @covey_terminus
+                          # no dwell in manulla
+                          stops = stops(@covey_terminus, "Westport", dep_time)
+                          arr_time = dep_time + duration(@covey_terminus, "Westport")
+                          TrainPath.new(from: @covey_terminus, to: 'Westport', dir: 'local', dep: dep_time,
+                                        arr: arr_time, position: 'Westport', trip_id: trip_id, covey_return_id: trip_id, stops: stops)
+                        else
+                          stops = stops("Westport", @covey_terminus, dep_time)
+                          arr_time = dep_time + duration("Westport", @covey_terminus)
+                          TrainPath.new(from: 'Westport', to: @covey_terminus, dir: 'local', dep: dep_time,
+                                        arr: arr_time, position: @covey_terminus, trip_id: trip_id, covey_id: trip_id, stops: stops)
+                        end
+                # connecting train processed
+                @connecting_trains.delete connecting_train
+                # return train
+                train
               end
       @claremorris_trains << train
       # new dep_time and position

@@ -25,13 +25,13 @@ class Option3bTest < Test::Unit::TestCase
   end
 
   def test_covey
-    assert_equal @covey.count, 14
-    assert_equal @covey_return.count, 13
+    assert_equal @covey.count, 10
+    assert_equal @covey_return.count, 10
   end
 
   def test_costello
-    assert_equal @costello.count, 6
-    assert_equal @costello_return.count, 6
+    assert_equal @costello.count, 9
+    assert_equal @costello_return.count, 8
   end
 
   def test_analysis
