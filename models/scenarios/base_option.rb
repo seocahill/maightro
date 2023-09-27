@@ -8,6 +8,7 @@ require 'time'
 require_relative '../helper'
 require_relative '../journey_planner'
 require_relative '../train_path'
+require "terminal-table"
 
 class BaseOption
   include Helper
