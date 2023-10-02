@@ -104,14 +104,14 @@ class BaseOption
         duration = distance_in_mins(stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M")).round.to_s + " mins"
         [@from, @to, stops[@from].strftime("%H:%M"), stops[@to].strftime("%H:%M"), fares, duration, trains.map(&:info).join('; '), trains.first.send("#{route}_id")]
       end.compact
-      # search will return dups for certain sections, uniuque
+      # search will return dups for certain sections, unique
       rows.each { |row| results << row unless results.any? { |res| res[2..3] == row[2..3] } }
     end
-    results
+    results.sort_by! { |r| r[2] }
   end
 
   def as_ascii
-    headers = %w[from to dep arr info trip_id]
+    headers = %w[from to dep arr cost dur notes id]
     sort = headers.index(@sort)
     puts Terminal::Table.new rows: rows.sort_by { |r| r[sort] }, headings: headers, title: 'An Maightró', style: { all_separators: true }
   end
