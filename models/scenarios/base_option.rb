@@ -13,7 +13,7 @@ require "terminal-table"
 class BaseOption
   include Helper
 
-  def initialize(date = '20221222', from = 'Ballina', to = 'Westport', sort = 'dep')
+  def initialize(date = last_thursday, from = 'Ballina', to = 'Westport', sort = 'dep')
     @stop_info = YAML.load(File.read("config.yaml"))
     @fare_info = YAML.load(File.read("fares.yaml"))
     @dwell = 60.0

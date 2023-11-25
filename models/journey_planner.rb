@@ -8,7 +8,7 @@ require 'net/http'
 require 'time'
 
 class JourneyPlanner
-  def search(date = '20221222', from = 'Ballina', to = 'Westport')
+  def search(date = last_thursday, from = 'Ballina', to = 'Westport')
     @_search ||= Hash.new do |memo, (date, from, to)|
       memo[[date, from, to]] = _search(date, from, to)
     end

@@ -1,22 +1,25 @@
 require_relative '../models/scenarios/option_3.rb'
 require 'test/unit'
+require_relative 'test_helpers'
+
 
 class Option3Test < Test::Unit::TestCase
+  include TestHelpers
 
   def setup
     @bw = Option3.new.rows
-    @wb = Option3.new("20221222", "Westport", "Ballina").rows
-    @bc = Option3.new("20221222", "Ballina", "Castlebar").rows
-    @cb = Option3.new("20221222", "Castlebar", "Ballina").rows
-    @covey = Option3.new("20221222", "Claremorris", "Westport").rows
-    @covey_return = Option3.new("20221222", "Westport", "Claremorris").rows
-    @covey_sunday = Option3.new("20230416", "Claremorris", "Westport").rows
-    @covey_return_sunday = Option3.new("20230416", "Westport", "Claremorris").rows
-    @costello = Option3.new("20221222", "Foxford", "Claremorris").rows
-    @costello_return = Option3.new("20221222", "Claremorris", "Foxford").rows
-    @costello_sunday = Option3.new("20230416", "Foxford", "Claremorris").rows
-    @costello_return_sunday = Option3.new("20230416", "Claremorris", "Foxford").rows
-    @castlebar_westport =  Option3.new("20221222", "Castlebar", "Westport").rows
+    @wb = Option3.new(last_thursday, "Westport", "Ballina").rows
+    @bc = Option3.new(last_thursday, "Ballina", "Castlebar").rows
+    @cb = Option3.new(last_thursday, "Castlebar", "Ballina").rows
+    @covey = Option3.new(last_thursday, "Claremorris", "Westport").rows
+    @covey_return = Option3.new(last_thursday, "Westport", "Claremorris").rows
+    @covey_sunday = Option3.new(last_sunday, "Claremorris", "Westport").rows
+    @covey_return_sunday = Option3.new(last_sunday, "Westport", "Claremorris").rows
+    @costello = Option3.new(last_thursday, "Foxford", "Claremorris").rows
+    @costello_return = Option3.new(last_thursday, "Claremorris", "Foxford").rows
+    @costello_sunday = Option3.new(last_sunday, "Foxford", "Claremorris").rows
+    @costello_return_sunday = Option3.new(last_sunday, "Claremorris", "Foxford").rows
+    @castlebar_westport =  Option3.new(last_thursday, "Castlebar", "Westport").rows
   end
 
   def test_min_dwell_local_trains
@@ -28,7 +31,7 @@ class Option3Test < Test::Unit::TestCase
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
     # busiest block is Castlebar - Westport
-    rows = (Option3.new("20221222", "Westport", "Castlebar").rows + Option3.new("20221222", "Castlebar", "Westport").rows).sort_by { |r| r[2] }
+    rows = (Option3.new(last_thursday, "Westport", "Castlebar").rows + Option3.new(last_thursday, "Castlebar", "Westport").rows).sort_by { |r| r[2] }
     assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
   end
 
@@ -58,8 +61,8 @@ class Option3Test < Test::Unit::TestCase
   end
 
   def test_covey_sunday
-    assert_equal @covey_sunday.count, 10
-    assert_equal @covey_return_sunday.count, 10
+    assert_equal @covey_sunday.count, 12
+    assert_equal @covey_return_sunday.count, 11
   end
 
   def test_costello
@@ -69,7 +72,7 @@ class Option3Test < Test::Unit::TestCase
 
   def test_costello_sunday
     assert_equal @costello_sunday.count, 8
-    assert_equal @costello_return_sunday.count, 8
+    assert_equal @costello_return_sunday.count, 9
   end
 
   def test_analysis

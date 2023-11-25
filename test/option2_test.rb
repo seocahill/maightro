@@ -1,15 +1,18 @@
 require_relative '../models/scenarios/option_2.rb'
 require 'test/unit'
+require_relative 'test_helpers'
+
 
 class Option2Test < Test::Unit::TestCase
+  include TestHelpers
 
   def setup
     @bw = Option2.new.rows
-    @wb = Option2.new("20221222", "Westport", "Ballina").rows
-    @bc = Option2.new("20221222", "Ballina", "Castlebar").rows
-    @cb = Option2.new("20221222", "Castlebar", "Ballina").rows
-    @covey = Option2.new("20221222", "Claremorris", "Westport").rows
-    @costello = Option2.new("20221222", "Ballyhaunis", "Foxford").rows
+    @wb = Option2.new(last_thursday, "Westport", "Ballina").rows
+    @bc = Option2.new(last_thursday, "Ballina", "Castlebar").rows
+    @cb = Option2.new(last_thursday, "Castlebar", "Ballina").rows
+    @covey = Option2.new(last_thursday, "Claremorris", "Westport").rows
+    @costello = Option2.new(last_thursday, "Ballyhaunis", "Foxford").rows
   end
 
   def test_min_dwell

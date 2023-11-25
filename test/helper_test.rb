@@ -1,7 +1,9 @@
 require_relative '../models/scenarios/option_2.rb'
 require 'test/unit'
+require_relative 'test_helpers' # adjust the path as needed to point to your helpers module
 
 class HelperTest < Test::Unit::TestCase
+  include TestHelpers
 
   def setup
     @tp = TrainPath.new

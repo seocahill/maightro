@@ -2,14 +2,22 @@
 
 require 'active_support/concern'
 require 'time'
+require 'date'
 
 module Helper
   extend ActiveSupport::Concern
 
-  def parse_time(time_str = '20221222')
+  def parse_time(time_str = last_thursday)
     return unless time_str
 
     Time.parse(time_str[0..3].insert(2, ':'))
+  end
+
+  def last_thursday
+    today = Date.today
+    # Subtracting days from today until we get a Thursday (where day of the week is 4)
+    last_thursday = today - ((today.wday - 4) % 7)
+    last_thursday.strftime('%Y%m%d')
   end
 
   def find_station(current, stations)
@@ -76,7 +84,7 @@ module Helper
   end
 
   class_methods do
-    def parse_time(time_str = '20221222')
+    def parse_time(time_str = last_thursday)
       return unless time_str
 
       Time.parse(time_str[0..3].insert(2, ':'))
