@@ -7,12 +7,14 @@ class Option2Test < Test::Unit::TestCase
   include TestHelpers
 
   def setup
-    @bw = Option2.new.rows
-    @wb = Option2.new(last_thursday, "Westport", "Ballina").rows
-    @bc = Option2.new(last_thursday, "Ballina", "Castlebar").rows
-    @cb = Option2.new(last_thursday, "Castlebar", "Ballina").rows
-    @covey = Option2.new(last_thursday, "Claremorris", "Westport").rows
-    @costello = Option2.new(last_thursday, "Ballyhaunis", "Foxford").rows
+    VCR.use_cassette('option2') do
+      @bw = Option2.new.rows
+      @wb = Option2.new(last_thursday, "Westport", "Ballina").rows
+      @bc = Option2.new(last_thursday, "Ballina", "Castlebar").rows
+      @cb = Option2.new(last_thursday, "Castlebar", "Ballina").rows
+      @covey = Option2.new(last_thursday, "Claremorris", "Westport").rows
+      @costello = Option2.new(last_thursday, "Ballyhaunis", "Foxford").rows
+    end
   end
 
   def test_min_dwell
@@ -37,17 +39,19 @@ class Option2Test < Test::Unit::TestCase
   end
 
   def test_block_timing
-    dep = Time.parse("12:00")
-    mal_arr = Time.parse("12:27")
-    assert_equal Option2.new.stops("Ballina", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), mal_arr
+    VCR.use_cassette('option2') do
+      dep = Time.parse("12:00")
+      mal_arr = Time.parse("12:27")
+      assert_equal Option2.new.stops("Ballina", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), mal_arr
 
-    bal_arr = Time.parse("12:27")
-    assert_equal Option2.new.stops("Manulla Junction", "Ballina", dep).max_by { |t| t[1] }.dig(1), bal_arr
+      bal_arr = Time.parse("12:27")
+      assert_equal Option2.new.stops("Manulla Junction", "Ballina", dep).max_by { |t| t[1] }.dig(1), bal_arr
 
-    man_arr = Time.parse("12:19")
-    assert_equal Option2.new.stops("Westport", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), man_arr
-    wes_arr = Time.parse("12:23")
-    assert_equal Option2.new.stops("Manulla Junction", "Westport", dep).max_by { |t| t[1] }.dig(1), wes_arr
+      man_arr = Time.parse("12:19")
+      assert_equal Option2.new.stops("Westport", "Manulla Junction", dep).max_by { |t| t[1] }.dig(1), man_arr
+      wes_arr = Time.parse("12:23")
+      assert_equal Option2.new.stops("Manulla Junction", "Westport", dep).max_by { |t| t[1] }.dig(1), wes_arr
+    end
   end
 
   def test_covey
@@ -59,6 +63,8 @@ class Option2Test < Test::Unit::TestCase
   end
 
   def test_analysis
-    assert Option2.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
+    VCR.use_cassette('option2_analysis') do
+      assert Option2.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
+    end
   end
 end

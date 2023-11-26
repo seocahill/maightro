@@ -7,32 +7,36 @@ class Option3Test < Test::Unit::TestCase
   include TestHelpers
 
   def setup
-    @bw = Option3.new.rows
-    @wb = Option3.new(last_thursday, "Westport", "Ballina").rows
-    @bc = Option3.new(last_thursday, "Ballina", "Castlebar").rows
-    @cb = Option3.new(last_thursday, "Castlebar", "Ballina").rows
-    @covey = Option3.new(last_thursday, "Claremorris", "Westport").rows
-    @covey_return = Option3.new(last_thursday, "Westport", "Claremorris").rows
-    @covey_sunday = Option3.new(last_sunday, "Claremorris", "Westport").rows
-    @covey_return_sunday = Option3.new(last_sunday, "Westport", "Claremorris").rows
-    @costello = Option3.new(last_thursday, "Foxford", "Claremorris").rows
-    @costello_return = Option3.new(last_thursday, "Claremorris", "Foxford").rows
-    @costello_sunday = Option3.new(last_sunday, "Foxford", "Claremorris").rows
-    @costello_return_sunday = Option3.new(last_sunday, "Claremorris", "Foxford").rows
-    @castlebar_westport =  Option3.new(last_thursday, "Castlebar", "Westport").rows
+    VCR.use_cassette('option3') do
+      @bw = Option3.new.rows
+      @wb = Option3.new(last_thursday, "Westport", "Ballina").rows
+      @bc = Option3.new(last_thursday, "Ballina", "Castlebar").rows
+      @cb = Option3.new(last_thursday, "Castlebar", "Ballina").rows
+      @covey = Option3.new(last_thursday, "Claremorris", "Westport").rows
+      @covey_return = Option3.new(last_thursday, "Westport", "Claremorris").rows
+      @covey_sunday = Option3.new(last_sunday, "Claremorris", "Westport").rows
+      @covey_return_sunday = Option3.new(last_sunday, "Westport", "Claremorris").rows
+      @costello = Option3.new(last_thursday, "Foxford", "Claremorris").rows
+      @costello_return = Option3.new(last_thursday, "Claremorris", "Foxford").rows
+      @costello_sunday = Option3.new(last_sunday, "Foxford", "Claremorris").rows
+      @costello_return_sunday = Option3.new(last_sunday, "Claremorris", "Foxford").rows
+      @castlebar_westport =  Option3.new(last_thursday, "Castlebar", "Westport").rows
+    end
   end
 
   def test_min_dwell_local_trains
-    # can't be less than 3 minutes
-    rows = (@bw + @wb).sort_by { |r| r[2] }
-    assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+    VCR.use_cassette('option3') do
+      # can't be less than 3 minutes
+      rows = (@bw + @wb).sort_by { |r| r[2] }
+      assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
-    rows = (@covey + @covey_return).select { |t| t.dig(-1) =~ /LC/ }.sort_by { |r| r[2] }
-    assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+      rows = (@covey + @covey_return).select { |t| t.dig(-1) =~ /LC/ }.sort_by { |r| r[2] }
+      assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
 
-    # busiest block is Castlebar - Westport
-    rows = (Option3.new(last_thursday, "Westport", "Castlebar").rows + Option3.new(last_thursday, "Castlebar", "Westport").rows).sort_by { |r| r[2] }
-    assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+      # busiest block is Castlebar - Westport
+      rows = (Option3.new(last_thursday, "Westport", "Castlebar").rows + Option3.new(last_thursday, "Castlebar", "Westport").rows).sort_by { |r| r[2] }
+      assert_equal rows.each_cons(2).map {|s,e| (Time.parse(e[2]) - Time.parse(s[3])).fdiv(60) }.min, 3.0
+    end
   end
 
   def test_train_passing
@@ -76,6 +80,8 @@ class Option3Test < Test::Unit::TestCase
   end
 
   def test_analysis
-    assert Option3.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
+    VCR.use_cassette('option3_analysis') do
+      assert Option3.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
+    end
   end
 end
