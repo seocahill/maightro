@@ -70,6 +70,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel
   activesupport
+  pry
   pry-byebug
   rake
   sentry-ruby

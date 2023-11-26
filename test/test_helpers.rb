@@ -1,6 +1,8 @@
 require 'date'
 require 'test/unit'
 require 'vcr'
+require 'pry'
+require 'pry-byebug'
 
 VCR.configure do |c|
   c.hook_into :webmock

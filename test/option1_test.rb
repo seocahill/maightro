@@ -33,9 +33,12 @@ class Option1Test < Test::Unit::TestCase
     end
   end
 
-  # def test_duration
-  #   # durations must be realistic based on actual current timings
-  #   assert @bw.min { |train| train[4] } > 50, "Duration must be realistic"
-  #   assert @wb.min { |train| train[4] } > 50, "Duration must be realistic"
-  # end
+  def test_duration
+    VCR.use_cassette('option1') do
+      # durations must be realistic based on actual current timings
+      # fastest current time to westport is 53 mins, from is 49 mins.
+      assert @bw.map { |train| train[5].split.first.to_i }.min > 52, "Duration must be realistic"
+      assert @wb.map { |train| train[5].split.first.to_i }.min > 48, "Duration must be realistic"
+    end
+  end
 end

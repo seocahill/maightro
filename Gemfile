@@ -11,6 +11,7 @@ gem 'activemodel'
 gem 'thin'
 group :test, :development do
   gem 'test-unit'
+  gem 'pry'
   gem 'pry-byebug'
   gem 'vcr' # mock IE api requests, maybe leave a single sanity test.
   gem 'webmock'
