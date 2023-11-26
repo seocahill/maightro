@@ -8,7 +8,10 @@ gem 'terminal-table'
 gem 'rake'
 gem 'activesupport'
 gem 'activemodel'
-gem 'test-unit'
 gem 'thin'
-gem 'pry-byebug', require: false
-
+group :test, :development do
+  gem 'test-unit'
+  gem 'pry-byebug'
+  gem 'vcr' # mock IE api requests, maybe leave a single sanity test.
+  gem 'webmock'
+end
