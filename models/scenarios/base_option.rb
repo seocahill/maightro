@@ -18,6 +18,7 @@ class BaseOption
     @fare_info = YAML.load(File.read("fares.yaml"))
     @dwell = 60.0
     @turnaround = @dwell * 3
+    @crossover = @dwell * 3
     @date = date
     @sort = sort
     @from = from

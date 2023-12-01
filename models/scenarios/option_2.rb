@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # Direct Algorithm:
-# - Westport is infallible!  Ballina train is supine, BT must be at MJ to meet WT.
+# - Westport is infallible!  Ballina train is secondary, BT must be at MJ to meet WT.
 # - In this simulation no freight paths are considered. Variables like staff, fuel etc are assumed to be sufficient.
 # - BMT duration is 27.  Minimum dwell is 3 minutes. WMT duration is 19 mins.
 # - Loop from start to end time creating local or connecting trains depending on path availability
@@ -129,8 +129,8 @@ class Option2 < BaseOption
   # will comprise of two trips as railcar is always in B or W and must meet connect at M
   def add_connecting_train(connecting_train, current_position, _dep_time, next_connection)
     end_station = current_position == 'Ballina' ? 'Westport' : 'Ballina'
-    # "time at junction" is actually time departing junction, add 1 min dwell
-    arr = connecting_train.time_at_junction - @dwell
+    # "time at junction" is actually time departing junction, add 3 min dwell per current tt
+    arr = connecting_train.time_at_junction - @crossover
     dep = arr - duration(current_position, 'Manulla Junction')
     up_connection, down_connection = connection_info(connecting_train.dir, current_position)
     # train to connection from B or W dep on current position
@@ -154,7 +154,7 @@ class Option2 < BaseOption
     # train from Manulla to B or W dep on dir of connection and on timing of next connection
     dep = arr + @turnaround
     round_trip_time = duration("Westport", "Manulla Junction") + duration("Manulla Junction", "Westport") + @turnaround
-    if next_connection && (next_connection.time_at_junction - @dwell - arr < round_trip_time)
+    if next_connection && (next_connection.time_at_junction - @crossover - arr < round_trip_time)
       end_station = 'Castlebar'
       arr = dep + duration('Manulla Junction', end_station)
     else

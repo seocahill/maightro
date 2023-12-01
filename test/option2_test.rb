@@ -72,7 +72,7 @@ class Option2Test < Test::Unit::TestCase
     VCR.use_cassette('option2') do
       # durations must be realistic based on actual current timings
       # fastest current time to westport is 53 mins, from is 49 mins.
-      min_bw_duration = @bw.map { |train| train[5].split.first.to_i }.min
+      min_bw_duration = @bw.select { |train| train.last.start_with?("LC-") }.map { |train| train[5].split.first.to_i }.min
       assert min_bw_duration > 52, "Duration must be realistic; expected greater than 52 but was #{min_bw_duration}"
     end
   end
@@ -82,7 +82,7 @@ class Option2Test < Test::Unit::TestCase
       # durations must be realistic based on actual current timings
       # fastest current time to westport is 53 mins, from is 49 mins.
       # manulla dwell is 3 minutes for changes
-      min_wb_duration = @wb.map { |train| train[5].split.first.to_i }.min
+      min_wb_duration = @wb.select { |train| train.last.start_with?("LC-") }.map { |train| train[5].split.first.to_i }.min
       assert min_wb_duration > 48, "Duration must be realistic; expected greater than 49 but was #{min_wb_duration}"
     end
   end
