@@ -33,26 +33,25 @@ class Option1a < BaseOption
 
     ic_trips.each do |ic|
       next unless ic.time_at_junction # i.e. extra friday train to westport only
-
-      dep_ballina = ic.time_at_junction - branch_trip_time - @dwell
+      manulla_dwell = (@dwell * 3)
+      dep_ballina = ic.time_at_junction - branch_trip_time - manulla_dwell
       stops = stops('Ballina', 'Manulla Junction', dep_ballina)
-      train_up = TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: dep_ballina, arr: ic.dep, stops: stops)
+      train_up = TrainPath.new(from: 'Ballina', to: 'Manulla Junction', dep: dep_ballina, arr: (ic.time_at_junction - manulla_dwell), stops: stops)
       find_route('Ballina', ic.stops.last[0]).dig(0).each do |route|
         train_up.send("#{route}_id=", ic.trip_id)
         ic.send("#{route}_id=", ic.trip_id)
       end
       ballina_trains << train_up
 
-      arr_time = ic.time_at_junction + branch_trip_time
-      stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction)
-      train_down = TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: ic.time_at_junction, arr: arr_time, stops: stops)
+      arr_ballina = ic.time_at_junction + branch_trip_time + manulla_dwell
+      stops = stops('Manulla Junction', 'Ballina', ic.time_at_junction + manulla_dwell)
+      train_down = TrainPath.new(from: 'Manulla Junction', to: 'Ballina', dep: (ic.time_at_junction + manulla_dwell), arr: arr_ballina, stops: stops)
       find_route(ic.stops.first[0], 'Ballina').dig(0).each do |route|
         train_down.send("#{route}_id=", ic.trip_id)
         ic.send("#{route}_id=", ic.trip_id)
       end
       ballina_trains << train_down
     end
-
     ballina_trains + ic_trips
   end
 
