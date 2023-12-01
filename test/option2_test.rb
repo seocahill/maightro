@@ -67,4 +67,23 @@ class Option2Test < Test::Unit::TestCase
       assert Option2.new.run_analysis.all? { |r| r[3..5].min.positive? }, "Sanity: no negative stats"
     end
   end
+
+  def test_bw_duration
+    VCR.use_cassette('option2') do
+      # durations must be realistic based on actual current timings
+      # fastest current time to westport is 53 mins, from is 49 mins.
+      min_bw_duration = @bw.map { |train| train[5].split.first.to_i }.min
+      assert min_bw_duration > 52, "Duration must be realistic; expected greater than 52 but was #{min_bw_duration}"
+    end
+  end
+
+  def test_wb_duration
+    VCR.use_cassette('option2') do
+      # durations must be realistic based on actual current timings
+      # fastest current time to westport is 53 mins, from is 49 mins.
+      # manulla dwell is 3 minutes for changes
+      min_wb_duration = @wb.map { |train| train[5].split.first.to_i }.min
+      assert min_wb_duration > 48, "Duration must be realistic; expected greater than 49 but was #{min_wb_duration}"
+    end
+  end
 end
