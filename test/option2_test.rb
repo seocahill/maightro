@@ -86,4 +86,34 @@ class Option2Test < Test::Unit::TestCase
       assert min_wb_duration > 48, "Duration must be realistic; expected greater than 49 but was #{min_wb_duration}"
     end
   end
+
+  def test_for_overlaps_ballina_castlebar_trains
+    VCR.use_cassette('option2') do
+      # check that there are no clashing paths
+      all_trains = (@bc + @cb).sort_by { |train| [train[-1].split('-').last.to_i, train[2]] }
+      all_trains.each_cons(2) do |first_train, second_train|
+      next if first_train[1] != second_train[0]  # Skip if not same station
+
+        first_arrival = Time.parse(first_train[3])
+        second_departure = Time.parse(second_train[2])
+
+        assert(first_arrival <= second_departure, "Overlap detected between #{first_train[7]} and #{second_train[7]}")
+      end
+    end
+  end
+
+  def test_for_overlaps_ballina_westport_trains
+    VCR.use_cassette('option2') do
+      # check that there are no clashing paths
+      all_trains = (@bw + @wb).sort_by { |train| [train[-1].split('-').last.to_i, train[2]] }
+      all_trains.each_cons(2) do |first_train, second_train|
+      next if first_train[1] != second_train[0]  # Skip if not same station
+
+        first_arrival = Time.parse(first_train[3])
+        second_departure = Time.parse(second_train[2])
+
+        assert(first_arrival <= second_departure, "Overlap detected between #{first_train[7]} and #{second_train[7]}")
+      end
+    end
+  end
 end
