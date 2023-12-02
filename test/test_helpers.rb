@@ -10,6 +10,9 @@ VCR.configure do |c|
   c.default_cassette_options = {
     :match_requests_on => [:method, :host, :path]
   }
+  c.ignore_request do |request|
+    request.headers["X-Vcr-Bypass"] == ['true']
+  end
 end
 
 module TestHelpers

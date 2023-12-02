@@ -6,8 +6,15 @@ require 'uri'
 require 'json'
 require 'net/http'
 require 'time'
+require_relative './helper'
 
 class JourneyPlanner
+  include Helper
+
+  def initialize(vcr_bypass: "false")
+    @vcr_bypass = vcr_bypass
+  end
+
   def search(date = last_thursday, from = 'Ballina', to = 'Westport')
     @_search ||= Hash.new do |memo, (date, from, to)|
       memo[[date, from, to]] = _search(date, from, to)
@@ -24,6 +31,7 @@ class JourneyPlanner
 
     request = Net::HTTP::Get.new(url)
     request['Content-Type'] = 'application/json'
+    request['X-VCR-Bypass'] = @vcr_bypass
     request.body = JSON.dump({
                                "id": 'pv28umgwk8wbgk8g',
                                "ver": '1.22',
