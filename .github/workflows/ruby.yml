@@ -5,15 +5,16 @@
 # This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
 # For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
 
-name: Ruby
+name: Ruby Test
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  # schedule:
-  #   - '0 1 * * 1'
+  schedule:
+    - cron: '0 1 * * 1'
+
 
 permissions:
   contents: read
