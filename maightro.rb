@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 
-require 'date'
-require 'uri'
-require 'cgi'
+require "date"
+require "uri"
+require "cgi"
+require_relative "lib/maightro"
 
-# catch bugs
+# Catch bugs
 Sentry.init do |config|
-  config.dsn = ENV['SENTRY_DSN']
+  config.dsn = ENV["SENTRY_DSN"]
   config.breadcrumbs_logger = [:sentry_logger, :http_logger]
-
-  # To activate performance monitoring, set one of these options.
-  # We recommend adjusting the value in production:
   config.traces_sample_rate = 1.0
-  # or
-  config.traces_sampler = lambda do |context|
-    0.5
-  end
+  config.traces_sampler = ->(_context) { 0.5 }
 end
 
 helpers do
@@ -33,9 +28,11 @@ helpers do
 
     "(#{percent}%)"
   end
+
+  def get_scheduler(scenario, date:, from: nil, to: nil)
+    Maightro::Schedulers.for_option(scenario, date: date, from: from, to: to)
+  end
 end
-# pull in the helpers and controllers
-Dir.glob('./models/**/*.rb').each { |file| require file }
 
 get '/' do
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
@@ -52,13 +49,12 @@ get '/info' do
   erb :info, layout: false
 end
 
-get '/analysis' do
+get "/analysis" do
   @scenario = params["scenario"] || "Option1"
-  if @scenario !=  "Option1"
-    @baseline = Option1.new.run_analysis
+  if @scenario != "Option1"
+    @baseline = get_scheduler("Option1", date: nil).run_analysis
   end
-  @results = Module.const_get(@scenario).new.run_analysis
-  # @results = Option1.new.run_analysis
+  @results = get_scheduler(@scenario, date: nil).run_analysis
   erb :analysis, layout: false
 end
 
@@ -92,8 +88,8 @@ get '/about' do
   erb :about
 end
 
-get '/code' do
-  @results = Option1.new.run_analysis
+get "/code" do
+  @results = get_scheduler("Option1", date: nil).run_analysis
   erb :code
 end
 
@@ -109,19 +105,19 @@ options '*' do
   response.headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept, HX-Boosted, HX-Current-URL, HX-History-Restore-Request, HX-Prompt, HX-Request, HX-Target, HX-Trigger-Name, HX-Trigger'
 end
 
-post '/timetable' do
+post "/timetable" do
   @booking_url = booking_url(params)
   @options = %w[Ballina Foxford Castlebar Westport Claremorris Ballyhaunis]
   @timetables = []
   @to = params["to"]
   @from = params["from"]
-  @default_date = params['date']
-  @booking_date = CGI.escape(params['date'].gsub("-", "/"))
+  @default_date = params["date"]
+  @booking_date = CGI.escape(params["date"].gsub("-", "/"))
   @default_scenario = params["scenario"]
 
   @timetables = if params["scenario"]
-                  date = params["date"].split('-').join
-                  [Module.const_get(params["scenario"]).new(date, params["from"], params["to"]).rows]
+                  date = params["date"].split("-").join
+                  [get_scheduler(params["scenario"], date: date, from: params["from"], to: params["to"]).rows]
                 else
                   []
                 end

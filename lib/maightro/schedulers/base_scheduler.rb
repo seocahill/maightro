@@ -3,6 +3,7 @@
 require_relative "../domain"
 require_relative "../services/train_path_builder"
 require_relative "../services/fare_calculator"
+require_relative "../services/journey_planner"
 require_relative "../models/timetable"
 
 module Maightro
@@ -34,6 +35,7 @@ module Maightro
         @constraints = constraints || Domain::Constraints.default
         @builder = Services::TrainPathBuilder.new(network: @network, constraints: @constraints)
         @mainline_trains = []
+        @journey_planner = Services::JourneyPlanner.new
       end
 
       # Run the scheduling algorithm
@@ -56,16 +58,13 @@ module Maightro
       # @param to [String] destination (e.g., "Westport")
       # @return [Array<TrainPath>] imported trains
       def import_mainline_trains(from, to)
-        require_relative "../../../models/journey_planner"
-
-        planner = JourneyPlanner.new
-        results = planner.search(@date, from, to)
+        results = @journey_planner.search(@date, from, to)
 
         trains = []
-        results.trains_out&.each { |trip| trains.concat(extract_trains(trip, results.stations, from, to)) }
-        results.trains_ret&.each { |trip| trains.concat(extract_trains(trip, results.stations, to, from)) }
+        results.trains_out&.each { |trip| trains.concat(parse_trip(trip, results.stations, from, to)) }
+        results.trains_ret&.each { |trip| trains.concat(parse_trip(trip, results.stations, to, from)) }
 
-        @mainline_trains = trains
+        @mainline_trains.concat(trains)
         trains
       end
 
@@ -110,16 +109,8 @@ module Maightro
         last_thursday.strftime("%Y%m%d")
       end
 
-      def extract_trains(trip, stations, from, to)
-        require_relative "../../../models/train_path"
-
-        routes = Domain::Route.connecting(from, to)
-
-        trip["secL"].map do |train_data|
-          train = ::TrainPath.create(train_data, trip, stations)
-          routes.each { |route| train.send("#{route.path_attribute}=", train.trip_id) }
-          train
-        end
+      def parse_trip(trip, stations, from, to)
+        Services::TrainDataParser.parse_trip(trip, stations, from, to)
       end
     end
   end
