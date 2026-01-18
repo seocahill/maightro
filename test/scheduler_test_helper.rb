@@ -1,20 +1,27 @@
 # frozen_string_literal: true
 
 require "test/unit"
-require "vcr"
-require "webmock"
 require "date"
 
-# Configure VCR
-VCR.configure do |c|
-  c.hook_into :webmock
-  c.cassette_library_dir = "test/fixtures/vcr_cassettes"
-  c.default_cassette_options = {
-    match_requests_on: [:method, :host, :path]
-  }
-  c.ignore_request do |request|
-    request.headers["X-Vcr-Bypass"] == ["true"]
+# Try to load VCR, but don't fail if it's not available
+VCR_AVAILABLE = begin
+  require "vcr"
+  require "webmock"
+
+  VCR.configure do |c|
+    c.hook_into :webmock
+    c.cassette_library_dir = "test/fixtures/vcr_cassettes"
+    c.default_cassette_options = {
+      match_requests_on: [:method, :host, :path]
+    }
+    c.ignore_request do |request|
+      request.headers["X-Vcr-Bypass"] == ["true"]
+    end
   end
+
+  true
+rescue LoadError
+  false
 end
 
 require_relative "../lib/maightro"
@@ -67,5 +74,10 @@ module SchedulerTestHelpers
     arr_time += 86_400 if arr_time < Time.parse("05:00")
     dep_time += 86_400 if dep_time < Time.parse("05:00")
     (arr_time - dep_time).fdiv(60)
+  end
+
+  # Skip test if VCR is not available
+  def skip_without_vcr
+    omit("VCR not available") unless VCR_AVAILABLE
   end
 end

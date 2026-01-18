@@ -36,6 +36,7 @@ class SchedulerTest < Test::Unit::TestCase
   # StatusQuoScheduler (Option1) Tests
 
   def test_status_quo_trip_counts
+    skip_without_vcr
     VCR.use_cassette("option1") do
       scheduler = Maightro::Schedulers::StatusQuoScheduler.new(date: last_thursday)
       timetable = scheduler.run
@@ -49,6 +50,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_status_quo_covey_line
+    skip_without_vcr
     VCR.use_cassette("option1") do
       scheduler = Maightro::Schedulers::StatusQuoScheduler.new(date: last_thursday)
       timetable = scheduler.run
@@ -59,6 +61,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_status_quo_costello_line
+    skip_without_vcr
     VCR.use_cassette("option1") do
       scheduler = Maightro::Schedulers::StatusQuoScheduler.new(date: last_thursday)
       timetable = scheduler.run
@@ -69,6 +72,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_status_quo_duration_realistic
+    skip_without_vcr
     VCR.use_cassette("option1") do
       scheduler = Maightro::Schedulers::StatusQuoScheduler.new(date: last_thursday)
       timetable = scheduler.run
@@ -86,6 +90,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_status_quo_analysis
+    skip_without_vcr
     VCR.use_cassette("option1_analysis") do
       result = Maightro::Schedulers.for_option("Option1", date: last_thursday)
       analysis = result.run_analysis
@@ -99,6 +104,7 @@ class SchedulerTest < Test::Unit::TestCase
   # OptimizedScheduler (Option1a) Tests
 
   def test_optimized_trip_counts
+    skip_without_vcr
     VCR.use_cassette("option1a") do
       scheduler = Maightro::Schedulers::OptimizedScheduler.new(date: last_thursday)
       timetable = scheduler.run
@@ -112,6 +118,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_optimized_analysis
+    skip_without_vcr
     VCR.use_cassette("option1a_analysis") do
       result = Maightro::Schedulers.for_option("Option1a", date: last_thursday)
       analysis = result.run_analysis
@@ -124,6 +131,7 @@ class SchedulerTest < Test::Unit::TestCase
   # DirectScheduler (Option2) Tests
 
   def test_direct_produces_more_trains
+    skip_without_vcr
     VCR.use_cassette("option2") do
       scheduler = Maightro::Schedulers::DirectScheduler.new(date: last_thursday)
       timetable = scheduler.run
@@ -138,6 +146,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_direct_analysis
+    skip_without_vcr
     VCR.use_cassette("option2_analysis") do
       result = Maightro::Schedulers.for_option("Option2", date: last_thursday)
       analysis = result.run_analysis
@@ -150,6 +159,7 @@ class SchedulerTest < Test::Unit::TestCase
   # ExtendedScheduler (Option3) Tests
 
   def test_extended_produces_trains
+    skip_without_vcr
     VCR.use_cassette("option3") do
       scheduler = Maightro::Schedulers::ExtendedScheduler.new(date: last_thursday, terminus: "Claremorris")
       timetable = scheduler.run
@@ -163,6 +173,7 @@ class SchedulerTest < Test::Unit::TestCase
   end
 
   def test_extended_analysis
+    skip_without_vcr
     VCR.use_cassette("option3_analysis") do
       result = Maightro::Schedulers.for_option("Option3", date: last_thursday)
       analysis = result.run_analysis
