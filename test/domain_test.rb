@@ -145,4 +145,72 @@ class DomainTest < Test::Unit::TestCase
     assert_equal "Ballina", stops.first[0]
     assert_equal "Manulla Junction", stops.last[0]
   end
+
+  # FareCalculator tests
+  def test_fare_calculator_range
+    calc = Maightro::Services::FareCalculator.new("fares.yaml")
+    low, high = calc.fare_range("Ballina", "Westport")
+
+    assert_equal 765, low
+    assert_equal 765, high
+  end
+
+  def test_fare_calculator_formatted
+    calc = Maightro::Services::FareCalculator.new("fares.yaml")
+
+    assert_equal "€7.65", calc.formatted_fare("Ballina", "Westport")
+  end
+
+  def test_fare_calculator_exists
+    calc = Maightro::Services::FareCalculator.new("fares.yaml")
+
+    assert calc.fare_exists?("Ballina", "Westport")
+    refute calc.fare_exists?("Ballina", "Ballina")
+  end
+
+  # TrainPathBuilder tests
+  def test_train_path_builder_local_train
+    builder = Maightro::Services::TrainPathBuilder.new
+
+    path = builder.local_train(
+      from: "Ballina",
+      to: "Westport",
+      departure: Time.parse("08:00"),
+      trip_id: "TEST-1"
+    )
+
+    assert_equal "Ballina", path.from
+    assert_equal "Westport", path.to
+    assert_equal "TEST-1", path.trip_id
+    assert_equal "Westport", path.position
+    refute_nil path.nephin_id
+  end
+
+  def test_train_path_builder_connecting_train
+    builder = Maightro::Services::TrainPathBuilder.new
+
+    path = builder.connecting_train(
+      from: "Ballina",
+      to: "Manulla Junction",
+      arrival: Time.parse("09:00"),
+      trip_id: "CONN-1"
+    )
+
+    assert_equal "Ballina", path.from
+    assert_equal "Manulla Junction", path.to
+    assert path.dep < path.arr
+  end
+
+  def test_train_path_builder_from_junction
+    builder = Maightro::Services::TrainPathBuilder.new
+
+    path = builder.from_junction(
+      to: "Westport",
+      departure: Time.parse("09:10"),
+      trip_id: "FROM-1"
+    )
+
+    assert_equal "Manulla Junction", path.from
+    assert_equal "Westport", path.to
+  end
 end

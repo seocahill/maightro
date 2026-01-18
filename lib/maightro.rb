@@ -2,6 +2,10 @@
 
 require_relative "maightro/domain"
 require_relative "maightro/models/train_path"
+require_relative "maightro/models/timetable"
+require_relative "maightro/services/fare_calculator"
+require_relative "maightro/services/timetable_analyzer"
+require_relative "maightro/services/train_path_builder"
 
 module Maightro
   class << self
@@ -11,6 +15,10 @@ module Maightro
 
     def constraints
       Domain::Constraints.default
+    end
+
+    def fare_calculator
+      Services::FareCalculator.default
     end
 
     def root
