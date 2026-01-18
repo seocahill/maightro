@@ -48,11 +48,9 @@ module Maightro
       # Train from Ballina to Manulla Junction (to meet mainline)
       def create_up_train(mainline)
         junction_time = mainline.time_at_junction
-        branch_duration = duration("Ballina", "Manulla Junction")
 
         # Must arrive before mainline, with dwell time for connection
         arrival = junction_time - crossover.seconds
-        departure = arrival - branch_duration.seconds
 
         train = @builder.connecting_train(
           from: "Ballina",
@@ -64,7 +62,9 @@ module Maightro
         )
 
         # Assign to routes connecting Ballina to mainline destination
+        # Both the connecting train and mainline need the same route ID for grouping
         assign_routes(train, "Ballina", mainline.stops.last[0], mainline.trip_id)
+        assign_routes(mainline, "Ballina", mainline.stops.last[0], mainline.trip_id)
 
         train
       end
@@ -85,7 +85,9 @@ module Maightro
         )
 
         # Assign to routes connecting mainline origin to Ballina
+        # Both the connecting train and mainline need the same route ID for grouping
         assign_routes(train, mainline.stops.first[0], "Ballina", mainline.trip_id)
+        assign_routes(mainline, mainline.stops.first[0], "Ballina", mainline.trip_id)
 
         train
       end

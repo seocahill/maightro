@@ -100,7 +100,6 @@ module Maightro
       end
 
       def add_connecting_trains(connecting_train, current_position, dep_time, next_connection)
-        end_station = current_position == "Ballina" ? "Westport" : "Ballina"
         up_connection, down_connection = connection_info(connecting_train.dir, current_position)
 
         # Create up train to junction
